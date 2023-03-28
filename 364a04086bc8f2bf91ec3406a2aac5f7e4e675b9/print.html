@@ -33,6 +33,7 @@
 
     </head>
     <body>
+    <div id="body-container">
         <!-- Provide site root to javascript -->
         <script>
             var path_to_root = "";
@@ -70,10 +71,12 @@
         <!-- Hide / unhide sidebar before it is displayed -->
         <script>
             var html = document.querySelector('html');
-            var sidebar = 'hidden';
+            var sidebar = null;
             if (document.body.clientWidth >= 1080) {
                 try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
                 sidebar = sidebar || 'visible';
+            } else {
+                sidebar = 'hidden';
             }
             html.classList.remove('sidebar-visible');
             html.classList.add("sidebar-" + sidebar);
@@ -143,48 +146,85 @@
                 <div id="content" class="content">
                     <main>
                         <h1 id="introduction"><a class="header" href="#introduction">Introduction</a></h1>
-<p>Linera aims to deliver the first multi-chain infrastructure with predictable performance,
-responsiveness, and security at the Internet scale. To do so, Linera introduces the idea
-of operating many parallel chains, called microchains, in the same set of validators, and
-using the internal network of each validator to quickly deliver the asynchronous messages
-between chains. This architecture has a number of advantages:</p>
+<p>Welcome to the developer documentation of Linera, an integrated multi-chain decentralized
+protocol designed for highly-scalable web3 applications.</p>
+<p>Please note that the Linera protocol is currently under active development. This
+documentation is intended for developers who wish to learn more about Linera and its
+programming model by building applications on top of the current Software Development Kit
+(SDK).</p>
+<p>We assume that you have a good understanding of blockchain technology, decentralized
+applications, and smart contract development. We will provide detailed guides and examples
+to help you build, test, and deploy your demo applications on your machine in a local
+instance of the Linera protocol.</p>
+<p>We encourage you to join our community and get involved in the development of the Linera
+ecosystem. You can find more information on our website and social media channels. Let's
+get started!</p>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="overview"><a class="header" href="#overview">Overview</a></h1>
+<p>Linera is a decentralized infrastructure optimized for web3 applications that require processing high volumes of time-sensitive transactions created by many users in parallel.</p>
+<p>The core idea of the Linera protocol is to give each user a lightweight blockchain, called a <em>microchain</em>, and to run all the microchains in parallel in a single set of validators.</p>
+<h2 id="how-does-it-work"><a class="header" href="#how-does-it-work">How does it work?</a></h2>
+<p>Each Linera user <em>owns</em> one or several microchains. Concretely, the <em>owner</em> of a chain chooses when to add a new block in the chain and what goes inside the block. Users typically add new blocks to their chains to process <em>incoming messages</em> or to execute secure <em>operations</em> on their accounts, for instance to transfer assets to another user.</p>
+<p>Importantly, validators ensure that new blocks are <em>valid</em>, that is, can be safely executed according to the rules of the infrastructure. For instance, a block initiating a transfer from the wrong account or from an account with insufficient funds will be rejected.</p>
+<p>Linera applications are meant to be multi-chain: once published and initialized, applications are deployed automatically to the chains where they are needed. To coordinate the state of an application across chains, Linera provides developers with the ability to exchange cheap and efficient cross-chain asynchronous messages. <!-- Incoming messages from another chains are first placed into an inbox. They are executed later when they are picked in a block of the receiving chain. -->
+Inside a chain, applications may compose arbitrarily using synchronous function calls.</p>
+<h2 id="how-does-linera-compare-to-existing-multi-chain-infrastructure"><a class="header" href="#how-does-linera-compare-to-existing-multi-chain-infrastructure">How does Linera compare to existing multi-chain infrastructure?</a></h2>
+<p>Linera is the first infrastructure designed to support an arbitrary number of lightweight user chains.</p>
+<p>In existing multi-chain infrastructures, each chain runs a full blockchain protocol in a separate set of validators. Creating a new chain or exchanging messages between chains is expensive. As a result, the total number of chains is generally limited. Some chains may be specialized to a given use case: these are called &quot;app chains&quot;.</p>
+<p>In contract, Linera is optimized for a large number of user chains:</p>
 <ul>
 <li>
-<p><strong>Elastic scaling.</strong> In Linera, scalability is obtained by adding chains, not by
-increasing the size or the rate of blocks. Each validator may add and remove capacity (aka
-internal workers) at any time to maintain nominal performance for multi-chain
-applications.</p>
+<p>Users only create blocks in their chain when needed;</p>
 </li>
 <li>
-<p><strong>Responsiveness.</strong> When microchains are operated by a single user, Linera uses a
-simplified mempool-free consensus protocol inspired by reliable broadcast. This
-reduces block latency and ultimately make Web3 applications more responsive.</p>
+<p>Creating a microchain does not require onboarding validators;</p>
 </li>
 <li>
-<p><strong>Composability.</strong> Compared to other multi-chain systems, low block latency also helps
-with composability: it allows receivers of asynchronous messages from another chain to
-quickly answer by adding a new block.</p>
+<p>Microchains communicate efficiently using the internal networks of validators;</p>
 </li>
 <li>
-<p><strong>Chain security.</strong> Compared to traditional multi-chain systems, a benefit of running
-all the microchains in the same set of validators is that creating chains does not impact
-the security model of Linera.</p>
-</li>
-<li>
-<p><strong>Decentralization.</strong> Linera relies on delegated proof of stake (DPoS) for security.
-Each microchain can be separately executed on commodity hardware. This allows clients and
-auditors to continuously run their own verifications and hold validators accountable.</p>
-</li>
-<li>
-<p><strong>Language agnostic.</strong> The programming model of Linera does not depend on a specific
-programming language. After careful consideration, we have decided to concentrate our
-efforts on Wasm and Rust for the initial execution layer of Linera.</p>
+<p>Validators are internally sharded (like a regular web service) and may adjust their capacity elastically by adding or removing internal workers.</p>
 </li>
 </ul>
-<div style="break-before: page; page-break-before: always;"></div><h1 id="overview"><a class="header" href="#overview">Overview</a></h1>
-<p>This is a test.</p>
+<!--Linera integrates many chains in a unique set of validators, which greatly facilitates cross-chain communication. The execution model of Linera is designed to be language-agnostic and developer-friendly, and Linera applications are composable and multi-chain. Linera also relies on delegated proof of stake (DPoS) for security and supports regularly changing sets of validators. Microchains are designed to be auditable independently, allowing for distributed audits by the community.-->
+<h2 id="why-build-on-top-of-linera"><a class="header" href="#why-build-on-top-of-linera">Why build on top of Linera?</a></h2>
+<p>We believe that many high-value use cases are currently out of reach of existing web3 infrastructure because of the challenges of serving many active users simultaneously without degrading user experience. High-value use cases
+that require processing time-sensitive transactions created by many simultaneous users include:</p>
+<ul>
+<li>
+<p>real-time micro-payments and micro-rewards,</p>
+</li>
+<li>
+<p>social data feeds,</p>
+</li>
+<li>
+<p>marketplaces for software (e.g. based on a decentralized software repository),</p>
+</li>
+<li>
+<p>marketplaces for AI.</p>
+</li>
+</ul>
+<p>Lightweight user chains are instrumental in providing elastic scalability but they have other benefits as well. Because user chains have fewer blocks than traditional blockchain, we intend to embed the full-nodes of user chains in user wallets, notably browser extensions and mobile devices.</p>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="getting-started"><a class="header" href="#getting-started">Getting started</a></h1>
-<p>Start here</p>
+<p>Linera's SDK is a development kit that enables developers to build decentralized applications on top of the Linera protocol. It includes tools, libraries, and documentation to help developers write, test, and deploy smart contracts, as well as front-end applications.</p>
+<p>The SDK includes the following components:</p>
+<ul>
+<li>
+<p>Linera Core: The core blockchain protocol that handles consensus, transaction processing, and state management. The Linera Core is responsible for maintaining the integrity and security of the network.</p>
+</li>
+<li>
+<p>Smart Contract Language: Linera supports smart contracts written in Rust, AssemblyScript, and other languages that can compile to WebAssembly.</p>
+</li>
+<li>
+<p>Development Tools: The SDK includes tools for developing, testing, and deploying smart contracts, including a development environment, a command-line interface (CLI), and a web-based user interface.</p>
+</li>
+<li>
+<p>Developer Documentation: The SDK includes comprehensive documentation for developers, including tutorials, code samples, and API reference documentation.</p>
+</li>
+</ul>
+<h2 id="getting-started-with-lineras-sdk"><a class="header" href="#getting-started-with-lineras-sdk">Getting Started with Linera's SDK</a></h2>
+<p>To get started with Linera's SDK, you will need to install the Linera CLI and set up a local development environment. The Linera CLI is a command-line tool that allows you to interact with the Linera protocol, deploy contracts, and manage your local node.</p>
+<p>Once you have installed the Linera CLI and set up your development environment, you can start building smart contracts and front-end applications using the tools and libraries provided by the SDK.</p>
+<p>To learn more about how to get started with Linera's SDK, check out the documentation and tutorials provided on our website. You can also join our community and get help from other developers on our Discord channel.</p>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="examples"><a class="header" href="#examples">Examples</a></h1>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="hello-world"><a class="header" href="#hello-world">Hello World</a></h1>
 
@@ -229,5 +269,6 @@ efforts on Wasm and Rust for the initial execution layer of Linera.</p>
         });
         </script>
 
+    </div>
     </body>
 </html>
