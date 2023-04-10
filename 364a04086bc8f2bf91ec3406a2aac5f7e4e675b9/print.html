@@ -30,6 +30,7 @@
         <link rel="stylesheet" href="ayu-highlight.css">
 
         <!-- Custom theme stylesheets -->
+        <link rel="stylesheet" href="custom.css">
 
     </head>
     <body>
@@ -84,7 +85,7 @@
 
         <nav id="sidebar" class="sidebar" aria-label="Table of contents">
             <div class="sidebar-scrollbox">
-                <ol class="chapter"><li class="chapter-item expanded affix "><a href="introduction.html">Introduction</a></li><li class="chapter-item expanded "><a href="overview.html"><strong aria-hidden="true">1.</strong> Overview</a></li><li class="chapter-item expanded "><a href="getting_started.html"><strong aria-hidden="true">2.</strong> Getting started</a></li><li class="chapter-item expanded "><a href="examples.html"><strong aria-hidden="true">3.</strong> Examples</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="examples/hello_world.html"><strong aria-hidden="true">3.1.</strong> Hello World</a></li></ol></li></ol>
+                <ol class="chapter"><li class="chapter-item expanded "><a href="introduction.html"><strong aria-hidden="true">1.</strong> Introduction</a></li><li class="chapter-item expanded "><a href="overview.html"><strong aria-hidden="true">2.</strong> Overview</a></li><li class="chapter-item expanded "><a href="getting_started.html"><strong aria-hidden="true">3.</strong> Getting started</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="getting_started/installation.html"><strong aria-hidden="true">3.1.</strong> Installation</a></li><li class="chapter-item expanded "><a href="getting_started/first_app.html"><strong aria-hidden="true">3.2.</strong> Your First App</a></li></ol></li><li class="chapter-item expanded "><a href="core_concepts.html"><strong aria-hidden="true">4.</strong> Core Concepts</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="core_concepts/micro_chains.html"><strong aria-hidden="true">4.1.</strong> Microchains</a></li><li class="chapter-item expanded "><a href="core_concepts/wallet.html"><strong aria-hidden="true">4.2.</strong> The Wallet</a></li><li class="chapter-item expanded "><a href="core_concepts/validators.html"><strong aria-hidden="true">4.3.</strong> Validators</a></li><li class="chapter-item expanded "><a href="core_concepts/applications.html"><strong aria-hidden="true">4.4.</strong> Applications</a></li><li class="chapter-item expanded "><a href="core_concepts/sdk.html"><strong aria-hidden="true">4.5.</strong> Linera SDK</a></li></ol></li><li class="chapter-item expanded "><a href="advanced.html"><strong aria-hidden="true">5.</strong> Advanced Topics</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="advanced_topics/execution_model.html"><strong aria-hidden="true">5.1.</strong> Execution Model</a></li><li class="chapter-item expanded "><a href="advanced_topics/views.html"><strong aria-hidden="true">5.2.</strong> Views</a></li></ol></li><li class="chapter-item expanded "><a href="examples.html"><strong aria-hidden="true">6.</strong> Examples</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="examples/hello_world.html"><strong aria-hidden="true">6.1.</strong> Hello World</a></li></ol></li><li class="chapter-item expanded "><a href="glossary.html"><strong aria-hidden="true">7.</strong> Glossary</a></li></ol>
             </div>
             <div id="sidebar-resize-handle" class="sidebar-resize-handle"></div>
         </nav>
@@ -225,8 +226,289 @@ that require processing time-sensitive transactions created by many simultaneous
 <p>To get started with Linera's SDK, you will need to install the Linera CLI and set up a local development environment. The Linera CLI is a command-line tool that allows you to interact with the Linera protocol, deploy contracts, and manage your local node.</p>
 <p>Once you have installed the Linera CLI and set up your development environment, you can start building smart contracts and front-end applications using the tools and libraries provided by the SDK.</p>
 <p>To learn more about how to get started with Linera's SDK, check out the documentation and tutorials provided on our website. You can also join our community and get help from other developers on our Discord channel.</p>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="installation"><a class="header" href="#installation">Installation</a></h1>
+<p>This section is about installing Linera and running it from source.</p>
+<h2 id="os-support"><a class="header" href="#os-support">OS Support</a></h2>
+<p>The Linera client and validators currently run as a set of native binaries. For this reason there is a certain dependence on the underlying operating system. Below is a matrix of supported operating systems. </p>
+<div class="table-wrapper"><table><thead><tr><th>Mac OS (M1 / M2)</th><th>Mac OS (x86)</th><th>Linux x86 64-bit</th><th>Windows</th></tr></thead><tbody>
+<tr><td>✓ Working</td><td>✓ Working</td><td>✓ Working</td><td>? Untested</td></tr>
+</tbody></table>
+</div>
+<h2 id="prerequisites"><a class="header" href="#prerequisites">Prerequisites</a></h2>
+<p>To install Linera you will need to download the source from <a href="https://github.com/linera-io/linera-protocol">GitHub</a>. If you do not have access to the repository, reach out to the team to request access.</p>
+<p>To clone the repository run:</p>
+<pre><code class="language-bash">git clone git@github.com:linera-io/linera-protocol.git
+</code></pre>
+<h2 id="dependencies"><a class="header" href="#dependencies">Dependencies</a></h2>
+<p>To install Linera from scratch, you will require the following dependencies:</p>
+<ul>
+<li><a href="https://www.rust-lang.org/tools/install">Rust + wasm32-unknown-unknown target</a></li>
+<li><a href="https://grpc.io/docs/protoc-installation/">protoc</a></li>
+</ul>
+<p>For OS specific installation instructions see the installation section on <a href="https://github.com/linera-io/linera-protocol/blob/main/INSTALL.md">GitHub</a>.</p>
+<h2 id="checking-your-installation"><a class="header" href="#checking-your-installation">Checking your Installation</a></h2>
+<p>Running <code>cargo build</code> at the root of the repository will build all requisite binaries in the workspace.</p>
+<p>If <code>cargo build</code> fails, reach out to the team to help troubleshoot your issue or <a href="https://github.com/linera-io/linera-protocol/issues/new">create an issue</a> on GitHub.</p>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="your-first-app"><a class="header" href="#your-first-app">Your First App</a></h1>
+<p>This section is about deploying your first application from scratch.
+It is assumed that you've already cloned the Linera repository and have managed
+to successfully <code>cargo build</code> the workspace.</p>
+<p>By the end of this section, you'll have a working application running on your
+<a href="getting_started/../core_concepts/micro_chains.html">microchain</a>.</p>
+<h2 id="starting-the-local-network"><a class="header" href="#starting-the-local-network">Starting the local network</a></h2>
+<p>The first step is to start your local development network.
+The local development network consists of 4 <a href="getting_started/../core_concepts/validators.html">validators</a>, each
+of which consist of an ingress proxy and 4 workers or shards.</p>
+<p>To start your local network, navigate to the root of the <code>linera-protocol</code>
+repository and run the following command:</p>
+<pre><code class="language-bash">./scripts/run_local.sh
+</code></pre>
+<p>you will the see the names of the 4 validators running in your local network,
+something like:</p>
+<pre><code class="language-bash">$ ./scripts/run_local.sh 
+    Finished dev [unoptimized + debuginfo] target(s) in 0.13s
+5b611b86cc1f54f73a4abfb4a2167c7327cc85a74cb2a5502431f67b554850b4
+f65a585f05852f0610e2460a99c23faa3969f3cfce8a519f843a793dbfb4cb84
+abfbf26c6f45955067f60de0317816454dbd54459dc773f185fbcaf8c72d5041
+140f3259cae9ea2a3b50cbcba2495661aea42641ef44751dec0a29b192ccf32f
+
+</code></pre>
+<blockquote>
+<p>The local network is running on operating system network ports, taking a total
+of 20 ports to run locally. These ports are in the range P &gt; 9000 however
+there
+may be a collision, in which case you may want to configure the port numbers
+in
+the <code>configuration/</code> directory.</p>
+</blockquote>
+<p>The <code>run_local.sh</code> script also initialises a test wallet for you, but more on
+that later.</p>
+<h2 id="interacting-with-the-network"><a class="header" href="#interacting-with-the-network">Interacting with the network</a></h2>
+<p>The main way of interactive with the network and deploying applications, is
+using your wallet. The wallet was compiled as a result of running <code>cargo build</code>
+in the previous section and can be found under <code>target/debug/client</code>.</p>
+<p>Check that you have your wallet, and it can communicate with the network by
+first navigating to <code>target/debug</code> and then running a command to synchronize the
+balance for
+your <a href="getting_started/../core_concepts/wallet.html">default chain</a> with the rest of the network.</p>
+<pre><code class="language-bash">cd target/debug &amp;&amp; ./client --wallet wallet.json --genesis genesis.json sync_balance
+</code></pre>
+<p>You should see an output of <code>10</code>. If you're curious why we're passing all these
+files to the client, we'll get to that in the <a href="getting_started/../core_concepts/wallet.html">wallet section</a>.</p>
+<h2 id="building-and-example-application"><a class="header" href="#building-and-example-application">Building and example Application</a></h2>
+<p>Applications running on Linera are simply <a href="https://webassembly.org/">WASM</a>
+bytecode. Each Linera validator and client has a built-in WASM virtual machine
+which can execute bytecode, all we have to do is build and publish the app on
+the network.</p>
+<p>We'll look at the anatomy of an application in
+a <a href="getting_started/../core_concepts/applications.html">later section</a> but for now we want to compile one of the
+example Linera applications which can be found in the <code>linera-examples/</code>
+subdirectory.</p>
+<p>To do that, navigate to one of the example applications and compile it (the
+compilation target is set to <code>wasm32_unknown_unknown</code> by default)</p>
+<pre><code>cd linera-examples/counter-graphql &amp;&amp; cargo build --release 
+</code></pre>
+<h2 id="publishing-your-application"><a class="header" href="#publishing-your-application">Publishing your Application</a></h2>
+<p>We can publish our compiled application to our local network by using
+the <code>client</code>. To do that, navigate back to <code>./target/debug</code>.</p>
+<p>To deploy the application we can use the <code>publish</code> command and provide:</p>
+<ol>
+<li>The location of the contract bytecode</li>
+<li>The location of the service bytecode</li>
+<li>The hex encoded initialisation arguments</li>
+</ol>
+<pre><code class="language-bash">./client --storage rocksdb:client.db --wallet wallet.json --genesis genesis.json --max-pending-messages 10000 publish \
+    ../../linera-examples/target/wasm32-unknown-unknown/release/counter_graphql_contract.wasm \
+    ../../linera-examples/target/wasm32-unknown-unknown/release/counter_graphql_service.wasm \
+    35
+</code></pre>
+<p>Congratulations! You've published your first application on Linera!</p>
+<h2 id="querying-your-application"><a class="header" href="#querying-your-application">Querying your Application</a></h2>
+<p>Now that we've published our application on the network, let's query it to get
+the current counter value. To interact with an application on the network, we
+need to use the client running in 'service' mode. This will expose a bunch of
+API's locally which we can use to interact with applications on the network.</p>
+<p>To run the client in service mode, make sure you're in <code>./target/debug</code> and run:</p>
+<pre><code class="language-bash">./client --storage rocksdb:client.db --wallet wallet.json --genesis genesis.json --max-pending-messages 10000 service 
+</code></pre>
+<p>Navigate to <code>http://localhost:8080</code> in your browser to access the GraphiQL, the
+GraphQL IDE. We'll look at this in more detail in
+a <a href="getting_started/../core_concepts/wallet.html#graphql">future section</a>; for now, list the applications deployed on your
+local network by running:</p>
+<pre><code class="language-gql">query {
+  applications {
+    id
+    description
+    link
+  }
+}
+</code></pre>
+<p>Since we've only deployed one application, the results returned have a single
+entry.</p>
+<p>At the bottom of the returned JSON there is a field called <code>link</code>, to interact
+with your deployed application copy and past the link into a new browser tab.
+Finally, to query the counter value of our deployed application, run:</p>
+<pre><code class="language-gql">query {
+  value
+}
+</code></pre>
+<p>This will return a value of <code>35</code>, which is the initialisation argument we
+specified when deploying our application.</p>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="core-concepts"><a class="header" href="#core-concepts">Core Concepts</a></h1>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="microchains"><a class="header" href="#microchains">Microchains</a></h1>
+<p>This section provides an introduction to microchains - the main building block
+of the Linera Protocol. For a more formal treatment of microchains, refer to
+the <a href="https://static1.squarespace.com/static/62d6e9b8bf6051136f934527/t/63a0b9041c1f491f5b3a9d30/1671477510830/Linera_whitepaper_v1.pdf">whitepaper</a>.</p>
+<h2 id="background"><a class="header" href="#background">Background</a></h2>
+<p>A microchain is a specialized type of blockchain designed to address the
+limitations of traditional blockchains by offering predictable performance,
+security, and responsiveness on a large scale. Unlike regular blockchains,
+microchains allow users to manage the production of blocks in their own chains
+for optimal performance.</p>
+<p>They separate the role of proposing new blocks from validating them, providing
+more flexibility and configurability. Microchains can
+be single-owner, permissioned, or public, depending on who is authorized to
+propose blocks. They can also create new microchains, transfer control to other
+users, and deactivate when needed.</p>
+<h2 id="cross-chain-messaging"><a class="header" href="#cross-chain-messaging">Cross-Chain Messaging</a></h2>
+<p>In traditional blockchains, like the original Nakamoto blockchain found in
+Bitcoin, the entire state transition of the system in the form of a list of
+transactions, is present in each block. Since microchains have state which is
+segregated from each other, a new mechanism is required for chains to
+communicate with one another.</p>
+<p>Cross-chain messaging is a way for different blockchains or microchains to
+communicate with each other asynchronously. This method allows applications and
+data to be distributed across multiple chains for better scalability. When an
+operation in one chain triggers a change in another chain, a cross-chain request
+is created. These requests are implemented using remote procedure calls (RPCs)
+within the validators' internal network, ensuring that each request is executed
+only once.</p>
+<p>Instead of immediately modifying the target chain, messages are
+placed in the target chain's <strong>inbox</strong>, a commutative data structure where the
+order of insertions does not matter. The owner(s) of the receiving chain can
+then
+execute an operation that picks the message from the inbox and applies its
+effect to the chain state.</p>
+<p>Below is an example set of chains sending asynchronous messages to each other
+over consecutive blocks.</p>
+<pre><code>                               ┌───┐     ┌───┐     ┌───┐
+                       Chain A │   ├────►│   ├────►│   │
+                               └───┘     └───┘     └───┘
+                                                     ▲
+                                           ┌─────────┘
+                                           │
+                               ┌───┐     ┌─┴─┐     ┌───┐
+                       Chain B │   ├────►│   ├────►│   │
+                               └───┘     └─┬─┘     └───┘
+                                           │         ▲
+                                           │         │
+                                           ▼         │
+                               ┌───┐     ┌───┐     ┌─┴─┐
+                       Chain C │   ├────►│   ├────►│   │
+                               └───┘     └───┘     └───┘
+</code></pre>
+<h2 id="chain-ownership-semantics"><a class="header" href="#chain-ownership-semantics">Chain Ownership Semantics</a></h2>
+<p>Linera currently supports single owner chains. However, microchains can create
+new microchains for other users, and control of a chain can be transferred to
+another user by changing the owner id. A chain is permanently deactivated when
+its owner id is set to <code>None</code>.</p>
+<p>For more detail and examples on how to open and close chains, see the wallet
+section on <a href="core_concepts/wallet.html#opening-a-chain">chain management</a>.</p>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="the-wallet"><a class="header" href="#the-wallet">The Wallet</a></h1>
+<p>The Linera Wallet is the main way to interact with the network. Like most
+wallets, the Linera Wallet holds user private and public keys. Unlike most
+wallets, the Linera Wallet also acts as a partial node, executing blocks for
+chains owned by a user.</p>
+<p>The state of the wallet lives in <code>wallet.json</code>, while the state of the chains
+running on your local partial node are stored in <code>client.db</code>.</p>
+<h2 id="chain-management"><a class="header" href="#chain-management">Chain Management</a></h2>
+<p>User chains are managed explicitly via the wallet.</p>
+<h3 id="listing-chains"><a class="header" href="#listing-chains">Listing Chains</a></h3>
+<p>To see the chains owned by your wallet, you can use the <code>show</code> command:</p>
+<pre><code class="language-bash">$ ./client --storage rocksdb:client.db  --wallet wallet.json --genesis genesis.json wallet show
+╭──────────────────────────────────────────────────────────────────┬──────────────────────────────────────────────────────────────────────────────────────╮
+│ Chain Id                                                         ┆ Latest Block                                                                         │
+╞══════════════════════════════════════════════════════════════════╪══════════════════════════════════════════════════════════════════════════════════════╡
+│ 668774d6f49d0426f610ad0bfa22d2a06f5f5b7b5c045b84a26286ba6bce93b4 ┆ Public Key:         3812c2bf764e905a3b130a754e7709fe2fc725c0ee346cb15d6d261e4f30b8f1 │
+│                                                                  ┆ Owner:              c9a538585667076981abfe99902bac9f4be93714854281b652d07bb6d444cb76 │
+│                                                                  ┆ Block Hash:         -                                                                │
+│                                                                  ┆ Timestamp:          2023-04-10 13:52:20.820840                                       │
+│                                                                  ┆ Next Block Height:  0                                                                │
+├╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌┼╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌┤
+│ 91c7b394ef500cd000e365807b770d5b76a6e8c9c2f2af8e58c205e521b5f646 ┆ Public Key:         29c19718a26cb0d5c1d28102a2836442f53e3184f33b619ff653447280ccba1a │
+│                                                                  ┆ Owner:              efe0f66451f2f15c33a409dfecdf76941cf1e215c5482d632c84a2573a1474e8 │
+│                                                                  ┆ Block Hash:         51605cad3f6a210183ac99f7f6ef507d0870d0c3a3858058034cfc0e3e541c13 │
+│                                                                  ┆ Timestamp:          2023-04-10 13:52:21.885221                                       │
+│                                                                  ┆ Next Block Height:  1                                                                │
+╰──────────────────────────────────────────────────────────────────┴──────────────────────────────────────────────────────────────────────────────────────╯
+
+</code></pre>
+<p>Each row represents a chain owned by the wallet. On the left is the unique
+identifier on the chain, and on the right is metadata for that chain associated
+with the latest block.</p>
+<h3 id="default-chain"><a class="header" href="#default-chain">Default Chain</a></h3>
+<p>Each wallet has a default chain. Since wallets can hold multiple chains, a
+default chain removes ambiguity in which chain is selected when performing an
+operation.</p>
+<p>The default chain is set initially, when the first chain is added to the wallet.
+You can check the default chain for your wallet by running :</p>
+<pre><code class="language-bash">$ ./client --storage rocksdb:client.db  --wallet wallet.json --genesis genesis.json wallet show
+</code></pre>
+<p>The Chain Id which is in green text instead of white text is your default chain.</p>
+<p>To chain the default chain for you wallet, user the <code>set-default</code> command:</p>
+<pre><code class="language-bash">$ ./client --storage rocksdb:client.db --wallet wallet.json --genesis genesis.json wallet set-default &lt;chain-id&gt;
+</code></pre>
+<h3 id="opening-a-chain"><a class="header" href="#opening-a-chain">Opening a Chain</a></h3>
+<p>The Linera protocol defines semantics for how new chains are created, we call
+this 'opening a chain'. A chain cannot be opened in a vacuum, it needs to be
+created by an existing chain on the network. In the future, one of the Linera
+public chains will open chains for new users - but for now an existing
+single-chain owner is required to open a chain for a new wallet on the network.</p>
+<h4 id="open-a-chain-for-your-own-wallet"><a class="header" href="#open-a-chain-for-your-own-wallet">Open a Chain for your own wallet</a></h4>
+<p>To open a chain for your own wallet, you can use the <code>open_chain</code> command:</p>
+<pre><code class="language-bash">$ ./client --storage rocksdb:client.db  --wallet wallet.json --genesis genesis.json open_chain
+</code></pre>
+<p>This will create a new chain (using the wallet's default chain) and add it to
+the wallet. Use the <code>wallet show</code> command to see your existing chains.</p>
+<h4 id="open-a-chain-for-another-wallet"><a class="header" href="#open-a-chain-for-another-wallet">Open a Chain for another wallet</a></h4>
+<p>Opening a chain for another <code>wallet</code> (let's call it <code>wallet2</code>) requires an extra two
+steps.</p>
+<p>First <code>wallet2</code> must create an unassigned keypair. The public part of that keypair
+is then set to the <code>wallet</code> who is the chain creator.</p>
+<pre><code class="language-bash">$ ./client --wallet wallet2.json --genesis genesis.json keygen
+6443634d872afbbfcc3059ac87992c4029fa88e8feb0fff0723ac6c914088888 # this is the public key for the unassigned keypair
+</code></pre>
+<p>Next, using the public key, <code>wallet</code> can open a chain for <code>wallet2</code>.</p>
+<pre><code class="language-bash">./client --wallet wallet.json --genesis genesis.json open_chain --to-owner 6443634d872afbbfcc3059ac87992c4029fa88e8feb0fff0723ac6c914088888
+21afead36b9abfe5b0556c955f87cd167e2271eaa301546ca579be516db6eda3
+91c7b394ef500cd000e365807b770d5b76a6e8c9c2f2af8e58c205e521b5f6460000000000000000000100000221afead36b9abfe5b0556c955f87cd167e2271eaa301546ca579be516db6eda36443634d872afbbfcc3059ac87992c4029fa88e8feb0fff0723ac6c91408888891c7b394ef500cd000e365807b770d5b76a6e8c9c2f2af8e58c205e521b5f64600000000000000000100000000000000000403f5447c1953dd2d4367462bf5485a08f9b89ecf9e2fc37b4c04cda0766763aa13677270633a3132372e302e302e313a39333030010000000000000034537eb025224f15bbc763ebc90431277e20923acfdc6fd2e0c3e2fabc26849313677270633a3132372e302e302e313a3932303001000000000000008e45fae6f0030f195b5818fdd7c4656da8a40c3401a248ecde6a6c0a8caf81a413677270633a3132372e302e302e313a393430300100000000000000a093522fb18888c54c3c3e9c2e808ee08d9aebc8fc8a8a42e751c0399cffb4ca13677270633a3132372e302e302e313a3931303001000000000000000400000000000000030000000000000002000000000000000300000000000000c5f4299a00f9050001cd127942d23e32ab5137a9ea07edd4db726da61affe4b7cdcdf85d71ff898f3d01b2e90cb542d342e8fc1f5b7e9ed9abbc6b04c9f08f234130ed346f7357076d2602000021afead36b9abfe5b0556c955f87cd167e2271eaa301546ca579be516db6eda300000221afead36b9abfe5b0556c955f87cd167e2271eaa301546ca579be516db6eda36443634d872afbbfcc3059ac87992c4029fa88e8feb0fff0723ac6c91408888891c7b394ef500cd000e365807b770d5b76a6e8c9c2f2af8e58c205e521b5f64600000000000000000100000000000000000403f5447c1953dd2d4367462bf5485a08f9b89ecf9e2fc37b4c04cda0766763aa13677270633a3132372e302e302e313a39333030010000000000000034537eb025224f15bbc763ebc90431277e20923acfdc6fd2e0c3e2fabc26849313677270633a3132372e302e302e313a3932303001000000000000008e45fae6f0030f195b5818fdd7c4656da8a40c3401a248ecde6a6c0a8caf81a413677270633a3132372e302e302e313a393430300100000000000000a093522fb18888c54c3c3e9c2e808ee08d9aebc8fc8a8a42e751c0399cffb4ca13677270633a3132372e302e302e313a393130300100000000000000040000000000000003000000000000000200000000000000000091c7b394ef500cd000e365807b770d5b76a6e8c9c2f2af8e58c205e521b5f64600000421afead36b9abfe5b0556c955f87cd167e2271eaa301546ca579be516db6eda391c7b394ef500cd000e365807b770d5b76a6e8c9c2f2af8e58c205e521b5f64601008095a889f7025d24dffccb5f9700439efd671de5dd453f9d2432ab73e6602613010334537eb025224f15bbc763ebc90431277e20923acfdc6fd2e0c3e2fabc2684938942c4b9c4efec2ca802d3841c5936cf1c7670794be06f4789e411ea3dd5398ca66a69630e9d0e7e3a5429e60a4332a3d927cbc22758bffe3784a7793b476903a093522fb18888c54c3c3e9c2e808ee08d9aebc8fc8a8a42e751c0399cffb4ca760f4f9c51ee0440cb6b26ca8d2e13a8265defe240c7bcb6d7c4fcc4532f36634b80ca3690f1d6c8c08a8befbb2c0ef1bd68a8b88fdef65aab973d61a31e93068e45fae6f0030f195b5818fdd7c4656da8a40c3401a248ecde6a6c0a8caf81a4138630adeca4b0b44f9904f95510048387177d16260207143dccf1946788ac7b491bbcd60d0d18f18acfed6138afbe45e0b5bea67e000da6e81facbcf0d62407
+</code></pre>
+<p>The first line is the Chain Id of the newly created chain. The second line is the operation certificate.</p>
+<p>Finally, to add the chain to <code>wallet2</code> for the given unassigned key we use the <code>wallet assign</code> command:</p>
+<pre><code class="language-bash"> ./client --wallet wallet2.json --genesis genesis.json assign --key 6443634d872afbbfcc3059ac87992c4029fa88e8feb0fff0723ac6c914088888 --chain 21afead36b9abfe5b0556c955f87cd167e2271eaa301546ca579be516db6eda3 --certificate 91c7b394ef500cd000e365807b770d5b76a6e8c9c2f2af8e58c205e521b5f6460000000000000000000100000221afead36b9abfe5b0556c955f87cd167e2271eaa301546ca579be516db6eda36443634d872afbbfcc3059ac87992c4029fa88e8feb0fff0723ac6c91408888891c7b394ef500cd000e365807b770d5b76a6e8c9c2f2af8e58c205e521b5f64600000000000000000100000000000000000403f5447c1953dd2d4367462bf5485a08f9b89ecf9e2fc37b4c04cda0766763aa13677270633a3132372e302e302e313a39333030010000000000000034537eb025224f15bbc763ebc90431277e20923acfdc6fd2e0c3e2fabc26849313677270633a3132372e302e302e313a3932303001000000000000008e45fae6f0030f195b5818fdd7c4656da8a40c3401a248ecde6a6c0a8caf81a413677270633a3132372e302e302e313a393430300100000000000000a093522fb18888c54c3c3e9c2e808ee08d9aebc8fc8a8a42e751c0399cffb4ca13677270633a3132372e302e302e313a3931303001000000000000000400000000000000030000000000000002000000000000000300000000000000c5f4299a00f9050001cd127942d23e32ab5137a9ea07edd4db726da61affe4b7cdcdf85d71ff898f3d01b2e90cb542d342e8fc1f5b7e9ed9abbc6b04c9f08f234130ed346f7357076d2602000021afead36b9abfe5b0556c955f87cd167e2271eaa301546ca579be516db6eda300000221afead36b9abfe5b0556c955f87cd167e2271eaa301546ca579be516db6eda36443634d872afbbfcc3059ac87992c4029fa88e8feb0fff0723ac6c91408888891c7b394ef500cd000e365807b770d5b76a6e8c9c2f2af8e58c205e521b5f64600000000000000000100000000000000000403f5447c1953dd2d4367462bf5485a08f9b89ecf9e2fc37b4c04cda0766763aa13677270633a3132372e302e302e313a39333030010000000000000034537eb025224f15bbc763ebc90431277e20923acfdc6fd2e0c3e2fabc26849313677270633a3132372e302e302e313a3932303001000000000000008e45fae6f0030f195b5818fdd7c4656da8a40c3401a248ecde6a6c0a8caf81a413677270633a3132372e302e302e313a393430300100000000000000a093522fb18888c54c3c3e9c2e808ee08d9aebc8fc8a8a42e751c0399cffb4ca13677270633a3132372e302e302e313a393130300100000000000000040000000000000003000000000000000200000000000000000091c7b394ef500cd000e365807b770d5b76a6e8c9c2f2af8e58c205e521b5f64600000421afead36b9abfe5b0556c955f87cd167e2271eaa301546ca579be516db6eda391c7b394ef500cd000e365807b770d5b76a6e8c9c2f2af8e58c205e521b5f64601008095a889f7025d24dffccb5f9700439efd671de5dd453f9d2432ab73e6602613010334537eb025224f15bbc763ebc90431277e20923acfdc6fd2e0c3e2fabc2684938942c4b9c4efec2ca802d3841c5936cf1c7670794be06f4789e411ea3dd5398ca66a69630e9d0e7e3a5429e60a4332a3d927cbc22758bffe3784a7793b476903a093522fb18888c54c3c3e9c2e808ee08d9aebc8fc8a8a42e751c0399cffb4ca760f4f9c51ee0440cb6b26ca8d2e13a8265defe240c7bcb6d7c4fcc4532f36634b80ca3690f1d6c8c08a8befbb2c0ef1bd68a8b88fdef65aab973d61a31e93068e45fae6f0030f195b5818fdd7c4656da8a40c3401a248ecde6a6c0a8caf81a4138630adeca4b0b44f9904f95510048387177d16260207143dccf1946788ac7b491bbcd60d0d18f18acfed6138afbe45e0b5bea67e000da6e81facbcf0d62407
+</code></pre>
+<h2 id="node-service"><a class="header" href="#node-service">Node Service</a></h2>
+<h2 id="graphql"><a class="header" href="#graphql">GraphQL</a></h2>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="validators"><a class="header" href="#validators">Validators</a></h1>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="applications"><a class="header" href="#applications">Applications</a></h1>
+<h2 id="the-application-deployment-lifecycle"><a class="header" href="#the-application-deployment-lifecycle">The Application Deployment Lifecycle</a></h2>
+<h2 id="operations-and-effects"><a class="header" href="#operations-and-effects">Operations and Effects</a></h2>
+<h2 id="contract"><a class="header" href="#contract">Contract</a></h2>
+<h2 id="service"><a class="header" href="#service">Service</a></h2>
+<h2 id="managing-state"><a class="header" href="#managing-state">Managing State</a></h2>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="linera-sdk"><a class="header" href="#linera-sdk">Linera SDK</a></h1>
+<div style="break-before: page; page-break-before: always;"></div><div style="break-before: page; page-break-before: always;"></div><div style="break-before: page; page-break-before: always;"></div><h1 id="views"><a class="header" href="#views">Views</a></h1>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="examples"><a class="header" href="#examples">Examples</a></h1>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="hello-world"><a class="header" href="#hello-world">Hello World</a></h1>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="glossary"><a class="header" href="#glossary">Glossary</a></h1>
+<p>// todo, do we need this?</p>
+<ul>
+<li>Effect:</li>
+<li>Microchain:</li>
+<li>Operation:</li>
+<li>Owner / Address:</li>
+<li>Validator:</li>
+</ul>
 
                     </main>
 
