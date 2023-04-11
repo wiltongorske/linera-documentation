@@ -3,7 +3,7 @@
     <head>
         <!-- Book generated using mdBook -->
         <meta charset="UTF-8">
-        <title>Microchains - Linera Developer Documentation</title>
+        <title>Creating New Blocks - Linera Developer Documentation</title>
 
 
         <!-- Custom HTML head -->
@@ -84,7 +84,7 @@
 
         <nav id="sidebar" class="sidebar" aria-label="Table of contents">
             <div class="sidebar-scrollbox">
-                <ol class="chapter"><li class="chapter-item expanded "><a href="../introduction.html"><strong aria-hidden="true">1.</strong> Introduction</a></li><li class="chapter-item expanded "><a href="../overview.html"><strong aria-hidden="true">2.</strong> Overview</a></li><li class="chapter-item expanded "><a href="../getting_started.html"><strong aria-hidden="true">3.</strong> Getting started</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../getting_started/installation.html"><strong aria-hidden="true">3.1.</strong> Installation</a></li><li class="chapter-item expanded "><a href="../getting_started/first_app.html"><strong aria-hidden="true">3.2.</strong> Your First App</a></li></ol></li><li class="chapter-item expanded "><a href="../core_concepts.html"><strong aria-hidden="true">4.</strong> Core Concepts</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../core_concepts/micro_chains.html" class="active"><strong aria-hidden="true">4.1.</strong> Microchains</a></li><li class="chapter-item expanded "><a href="../core_concepts/wallet.html"><strong aria-hidden="true">4.2.</strong> The Wallet</a></li><li class="chapter-item expanded "><a href="../core_concepts/validators.html"><strong aria-hidden="true">4.3.</strong> Validators</a></li><li class="chapter-item expanded "><a href="../core_concepts/applications.html"><strong aria-hidden="true">4.4.</strong> Applications</a></li><li class="chapter-item expanded "><a href="../core_concepts/sdk.html"><strong aria-hidden="true">4.5.</strong> Linera SDK</a></li></ol></li><li class="chapter-item expanded "><a href="../advanced.html"><strong aria-hidden="true">5.</strong> Advanced Topics</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../advanced_topics/execution_model.html"><strong aria-hidden="true">5.1.</strong> Execution Model</a></li><li class="chapter-item expanded "><a href="../advanced_topics/views.html"><strong aria-hidden="true">5.2.</strong> Views</a></li><li class="chapter-item expanded "><a href="../advanced_topics/block_creation.html"><strong aria-hidden="true">5.3.</strong> Creating New Blocks</a></li></ol></li><li class="chapter-item expanded "><a href="../examples.html"><strong aria-hidden="true">6.</strong> Examples</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../examples/hello_world.html"><strong aria-hidden="true">6.1.</strong> Hello World</a></li></ol></li><li class="chapter-item expanded "><a href="../glossary.html"><strong aria-hidden="true">7.</strong> Glossary</a></li></ol>
+                <ol class="chapter"><li class="chapter-item expanded "><a href="../introduction.html"><strong aria-hidden="true">1.</strong> Introduction</a></li><li class="chapter-item expanded "><a href="../overview.html"><strong aria-hidden="true">2.</strong> Overview</a></li><li class="chapter-item expanded "><a href="../getting_started.html"><strong aria-hidden="true">3.</strong> Getting started</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../getting_started/installation.html"><strong aria-hidden="true">3.1.</strong> Installation</a></li><li class="chapter-item expanded "><a href="../getting_started/first_app.html"><strong aria-hidden="true">3.2.</strong> Your First App</a></li></ol></li><li class="chapter-item expanded "><a href="../core_concepts.html"><strong aria-hidden="true">4.</strong> Core Concepts</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../core_concepts/micro_chains.html"><strong aria-hidden="true">4.1.</strong> Microchains</a></li><li class="chapter-item expanded "><a href="../core_concepts/wallet.html"><strong aria-hidden="true">4.2.</strong> The Wallet</a></li><li class="chapter-item expanded "><a href="../core_concepts/validators.html"><strong aria-hidden="true">4.3.</strong> Validators</a></li><li class="chapter-item expanded "><a href="../core_concepts/applications.html"><strong aria-hidden="true">4.4.</strong> Applications</a></li><li class="chapter-item expanded "><a href="../core_concepts/sdk.html"><strong aria-hidden="true">4.5.</strong> Linera SDK</a></li></ol></li><li class="chapter-item expanded "><a href="../advanced.html"><strong aria-hidden="true">5.</strong> Advanced Topics</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../advanced_topics/execution_model.html"><strong aria-hidden="true">5.1.</strong> Execution Model</a></li><li class="chapter-item expanded "><a href="../advanced_topics/views.html"><strong aria-hidden="true">5.2.</strong> Views</a></li><li class="chapter-item expanded "><a href="../advanced_topics/block_creation.html" class="active"><strong aria-hidden="true">5.3.</strong> Creating New Blocks</a></li></ol></li><li class="chapter-item expanded "><a href="../examples.html"><strong aria-hidden="true">6.</strong> Examples</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../examples/hello_world.html"><strong aria-hidden="true">6.1.</strong> Hello World</a></li></ol></li><li class="chapter-item expanded "><a href="../glossary.html"><strong aria-hidden="true">7.</strong> Glossary</a></li></ol>
             </div>
             <div id="sidebar-resize-handle" class="sidebar-resize-handle"></div>
         </nav>
@@ -145,78 +145,52 @@
 
                 <div id="content" class="content">
                     <main>
-                        <h1 id="microchains"><a class="header" href="#microchains">Microchains</a></h1>
-<p>This section provides an introduction to microchains - the main building block
-of the Linera Protocol. For a more formal treatment of microchains, refer to
-the <a href="https://static1.squarespace.com/static/62d6e9b8bf6051136f934527/t/63a0b9041c1f491f5b3a9d30/1671477510830/Linera_whitepaper_v1.pdf">whitepaper</a>.</p>
-<h2 id="background"><a class="header" href="#background">Background</a></h2>
-<p>A microchain is a specialized type of blockchain designed to address the
-limitations of traditional blockchains by offering predictable performance,
-security, and responsiveness on a large scale. Unlike regular blockchains,
-microchains allow users to manage the production of blocks in their own chains
-for optimal performance.</p>
-<p>They separate the role of proposing new blocks from validating them, providing
-more flexibility and configurability. Microchains can
-be single-owner, permissioned, or public, depending on who is authorized to
-propose blocks. They can also create new microchains, transfer control to other
-users, and deactivate when needed.</p>
-<h2 id="cross-chain-messaging"><a class="header" href="#cross-chain-messaging">Cross-Chain Messaging</a></h2>
-<p>In traditional blockchains, like the original Nakamoto blockchain found in
-Bitcoin, the entire state transition of the system in the form of a list of
-transactions, is present in each block. Since microchains have state which is
-segregated from each other, a new mechanism is required for chains to
-communicate with one another.</p>
-<p>Cross-chain messaging is a way for different blockchains or microchains to
-communicate with each other asynchronously. This method allows applications and
-data to be distributed across multiple chains for better scalability. When an
-application in one chain wishes to send a message to another chain, a cross-chain request
-is created. These requests are implemented using remote procedure calls (RPCs)
-within the validators' internal network, ensuring that each request is executed
-only once.</p>
-<p>Instead of immediately modifying the target chain, messages are placed first in the target
-chain's <strong>inbox</strong>. When the owner(s) of the target chain creates its next block in the
-future, it may reference a selection of messages taken from the current inbox in the new
-block. This executes the selected messages and applies their effects to the chain state.</p>
-<p>Below is an example set of chains sending asynchronous messages to each other
-over consecutive blocks.</p>
-<pre><code>                               ┌───┐     ┌───┐     ┌───┐
-                       Chain A │   ├────►│   ├────►│   │
-                               └───┘     └───┘     └───┘
-                                                     ▲
-                                           ┌─────────┘
-                                           │
-                               ┌───┐     ┌─┴─┐     ┌───┐
-                       Chain B │   ├────►│   ├────►│   │
-                               └───┘     └─┬─┘     └───┘
-                                           │         ▲
-                                           │         │
-                                           ▼         │
-                               ┌───┐     ┌───┐     ┌─┴─┐
-                       Chain C │   ├────►│   ├────►│   │
-                               └───┘     └───┘     └───┘
-</code></pre>
-<p>The Linera protocol allows receivers to discard messages but not to change the ordering of
-selected messages inside the communication queue between two chains. If a selected message
-fails to execute, it is skipped during the execution of the receiver's block. The current
-implementation of the Linera client always selects as many messages as possible from
-inboxes, and never discards messages.</p>
-<h2 id="chain-ownership-semantics"><a class="header" href="#chain-ownership-semantics">Chain Ownership Semantics</a></h2>
-<p>Linera currently supports single owner chains. However, microchains can create
-new microchains for other users, and control of a chain can be transferred to
-another user by changing the owner id. A chain is permanently deactivated when
-its owner id is set to <code>None</code>.</p>
-<p>For more detail and examples on how to open and close chains, see the wallet
-section on <a href="wallet.html#opening-a-chain">chain management</a>.</p>
+                        <h2 id="creating-new-blocks"><a class="header" href="#creating-new-blocks">Creating New Blocks</a></h2>
+<p>Unlike validators in most other platforms, and unlike the workers that belong to a single
+validator, Linera validators do not need to exchange messages with each other directly.
+Instead, the chain owners' <code>client</code> processes make the system progress by actively
+providing the required data to the validators. E.g. each command like <code>client transfer</code>,
+<code>publish</code> or <code>open_chain</code> performs multiple steps to append a block containing the
+token transfer, application publishing or chain creation operation:</p>
+<ul>
+<li>The client creates a new block containing the desired operation and new incoming
+effects, if there are any. It also contains the most recent block's hash to designate
+its parent. The client sends the new block to all validators.</li>
+<li>The validators validate the block, i.e. check that the block satisfies the conditions
+listed above, and send a cryptographic signature to the client, indicating that they
+vote to append the new block. But only if they have not voted for a different block on
+the same height earlier!</li>
+<li>The client ideally receives a vote from every validator, but only two thirds are
+required: These constitute a &quot;certificate&quot;, proving that the block was confirmed.
+The client sends the certificate to every validator.</li>
+<li>The validators &quot;execute&quot; the block: They update their own view of the most recent state
+of the chain by applying all effects and operations, and if it generated any cross-chain
+messages, they send these to the appropriate workers.</li>
+</ul>
+<p>To guarantee that each incoming effect in a block was actually sent by another chain,
+a validator will, in the second step, only <em>vote</em> for a block, if it has already executed
+the block that sent it.
+However, when receiving a valid certificate for a block that receives an effect it has not
+seen yet, it will accept and <em>execute</em> the block anyway: The certificate is proof that most
+other validators have seen the effect, so it must be correct.</p>
+<p>This procedure applies to the simplest and lowest-latency kind of chain. Clients must be
+careful to never propose multiple blocks at the same height: Once two conflicting blocks
+have been signed by more than a third of the validators each, it becomes impossible to
+ever collect votes for one block from two thirds of the validators, and the chain is
+stuck.</p>
+<p>Therefore in practice, most users should use <em>shared chains</em> even if they are the only
+chain owner. These have two instead of one confirmation steps. The latency is slightly
+higher, but it is not possible to accidentally make a chain unextendable.</p>
 
                     </main>
 
                     <nav class="nav-wrapper" aria-label="Page navigation">
                         <!-- Mobile navigation buttons -->
-                            <a rel="prev" href="../core_concepts.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                            <a rel="prev" href="../advanced_topics/views.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
                                 <i class="fa fa-angle-left"></i>
                             </a>
 
-                            <a rel="next" href="../core_concepts/wallet.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                            <a rel="next" href="../examples.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
                                 <i class="fa fa-angle-right"></i>
                             </a>
 
@@ -226,11 +200,11 @@ section on <a href="wallet.html#opening-a-chain">chain management</a>.</p>
             </div>
 
             <nav class="nav-wide-wrapper" aria-label="Page navigation">
-                    <a rel="prev" href="../core_concepts.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                    <a rel="prev" href="../advanced_topics/views.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
                         <i class="fa fa-angle-left"></i>
                     </a>
 
-                    <a rel="next" href="../core_concepts/wallet.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                    <a rel="next" href="../examples.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
                         <i class="fa fa-angle-right"></i>
                     </a>
             </nav>

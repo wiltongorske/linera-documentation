@@ -85,7 +85,7 @@
 
         <nav id="sidebar" class="sidebar" aria-label="Table of contents">
             <div class="sidebar-scrollbox">
-                <ol class="chapter"><li class="chapter-item expanded "><a href="introduction.html"><strong aria-hidden="true">1.</strong> Introduction</a></li><li class="chapter-item expanded "><a href="overview.html"><strong aria-hidden="true">2.</strong> Overview</a></li><li class="chapter-item expanded "><a href="getting_started.html"><strong aria-hidden="true">3.</strong> Getting started</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="getting_started/installation.html"><strong aria-hidden="true">3.1.</strong> Installation</a></li><li class="chapter-item expanded "><a href="getting_started/first_app.html"><strong aria-hidden="true">3.2.</strong> Your First App</a></li></ol></li><li class="chapter-item expanded "><a href="core_concepts.html"><strong aria-hidden="true">4.</strong> Core Concepts</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="core_concepts/micro_chains.html"><strong aria-hidden="true">4.1.</strong> Microchains</a></li><li class="chapter-item expanded "><a href="core_concepts/wallet.html"><strong aria-hidden="true">4.2.</strong> The Wallet</a></li><li class="chapter-item expanded "><a href="core_concepts/validators.html"><strong aria-hidden="true">4.3.</strong> Validators</a></li><li class="chapter-item expanded "><a href="core_concepts/applications.html"><strong aria-hidden="true">4.4.</strong> Applications</a></li><li class="chapter-item expanded "><a href="core_concepts/sdk.html"><strong aria-hidden="true">4.5.</strong> Linera SDK</a></li></ol></li><li class="chapter-item expanded "><a href="advanced.html"><strong aria-hidden="true">5.</strong> Advanced Topics</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="advanced_topics/execution_model.html"><strong aria-hidden="true">5.1.</strong> Execution Model</a></li><li class="chapter-item expanded "><a href="advanced_topics/views.html"><strong aria-hidden="true">5.2.</strong> Views</a></li></ol></li><li class="chapter-item expanded "><a href="examples.html"><strong aria-hidden="true">6.</strong> Examples</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="examples/hello_world.html"><strong aria-hidden="true">6.1.</strong> Hello World</a></li></ol></li><li class="chapter-item expanded "><a href="glossary.html"><strong aria-hidden="true">7.</strong> Glossary</a></li></ol>
+                <ol class="chapter"><li class="chapter-item expanded "><a href="introduction.html"><strong aria-hidden="true">1.</strong> Introduction</a></li><li class="chapter-item expanded "><a href="overview.html"><strong aria-hidden="true">2.</strong> Overview</a></li><li class="chapter-item expanded "><a href="getting_started.html"><strong aria-hidden="true">3.</strong> Getting started</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="getting_started/installation.html"><strong aria-hidden="true">3.1.</strong> Installation</a></li><li class="chapter-item expanded "><a href="getting_started/first_app.html"><strong aria-hidden="true">3.2.</strong> Your First App</a></li></ol></li><li class="chapter-item expanded "><a href="core_concepts.html"><strong aria-hidden="true">4.</strong> Core Concepts</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="core_concepts/micro_chains.html"><strong aria-hidden="true">4.1.</strong> Microchains</a></li><li class="chapter-item expanded "><a href="core_concepts/wallet.html"><strong aria-hidden="true">4.2.</strong> The Wallet</a></li><li class="chapter-item expanded "><a href="core_concepts/validators.html"><strong aria-hidden="true">4.3.</strong> Validators</a></li><li class="chapter-item expanded "><a href="core_concepts/applications.html"><strong aria-hidden="true">4.4.</strong> Applications</a></li><li class="chapter-item expanded "><a href="core_concepts/sdk.html"><strong aria-hidden="true">4.5.</strong> Linera SDK</a></li></ol></li><li class="chapter-item expanded "><a href="advanced.html"><strong aria-hidden="true">5.</strong> Advanced Topics</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="advanced_topics/execution_model.html"><strong aria-hidden="true">5.1.</strong> Execution Model</a></li><li class="chapter-item expanded "><a href="advanced_topics/views.html"><strong aria-hidden="true">5.2.</strong> Views</a></li><li class="chapter-item expanded "><a href="advanced_topics/block_creation.html"><strong aria-hidden="true">5.3.</strong> Creating New Blocks</a></li></ol></li><li class="chapter-item expanded "><a href="examples.html"><strong aria-hidden="true">6.</strong> Examples</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="examples/hello_world.html"><strong aria-hidden="true">6.1.</strong> Hello World</a></li></ol></li><li class="chapter-item expanded "><a href="glossary.html"><strong aria-hidden="true">7.</strong> Glossary</a></li></ol>
             </div>
             <div id="sidebar-resize-handle" class="sidebar-resize-handle"></div>
         </nav>
@@ -493,6 +493,45 @@ is then sent to the <code>wallet</code> who is the chain creator.</p>
 <h2 id="node-service"><a class="header" href="#node-service">Node Service</a></h2>
 <h2 id="graphql"><a class="header" href="#graphql">GraphQL</a></h2>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="validators"><a class="header" href="#validators">Validators</a></h1>
+<p>The validators run servers that allow users to download and create blocks. They validate,
+execute and cryptographically certify blocks on all microchains. That means every single
+chain is backed by the full set of validators, and has the same level of security.</p>
+<p>Concretely, they guarantee that:</p>
+<ul>
+<li>Each block is valid, i.e. it has the correct format, its operations are allowed, the
+received effects are in the correct order, and e.g. the balance was correctly computed.</li>
+<li>Every effect received by one chain was actually sent by another chain.</li>
+<li>If one block on a particular height is certified, no other block on the same height is.</li>
+</ul>
+<p>To undermine these guarantees, at least one third of the validators (weighted by their
+stake) would need to cheat---in a detectable way! (Staking is not yet implemented, but in
+the future, malicious validators would forfeit their stakes.)</p>
+<p>Since validators do not propose blocks on most chains, they do <em>not</em> guarantee that any
+particular operation or effect will eventually be executed on a chain. Instead, chain
+owners decide whether and when to propose new blocks, and which operations and effects to
+include.
+The Linera client implementation will automatically include all incoming effects in new
+blocks. The operations are the actions the chain owner explicitly adds, e.g. transfer.</p>
+<h2 id="scalability"><a class="header" href="#scalability">Scalability</a></h2>
+<p>Since every chain uses the same validators, adding more chains does not require adding
+additional validators. Instead, it requires each individual validator to scale up and
+handle the additional load.</p>
+<p>That is why Linera allows the same validator to run multiple <code>server</code>
+processes—<em>workers</em>—on different machines, each one processing a different subset of
+the microchains. The workers communicate directly with each other whenever a chain sends
+an effect to another chain.</p>
+<h2 id="changing-the-set-of-validators"><a class="header" href="#changing-the-set-of-validators">Changing the Set of Validators</a></h2>
+<p>If a new validator wants to start participating, or an old one wants to leave, all chains
+must be updated.</p>
+<p>The system has has one designated <em>admin chain</em>, where the validators can join or leave
+or, and where new <em>epochs</em> are defined. During every epoch, the set of validators is
+fixed.</p>
+<p>Chain owners must then create a block that receives the <code>SetCommittees</code> effect from the
+admin chain, and have it certified by the old validators. Only the <em>next</em> block in their
+chain will be certified by the new validator set!</p>
+<p>That is why epochs are planned to change infrequently—possibly once per day or per
+week—, and several subsequent epochs can overlap, so that chain owners have plenty of
+time to migrate their chains.</p>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="applications"><a class="header" href="#applications">Applications</a></h1>
 <h2 id="the-application-deployment-lifecycle"><a class="header" href="#the-application-deployment-lifecycle">The Application Deployment Lifecycle</a></h2>
 <h2 id="operations-and-effects"><a class="header" href="#operations-and-effects">Operations and Effects</a></h2>
@@ -502,6 +541,42 @@ is then sent to the <code>wallet</code> who is the chain creator.</p>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="linera-sdk"><a class="header" href="#linera-sdk">Linera SDK</a></h1>
 <div style="break-before: page; page-break-before: always;"></div><div style="break-before: page; page-break-before: always;"></div><h1 id="execution-model"><a class="header" href="#execution-model">Execution Model</a></h1>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="views"><a class="header" href="#views">Views</a></h1>
+<div style="break-before: page; page-break-before: always;"></div><h2 id="creating-new-blocks"><a class="header" href="#creating-new-blocks">Creating New Blocks</a></h2>
+<p>Unlike validators in most other platforms, and unlike the workers that belong to a single
+validator, Linera validators do not need to exchange messages with each other directly.
+Instead, the chain owners' <code>client</code> processes make the system progress by actively
+providing the required data to the validators. E.g. each command like <code>client transfer</code>,
+<code>publish</code> or <code>open_chain</code> performs multiple steps to append a block containing the
+token transfer, application publishing or chain creation operation:</p>
+<ul>
+<li>The client creates a new block containing the desired operation and new incoming
+effects, if there are any. It also contains the most recent block's hash to designate
+its parent. The client sends the new block to all validators.</li>
+<li>The validators validate the block, i.e. check that the block satisfies the conditions
+listed above, and send a cryptographic signature to the client, indicating that they
+vote to append the new block. But only if they have not voted for a different block on
+the same height earlier!</li>
+<li>The client ideally receives a vote from every validator, but only two thirds are
+required: These constitute a &quot;certificate&quot;, proving that the block was confirmed.
+The client sends the certificate to every validator.</li>
+<li>The validators &quot;execute&quot; the block: They update their own view of the most recent state
+of the chain by applying all effects and operations, and if it generated any cross-chain
+messages, they send these to the appropriate workers.</li>
+</ul>
+<p>To guarantee that each incoming effect in a block was actually sent by another chain,
+a validator will, in the second step, only <em>vote</em> for a block, if it has already executed
+the block that sent it.
+However, when receiving a valid certificate for a block that receives an effect it has not
+seen yet, it will accept and <em>execute</em> the block anyway: The certificate is proof that most
+other validators have seen the effect, so it must be correct.</p>
+<p>This procedure applies to the simplest and lowest-latency kind of chain. Clients must be
+careful to never propose multiple blocks at the same height: Once two conflicting blocks
+have been signed by more than a third of the validators each, it becomes impossible to
+ever collect votes for one block from two thirds of the validators, and the chain is
+stuck.</p>
+<p>Therefore in practice, most users should use <em>shared chains</em> even if they are the only
+chain owner. These have two instead of one confirmation steps. The latency is slightly
+higher, but it is not possible to accidentally make a chain unextendable.</p>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="examples"><a class="header" href="#examples">Examples</a></h1>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="hello-world"><a class="header" href="#hello-world">Hello World</a></h1>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="glossary"><a class="header" href="#glossary">Glossary</a></h1>
