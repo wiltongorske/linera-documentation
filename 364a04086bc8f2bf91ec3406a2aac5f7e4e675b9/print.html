@@ -229,7 +229,7 @@ that require processing time-sensitive transactions created by many simultaneous
 <div style="break-before: page; page-break-before: always;"></div><h1 id="installation"><a class="header" href="#installation">Installation</a></h1>
 <p>This section is about installing Linera and running it from source.</p>
 <h2 id="os-support"><a class="header" href="#os-support">OS Support</a></h2>
-<p>The Linera client and validators currently run as a set of native binaries. For this reason there is a certain dependence on the underlying operating system. Below is a matrix of supported operating systems. </p>
+<p>The Linera client and validators currently run as a set of native binaries. For this reason there is a certain dependence on the underlying operating system. Below is a matrix of supported operating systems.</p>
 <div class="table-wrapper"><table><thead><tr><th>Mac OS (M1 / M2)</th><th>Mac OS (x86)</th><th>Linux x86 64-bit</th><th>Windows</th></tr></thead><tbody>
 <tr><td>✓ Working</td><td>✓ Working</td><td>✓ Working</td><td>? Untested</td></tr>
 </tbody></table>
@@ -306,7 +306,7 @@ example Linera applications which can be found in the <code>linera-examples/</co
 subdirectory.</p>
 <p>To do that, navigate to one of the example applications and compile it (the
 compilation target is set to <code>wasm32_unknown_unknown</code> by default)</p>
-<pre><code>cd linera-examples/counter-graphql &amp;&amp; cargo build --release 
+<pre><code>cd linera-examples/counter-graphql &amp;&amp; cargo build --release
 </code></pre>
 <h2 id="publishing-your-application"><a class="header" href="#publishing-your-application">Publishing your Application</a></h2>
 <p>We can publish our compiled application to our local network by using
@@ -329,7 +329,7 @@ the current counter value. To interact with an application on the network, we
 need to use the client running in 'service' mode. This will expose a bunch of
 APIs locally which we can use to interact with applications on the network.</p>
 <p>To run the client in service mode, make sure you're in <code>./target/debug</code> and run:</p>
-<pre><code class="language-bash">./client --storage rocksdb:client.db --wallet wallet.json --genesis genesis.json --max-pending-messages 10000 service 
+<pre><code class="language-bash">./client --storage rocksdb:client.db --wallet wallet.json --genesis genesis.json --max-pending-messages 10000 service
 </code></pre>
 <p>// todo add graphiql image here</p>
 <p>Navigate to <code>http://localhost:8080</code> in your browser to access the GraphiQL, the
@@ -558,14 +558,14 @@ processes—<em>workers</em>—on different machines, each one processing a diff
 the microchains. The workers communicate directly with each other whenever a chain sends
 an effect to another chain.</p>
 <h2 id="anatomy-of-a-validator"><a class="header" href="#anatomy-of-a-validator">Anatomy of a Validator</a></h2>
-<p>To achieve scalability, Linera validators need to be horizontally scalable (sometimes 
+<p>To achieve scalability, Linera validators need to be horizontally scalable (sometimes
 referred to as 'elastic'). To achieve this scalability, the architecture of a validator
-involves splitting the chains up over multiple 'shards' or 'workers' which are 
-encapsulated by a single ingress/egress called the 'proxy'. </p>
+involves splitting the chains up over multiple 'shards' or 'workers' which are
+encapsulated by a single ingress/egress called the 'proxy'.</p>
 <p>The validator has an internal network enabling the proxy to speak with shards and shards
-with each other. Each shard is also backed by its own data store which can be scaled 
+with each other. Each shard is also backed by its own data store which can be scaled
 independently of the rest of the validator</p>
-<pre><code> example network                                            
+<pre><code> example network
                      │                                           │
                      │                                           │
                      │                                           │
@@ -629,8 +629,8 @@ chain will be certified by the new validator set!</p>
 week—, and several subsequent epochs can overlap, so that chain owners have plenty of
 time to migrate their chains.</p>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="applications"><a class="header" href="#applications">Applications</a></h1>
-<p>Smart-Contracts in Linera are called applications. The Linera programming model
-is designed to provide a rich ecosystem to enable developers to take advantage
+<p>This section is all about building applications in Linera. The Linera programming
+model is designed to provide a rich ecosystem to enable developers to take advantage
 of the scaling architecture of microchains.</p>
 <p>Linera uses the WebAssembly VM to execute user applications. For now
 the <a href="core_concepts/./sdk.html">SDK</a> used to develop Linera applications is exclusively for
@@ -726,8 +726,9 @@ GraphQL API for every application running on that chain. To interface with an
 application running on a given chain, run the wallet in <code>service</code> mode for that
 chain and the API for the application is then available
 at <code>localhost:8080/&lt;application-id&gt;</code>.</p>
-<p>Simple navigating there with your brower will open a GraphiQL interface which
+<p>Simple navigating there with your browser will open a GraphiQL interface which
 enables you to graphically explore the state of your application.</p>
+<h2 id="end-to-end-front-end"><a class="header" href="#end-to-end-front-end">End-to-End Front-end?</a></h2>
 <h2 id="registering-an-application-across-chains"><a class="header" href="#registering-an-application-across-chains">Registering an Application across Chains</a></h2>
 <p>Let us assume that User A has Chain X, and User B has Chain Y. Let us also
 assume that Application 1 is deployed on Chain X.</p>

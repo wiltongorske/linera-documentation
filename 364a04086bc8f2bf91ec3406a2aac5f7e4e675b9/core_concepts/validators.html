@@ -174,14 +174,14 @@ processes—<em>workers</em>—on different machines, each one processing a diff
 the microchains. The workers communicate directly with each other whenever a chain sends
 an effect to another chain.</p>
 <h2 id="anatomy-of-a-validator"><a class="header" href="#anatomy-of-a-validator">Anatomy of a Validator</a></h2>
-<p>To achieve scalability, Linera validators need to be horizontally scalable (sometimes 
+<p>To achieve scalability, Linera validators need to be horizontally scalable (sometimes
 referred to as 'elastic'). To achieve this scalability, the architecture of a validator
-involves splitting the chains up over multiple 'shards' or 'workers' which are 
-encapsulated by a single ingress/egress called the 'proxy'. </p>
+involves splitting the chains up over multiple 'shards' or 'workers' which are
+encapsulated by a single ingress/egress called the 'proxy'.</p>
 <p>The validator has an internal network enabling the proxy to speak with shards and shards
-with each other. Each shard is also backed by its own data store which can be scaled 
+with each other. Each shard is also backed by its own data store which can be scaled
 independently of the rest of the validator</p>
-<pre><code> example network                                            
+<pre><code> example network
                      │                                           │
                      │                                           │
                      │                                           │

@@ -202,7 +202,7 @@ example Linera applications which can be found in the <code>linera-examples/</co
 subdirectory.</p>
 <p>To do that, navigate to one of the example applications and compile it (the
 compilation target is set to <code>wasm32_unknown_unknown</code> by default)</p>
-<pre><code>cd linera-examples/counter-graphql &amp;&amp; cargo build --release 
+<pre><code>cd linera-examples/counter-graphql &amp;&amp; cargo build --release
 </code></pre>
 <h2 id="publishing-your-application"><a class="header" href="#publishing-your-application">Publishing your Application</a></h2>
 <p>We can publish our compiled application to our local network by using
@@ -225,7 +225,7 @@ the current counter value. To interact with an application on the network, we
 need to use the client running in 'service' mode. This will expose a bunch of
 APIs locally which we can use to interact with applications on the network.</p>
 <p>To run the client in service mode, make sure you're in <code>./target/debug</code> and run:</p>
-<pre><code class="language-bash">./client --storage rocksdb:client.db --wallet wallet.json --genesis genesis.json --max-pending-messages 10000 service 
+<pre><code class="language-bash">./client --storage rocksdb:client.db --wallet wallet.json --genesis genesis.json --max-pending-messages 10000 service
 </code></pre>
 <p>// todo add graphiql image here</p>
 <p>Navigate to <code>http://localhost:8080</code> in your browser to access the GraphiQL, the
