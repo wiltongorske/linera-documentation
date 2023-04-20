@@ -743,6 +743,118 @@ end up with microchains which are simply full-scale Nakamoto blockchains. This '
 discovering' strategy enables Chains to only care about a finite subset of the
 state of the entire network.</p>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="linera-sdk"><a class="header" href="#linera-sdk">Linera SDK</a></h1>
+<h2 id="linera-sdk-crate"><a class="header" href="#linera-sdk-crate">Linera SDK Crate</a></h2>
+<p>The <code>linera-sdk</code> crate exposes the basic traits required to create a Linera
+application.</p>
+<p>This section takes you over the steps to create a full Web 3 application with a
+Linera application for the back end and a React front end.</p>
+<h2 id="creating-your-linera-project"><a class="header" href="#creating-your-linera-project">Creating your Linera Project</a></h2>
+<h2 id="creating-the-state"><a class="header" href="#creating-the-state">Creating the State</a></h2>
+<h2 id="creating-the-contract"><a class="header" href="#creating-the-contract">Creating the Contract</a></h2>
+<h2 id="creating-the-service"><a class="header" href="#creating-the-service">Creating the Service</a></h2>
+<p>The <code>Service</code> is the second component of your Linera application. It is compiled
+into a separate Bytecode from the contract and is run independently. It is not
+metered (meaning that querying an application's service does not consume gas),
+and can be thought of as a read-only view into your application.</p>
+<p>Your application state can be arbitrarily complex, and most of the time you
+don't
+want to expose this state in its entirety to those who would like to interact
+with your app. Instead, you might prefer to define a distinct set of queries
+that
+can be made against your application.</p>
+<p>The <code>Service</code> trait is how you define the interface into your application.
+The <code>Service</code> trait is defined as follows:</p>
+<pre><pre class="playground"><code class="language-rust"><span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>#[async_trait]
+pub trait Service {
+    /// Message reports for service execution errors.
+    type Error: Error;
+    /// The desired storage backend to use to read the application's state.
+    type Storage;
+
+    /// Executes a read-only query on the state of this application.
+    async fn query_application(
+        self: Arc&lt;Self&gt;,
+        context: &amp;QueryContext,
+        argument: &amp;[u8],
+    ) -&gt; Result&lt;Vec&lt;u8&gt;, Self::Error&gt;;
+}
+<span class="boring">}</span></code></pre></pre>
+<p>Let's implement <code>Service</code> for our counter application.</p>
+<p>First, we want to generate the necessary boilerplate for implementing the
+service WIT interface, export the necessary resource types and functions so that
+the host (the process running the bytecode) can call the service. Happilly,
+there is a macro to perform this code generation, so simply add the following
+to <code>service.rs</code>:</p>
+<pre><pre class="playground"><code class="language-rust"><span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>linera_sdk::service!(Counter&lt;ReadOnlyViewStorageContext&gt;);
+<span class="boring">}</span></code></pre></pre>
+<p>Notice that the Counter context is <code>ReadOnlyViewStorageContext</code>. This ensures
+that the host has a read-only view on the application's state.</p>
+<p>Next, we need to implement the <code>Service</code> for <code>Counter</code>. To do this we need to
+define <code>Service</code>'s associated types and implement <code>query_application</code>, as well
+as define the <code>Error</code> type:</p>
+<pre><pre class="playground"><code class="language-rust"><span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>#[async_trait]
+impl&lt;C&gt; Service for Counter&lt;C&gt;
+    where
+        C: Context + Send + Sync + Clone + 'static,
+        ViewError: From&lt;C::Error&gt;,
+{
+    type Error = Error;
+    type Storage = ViewStateStorage&lt;Self&gt;;
+
+    async fn query_application(
+        self: Arc&lt;Self&gt;,
+        _context: &amp;QueryContext,
+        argument: &amp;[u8],
+    ) -&gt; Result&lt;Vec&lt;u8&gt;, Self::Error&gt; {
+        let graphql_request: async_graphql::Request = serde_json::from_slice(argument).map_err(|_| Error::InvalidQuery)?;
+        let schema = Schema::build(self.clone(), MutationRoot {}, EmptySubscription).finish();
+        let res = schema.execute(graphql_request).await;
+        Ok(serde_json::to_vec(&amp;res).unwrap())
+    }
+}
+
+/// An error that can occur during the contract execution.
+#[derive(Debug, Error, Eq, PartialEq)]
+pub enum Error {
+    /// Invalid query argument; Counter application only supports a single (empty) query.
+    #[error(
+    &quot;Invalid query argument; Counter application only supports JSON encoded GraphQL queries&quot;
+    )]
+    InvalidQuery,
+}
+<span class="boring">}</span></code></pre></pre>
+<p>Notice, that the input <code>argument</code> and returned <code>Vec&lt;u8&gt;</code> are both simple byte
+arrays. Therefore, the inputs and outputs made to the service can be effectively
+arbitrary. In our case, we'll be using the existing Linera GraphQL
+infrastructure to make our app easy for a graphical front end to consume.</p>
+<p>The final piece of the the service is the <code>MutationRoot</code>. This is a convencience
+schema which is used for GraphQL introspection queries:</p>
+<pre><pre class="playground"><code class="language-rust"><span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>struct MutationRoot;
+
+#[Object]
+impl MutationRoot {
+    #[allow(unused)]
+    async fn execute_operation(&amp;self, operation: CounterOperation) -&gt; Vec&lt;u8&gt; {
+        bcs::to_bytes(&amp;operation).unwrap()
+    }
+}
+<span class="boring">}</span></code></pre></pre>
+<p>We haven't included the imports in the above code; they are left as an
+exercise to the reader. If you want the full source code and associated tests
+check out
+the <a href="https://github.com/linera-io/linera-protocol/blob/main/linera-examples/counter-graphql/src/service.rs">examples section</a>
+on GitHub.</p>
+<h2 id="deploying-your-application"><a class="header" href="#deploying-your-application">Deploying your Application</a></h2>
+<h2 id="building-a-front-end-for-your-application"><a class="header" href="#building-a-front-end-for-your-application">Building a Front End for your Application</a></h2>
+<h2 id="running-your-web-3-app"><a class="header" href="#running-your-web-3-app">Running your Web 3 App</a></h2>
 <div style="break-before: page; page-break-before: always;"></div><div style="break-before: page; page-break-before: always;"></div><h1 id="execution-model"><a class="header" href="#execution-model">Execution Model</a></h1>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="views"><a class="header" href="#views">Views</a></h1>
 <p>Views are a specific functionality of the Linera system that allow to have data in memory
