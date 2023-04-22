@@ -235,6 +235,9 @@ has to be transmitted by creating an effect and returning it in the <code>Execut
 parts of the code.</li>
 <li>The <code>handle_application_call</code> is for executing operations originating from application calls.
 One way to process it is by creating an effect that carry the intent.</li>
+<li>The <code>handle_session_call</code> is an experimental feature that is not yet fully developed
+and should not be relevant at the present time. Therefore, the authors simply need to return
+a <code>Err(Error::SessionsNotSupported)</code> to indicate so.</li>
 </ul>
 <h2 id="creating-the-service"><a class="header" href="#creating-the-service">Creating the Service</a></h2>
 <p>The <code>Service</code> is the second component of your Linera application. It is compiled
