@@ -750,7 +750,89 @@ application.</p>
 Linera application for the back end and a React front end.</p>
 <h2 id="creating-your-linera-project"><a class="header" href="#creating-your-linera-project">Creating your Linera Project</a></h2>
 <h2 id="creating-the-state"><a class="header" href="#creating-the-state">Creating the State</a></h2>
+<p>The <code>State</code> is the place where the data of the application is stored. For
+example we can have for the application <code>FungibleToken</code>:</p>
+<pre><pre class="playground"><code class="language-rust"><span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>#[derive(Debug, Default, Deserialize, Serialize)]
+pub struct FungibleToken {
+    accounts: BTreeMap&lt;AccountOwner, Amount&gt;,
+}
+<span class="boring">}</span></code></pre></pre>
+<p>If one uses the view version of the code then we will have</p>
+<pre><pre class="playground"><code class="language-rust"><span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>#[derive(RootView)]
+pub struct FungibleToken&lt;C&gt; {
+    accounts: MapView&lt;C, AccountOwner, Amount&gt;,
+}
+<span class="boring">}</span></code></pre></pre>
+<p>for which every entry of the struct has to be a view.</p>
 <h2 id="creating-the-contract"><a class="header" href="#creating-the-contract">Creating the Contract</a></h2>
+<p>The <code>Contract</code> is the first component of your Linera application. It can
+actually change the state of the application. The <code>Contract</code> trait that
+has to be implemented is the following:</p>
+<pre><pre class="playground"><code class="language-rust"><span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>#[async_trait]
+pub trait Contract: Sized {
+    /// Message reports for application execution errors.
+    type Error: Error;
+    /// The desired storage backend to use to store the application's state.
+    type Storage;
+
+    /// Initializes the application on the chain that created it.
+    async fn initialize(
+        &amp;mut self,
+        context: &amp;OperationContext,
+        argument: &amp;[u8],
+    ) -&gt; Result&lt;ExecutionResult, Self::Error&gt;;
+
+    /// Applies an operation from the current block.
+    async fn execute_operation(
+        &amp;mut self,
+        context: &amp;OperationContext,
+        operation: &amp;[u8],
+    ) -&gt; Result&lt;ExecutionResult, Self::Error&gt;;
+
+    /// Applies an effect originating from a cross-chain message.
+    async fn execute_effect(
+        &amp;mut self,
+        context: &amp;EffectContext,
+        effect: &amp;[u8],
+    ) -&gt; Result&lt;ExecutionResult, Self::Error&gt;;
+
+    /// Handles a call from another application.
+    async fn handle_application_call(
+        &amp;mut self,
+        context: &amp;CalleeContext,
+        argument: &amp;[u8],
+        forwarded_sessions: Vec&lt;SessionId&gt;,
+    ) -&gt; Result&lt;ApplicationCallResult, Self::Error&gt;;
+
+    /// Handles a call into a session created by this application.
+    async fn handle_session_call(
+        &amp;mut self,
+        context: &amp;CalleeContext,
+        session: Session,
+        argument: &amp;[u8],
+        forwarded_sessions: Vec&lt;SessionId&gt;,
+    ) -&gt; Result&lt;SessionCallResult, Self::Error&gt;;
+}
+<span class="boring">}</span></code></pre></pre>
+<p>This trait can be interpreted in the following way:</p>
+<ul>
+<li>The <code>initialize</code> is clear. This is how the application starts. It can be conceived
+of a constructor. If the application depends on other application such as <code>FungibleToken</code>
+then they will be typically be assigned during that initialization process.</li>
+<li>The <code>execute_operation</code> is for executing operations on the same chain in which
+they are received. If the state is located in another chain, then the operation
+has to be transmitted by creating an effect and returning it in the <code>ExecutionResult</code>.</li>
+<li>The <code>execute_effect</code> is executing the effects that have been created from other
+parts of the code.</li>
+<li>The <code>handle_application_call</code> is for executing operations originating from application calls.
+One way to process it is by creating an effect that carry the intent.</li>
+</ul>
 <h2 id="creating-the-service"><a class="header" href="#creating-the-service">Creating the Service</a></h2>
 <p>The <code>Service</code> is the second component of your Linera application. It is compiled
 into a separate Bytecode from the contract and is run independently. It is not
