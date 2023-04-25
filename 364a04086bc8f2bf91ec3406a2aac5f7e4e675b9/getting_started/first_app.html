@@ -187,7 +187,7 @@ in the previous section and can be found under <code>target/debug/client</code>.
 first navigating to <code>target/debug</code> and then running a command to synchronize the
 balance for
 your <a href="../core_concepts/wallet.html">default chain</a> with the rest of the network.</p>
-<pre><code class="language-bash">cd target/debug &amp;&amp; ./client --wallet wallet.json --genesis genesis.json sync_balance
+<pre><code class="language-bash">cd target/debug &amp;&amp; ./linera --wallet wallet.json --genesis genesis.json sync_balance
 </code></pre>
 <p>You should see an output of <code>10</code>. If you're curious why we're passing all these
 files to the client, we'll get to that in the <a href="../core_concepts/wallet.html">wallet section</a>.</p>
@@ -213,7 +213,7 @@ the <code>client</code>. To do that, navigate back to <code>./target/debug</code
 <li>The location of the service bytecode</li>
 <li>The hex encoded initialization arguments</li>
 </ol>
-<pre><code class="language-bash">./client --storage rocksdb:client.db --wallet wallet.json --genesis genesis.json --max-pending-messages 10000 publish \
+<pre><code class="language-bash">./linera --storage rocksdb:client.db --wallet wallet.json --genesis genesis.json --max-pending-messages 10000 publish_and_create \
     ../../linera-examples/target/wasm32-unknown-unknown/release/counter_graphql_contract.wasm \
     ../../linera-examples/target/wasm32-unknown-unknown/release/counter_graphql_service.wasm \
     35
@@ -225,7 +225,7 @@ the current counter value. To interact with an application on the network, we
 need to use the client running in 'service' mode. This will expose a bunch of
 APIs locally which we can use to interact with applications on the network.</p>
 <p>To run the client in service mode, make sure you're in <code>./target/debug</code> and run:</p>
-<pre><code class="language-bash">./client --storage rocksdb:client.db --wallet wallet.json --genesis genesis.json --max-pending-messages 10000 service
+<pre><code class="language-bash">./linera --storage rocksdb:client.db --wallet wallet.json --genesis genesis.json --max-pending-messages 10000 service
 </code></pre>
 <p>// todo add graphiql image here</p>
 <p>Navigate to <code>http://localhost:8080</code> in your browser to access the GraphiQL, the

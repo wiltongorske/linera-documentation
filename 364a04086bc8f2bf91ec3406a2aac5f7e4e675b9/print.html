@@ -291,7 +291,7 @@ in the previous section and can be found under <code>target/debug/client</code>.
 first navigating to <code>target/debug</code> and then running a command to synchronize the
 balance for
 your <a href="getting_started/../core_concepts/wallet.html">default chain</a> with the rest of the network.</p>
-<pre><code class="language-bash">cd target/debug &amp;&amp; ./client --wallet wallet.json --genesis genesis.json sync_balance
+<pre><code class="language-bash">cd target/debug &amp;&amp; ./linera --wallet wallet.json --genesis genesis.json sync_balance
 </code></pre>
 <p>You should see an output of <code>10</code>. If you're curious why we're passing all these
 files to the client, we'll get to that in the <a href="getting_started/../core_concepts/wallet.html">wallet section</a>.</p>
@@ -317,7 +317,7 @@ the <code>client</code>. To do that, navigate back to <code>./target/debug</code
 <li>The location of the service bytecode</li>
 <li>The hex encoded initialization arguments</li>
 </ol>
-<pre><code class="language-bash">./client --storage rocksdb:client.db --wallet wallet.json --genesis genesis.json --max-pending-messages 10000 publish \
+<pre><code class="language-bash">./linera --storage rocksdb:client.db --wallet wallet.json --genesis genesis.json --max-pending-messages 10000 publish_and_create \
     ../../linera-examples/target/wasm32-unknown-unknown/release/counter_graphql_contract.wasm \
     ../../linera-examples/target/wasm32-unknown-unknown/release/counter_graphql_service.wasm \
     35
@@ -329,7 +329,7 @@ the current counter value. To interact with an application on the network, we
 need to use the client running in 'service' mode. This will expose a bunch of
 APIs locally which we can use to interact with applications on the network.</p>
 <p>To run the client in service mode, make sure you're in <code>./target/debug</code> and run:</p>
-<pre><code class="language-bash">./client --storage rocksdb:client.db --wallet wallet.json --genesis genesis.json --max-pending-messages 10000 service
+<pre><code class="language-bash">./linera --storage rocksdb:client.db --wallet wallet.json --genesis genesis.json --max-pending-messages 10000 service
 </code></pre>
 <p>// todo add graphiql image here</p>
 <p>Navigate to <code>http://localhost:8080</code> in your browser to access the GraphiQL, the
@@ -429,7 +429,7 @@ running on your local partial node are stored in <code>client.db</code>.</p>
 <p>User chains are managed explicitly via the wallet.</p>
 <h3 id="listing-chains"><a class="header" href="#listing-chains">Listing Chains</a></h3>
 <p>To see the chains owned by your wallet, you can use the <code>show</code> command:</p>
-<pre><code class="language-bash">$ ./client --storage rocksdb:client.db  --wallet wallet.json --genesis genesis.json wallet show
+<pre><code class="language-bash">$ ./linera --storage rocksdb:client.db  --wallet wallet.json --genesis genesis.json wallet show
 ╭──────────────────────────────────────────────────────────────────┬──────────────────────────────────────────────────────────────────────────────────────╮
 │ Chain Id                                                         ┆ Latest Block                                                                         │
 ╞══════════════════════════════════════════════════════════════════╪══════════════════════════════════════════════════════════════════════════════════════╡
@@ -456,11 +456,11 @@ default chain removes ambiguity in which chain is selected when performing an
 operation.</p>
 <p>The default chain is set initially, when the first chain is added to the wallet.
 You can check the default chain for your wallet by running :</p>
-<pre><code class="language-bash">$ ./client --storage rocksdb:client.db --wallet wallet.json --genesis genesis.json wallet show
+<pre><code class="language-bash">$ ./linera --storage rocksdb:client.db --wallet wallet.json --genesis genesis.json wallet show
 </code></pre>
 <p>The Chain Id which is in green text instead of white text is your default chain.</p>
 <p>To change the default chain for you wallet, user the <code>set-default</code> command:</p>
-<pre><code class="language-bash">$ ./client --storage rocksdb:client.db --wallet wallet.json --genesis genesis.json wallet set-default &lt;chain-id&gt;
+<pre><code class="language-bash">$ ./linera --storage rocksdb:client.db --wallet wallet.json --genesis genesis.json wallet set-default &lt;chain-id&gt;
 </code></pre>
 <h3 id="opening-a-chain"><a class="header" href="#opening-a-chain">Opening a Chain</a></h3>
 <p>The Linera protocol defines semantics for how new chains are created, we call
@@ -470,7 +470,7 @@ public chains will open chains for new users - but for now an existing
 single-chain owner is required to open a chain for a new wallet on the network.</p>
 <h4 id="open-a-chain-for-your-own-wallet"><a class="header" href="#open-a-chain-for-your-own-wallet">Open a Chain for your own wallet</a></h4>
 <p>To open a chain for your own wallet, you can use the <code>open_chain</code> command:</p>
-<pre><code class="language-bash">$ ./client --storage rocksdb:client.db  --wallet wallet.json --genesis genesis.json open_chain
+<pre><code class="language-bash">$ ./linera --storage rocksdb:client.db  --wallet wallet.json --genesis genesis.json open_chain
 </code></pre>
 <p>This will create a new chain (using the wallet's default chain) and add it to
 the wallet. Use the <code>wallet show</code> command to see your existing chains.</p>
@@ -481,11 +481,11 @@ steps.</p>
 <p>First <code>wallet2</code> must create an unassigned keypair. The public part of that
 keypair
 is then sent to the <code>wallet</code> who is the chain creator.</p>
-<pre><code class="language-bash">$ ./client --wallet wallet2.json --genesis genesis.json keygen
+<pre><code class="language-bash">$ ./linera --wallet wallet2.json --genesis genesis.json keygen
 6443634d872afbbfcc3059ac87992c4029fa88e8feb0fff0723ac6c914088888 # this is the public key for the unassigned keypair
 </code></pre>
 <p>Next, using the public key, <code>wallet</code> can open a chain for <code>wallet2</code>.</p>
-<pre><code class="language-bash">./client --wallet wallet.json --genesis genesis.json open_chain --to-owner 6443634d872afbbfcc3059ac87992c4029fa88e8feb0fff0723ac6c914088888
+<pre><code class="language-bash">./linera --wallet wallet.json --genesis genesis.json open_chain --to-owner 6443634d872afbbfcc3059ac87992c4029fa88e8feb0fff0723ac6c914088888
 21afead36b9abfe5b0556c955f87cd167e2271eaa301546ca579be516db6eda3
 91c7b394ef500cd000e365807b770d5b76a6e8c9c2f2af8e58c205e521b5f6460000000000000000000100000221afead36b9abfe5b0556c955f87cd167e2271eaa301546ca579be516db6eda36443634d872afbbfcc3059ac87992c4029fa88e8feb0fff0723ac6c91408888891c7b394ef500cd000e365807b770d5b76a6e8c9c2f2af8e58c205e521b5f64600000000000000000100000000000000000403f5447c1953dd2d4367462bf5485a08f9b89ecf9e2fc37b4c04cda0766763aa13677270633a3132372e302e302e313a39333030010000000000000034537eb025224f15bbc763ebc90431277e20923acfdc6fd2e0c3e2fabc26849313677270633a3132372e302e302e313a3932303001000000000000008e45fae6f0030f195b5818fdd7c4656da8a40c3401a248ecde6a6c0a8caf81a413677270633a3132372e302e302e313a393430300100000000000000a093522fb18888c54c3c3e9c2e808ee08d9aebc8fc8a8a42e751c0399cffb4ca13677270633a3132372e302e302e313a3931303001000000000000000400000000000000030000000000000002000000000000000300000000000000c5f4299a00f9050001cd127942d23e32ab5137a9ea07edd4db726da61affe4b7cdcdf85d71ff898f3d01b2e90cb542d342e8fc1f5b7e9ed9abbc6b04c9f08f234130ed346f7357076d2602000021afead36b9abfe5b0556c955f87cd167e2271eaa301546ca579be516db6eda300000221afead36b9abfe5b0556c955f87cd167e2271eaa301546ca579be516db6eda36443634d872afbbfcc3059ac87992c4029fa88e8feb0fff0723ac6c91408888891c7b394ef500cd000e365807b770d5b76a6e8c9c2f2af8e58c205e521b5f64600000000000000000100000000000000000403f5447c1953dd2d4367462bf5485a08f9b89ecf9e2fc37b4c04cda0766763aa13677270633a3132372e302e302e313a39333030010000000000000034537eb025224f15bbc763ebc90431277e20923acfdc6fd2e0c3e2fabc26849313677270633a3132372e302e302e313a3932303001000000000000008e45fae6f0030f195b5818fdd7c4656da8a40c3401a248ecde6a6c0a8caf81a413677270633a3132372e302e302e313a393430300100000000000000a093522fb18888c54c3c3e9c2e808ee08d9aebc8fc8a8a42e751c0399cffb4ca13677270633a3132372e302e302e313a393130300100000000000000040000000000000003000000000000000200000000000000000091c7b394ef500cd000e365807b770d5b76a6e8c9c2f2af8e58c205e521b5f64600000421afead36b9abfe5b0556c955f87cd167e2271eaa301546ca579be516db6eda391c7b394ef500cd000e365807b770d5b76a6e8c9c2f2af8e58c205e521b5f64601008095a889f7025d24dffccb5f9700439efd671de5dd453f9d2432ab73e6602613010334537eb025224f15bbc763ebc90431277e20923acfdc6fd2e0c3e2fabc2684938942c4b9c4efec2ca802d3841c5936cf1c7670794be06f4789e411ea3dd5398ca66a69630e9d0e7e3a5429e60a4332a3d927cbc22758bffe3784a7793b476903a093522fb18888c54c3c3e9c2e808ee08d9aebc8fc8a8a42e751c0399cffb4ca760f4f9c51ee0440cb6b26ca8d2e13a8265defe240c7bcb6d7c4fcc4532f36634b80ca3690f1d6c8c08a8befbb2c0ef1bd68a8b88fdef65aab973d61a31e93068e45fae6f0030f195b5818fdd7c4656da8a40c3401a248ecde6a6c0a8caf81a4138630adeca4b0b44f9904f95510048387177d16260207143dccf1946788ac7b491bbcd60d0d18f18acfed6138afbe45e0b5bea67e000da6e81facbcf0d62407
 </code></pre>
@@ -493,7 +493,7 @@ is then sent to the <code>wallet</code> who is the chain creator.</p>
 the operation certificate.</p>
 <p>Finally, to add the chain to <code>wallet2</code> for the given unassigned key we use
 the <code>assign</code> command:</p>
-<pre><code class="language-bash"> ./client --wallet wallet2.json --genesis genesis.json assign --key 6443634d872afbbfcc3059ac87992c4029fa88e8feb0fff0723ac6c914088888 --chain 21afead36b9abfe5b0556c955f87cd167e2271eaa301546ca579be516db6eda3 --certificate 91c7b394ef500cd000e365807b770d5b76a6e8c9c2f2af8e58c205e521b5f6460000000000000000000100000221afead36b9abfe5b0556c955f87cd167e2271eaa301546ca579be516db6eda36443634d872afbbfcc3059ac87992c4029fa88e8feb0fff0723ac6c91408888891c7b394ef500cd000e365807b770d5b76a6e8c9c2f2af8e58c205e521b5f64600000000000000000100000000000000000403f5447c1953dd2d4367462bf5485a08f9b89ecf9e2fc37b4c04cda0766763aa13677270633a3132372e302e302e313a39333030010000000000000034537eb025224f15bbc763ebc90431277e20923acfdc6fd2e0c3e2fabc26849313677270633a3132372e302e302e313a3932303001000000000000008e45fae6f0030f195b5818fdd7c4656da8a40c3401a248ecde6a6c0a8caf81a413677270633a3132372e302e302e313a393430300100000000000000a093522fb18888c54c3c3e9c2e808ee08d9aebc8fc8a8a42e751c0399cffb4ca13677270633a3132372e302e302e313a3931303001000000000000000400000000000000030000000000000002000000000000000300000000000000c5f4299a00f9050001cd127942d23e32ab5137a9ea07edd4db726da61affe4b7cdcdf85d71ff898f3d01b2e90cb542d342e8fc1f5b7e9ed9abbc6b04c9f08f234130ed346f7357076d2602000021afead36b9abfe5b0556c955f87cd167e2271eaa301546ca579be516db6eda300000221afead36b9abfe5b0556c955f87cd167e2271eaa301546ca579be516db6eda36443634d872afbbfcc3059ac87992c4029fa88e8feb0fff0723ac6c91408888891c7b394ef500cd000e365807b770d5b76a6e8c9c2f2af8e58c205e521b5f64600000000000000000100000000000000000403f5447c1953dd2d4367462bf5485a08f9b89ecf9e2fc37b4c04cda0766763aa13677270633a3132372e302e302e313a39333030010000000000000034537eb025224f15bbc763ebc90431277e20923acfdc6fd2e0c3e2fabc26849313677270633a3132372e302e302e313a3932303001000000000000008e45fae6f0030f195b5818fdd7c4656da8a40c3401a248ecde6a6c0a8caf81a413677270633a3132372e302e302e313a393430300100000000000000a093522fb18888c54c3c3e9c2e808ee08d9aebc8fc8a8a42e751c0399cffb4ca13677270633a3132372e302e302e313a393130300100000000000000040000000000000003000000000000000200000000000000000091c7b394ef500cd000e365807b770d5b76a6e8c9c2f2af8e58c205e521b5f64600000421afead36b9abfe5b0556c955f87cd167e2271eaa301546ca579be516db6eda391c7b394ef500cd000e365807b770d5b76a6e8c9c2f2af8e58c205e521b5f64601008095a889f7025d24dffccb5f9700439efd671de5dd453f9d2432ab73e6602613010334537eb025224f15bbc763ebc90431277e20923acfdc6fd2e0c3e2fabc2684938942c4b9c4efec2ca802d3841c5936cf1c7670794be06f4789e411ea3dd5398ca66a69630e9d0e7e3a5429e60a4332a3d927cbc22758bffe3784a7793b476903a093522fb18888c54c3c3e9c2e808ee08d9aebc8fc8a8a42e751c0399cffb4ca760f4f9c51ee0440cb6b26ca8d2e13a8265defe240c7bcb6d7c4fcc4532f36634b80ca3690f1d6c8c08a8befbb2c0ef1bd68a8b88fdef65aab973d61a31e93068e45fae6f0030f195b5818fdd7c4656da8a40c3401a248ecde6a6c0a8caf81a4138630adeca4b0b44f9904f95510048387177d16260207143dccf1946788ac7b491bbcd60d0d18f18acfed6138afbe45e0b5bea67e000da6e81facbcf0d62407
+<pre><code class="language-bash"> ./linera --wallet wallet2.json --genesis genesis.json assign --key 6443634d872afbbfcc3059ac87992c4029fa88e8feb0fff0723ac6c914088888 --chain 21afead36b9abfe5b0556c955f87cd167e2271eaa301546ca579be516db6eda3 --certificate 91c7b394ef500cd000e365807b770d5b76a6e8c9c2f2af8e58c205e521b5f6460000000000000000000100000221afead36b9abfe5b0556c955f87cd167e2271eaa301546ca579be516db6eda36443634d872afbbfcc3059ac87992c4029fa88e8feb0fff0723ac6c91408888891c7b394ef500cd000e365807b770d5b76a6e8c9c2f2af8e58c205e521b5f64600000000000000000100000000000000000403f5447c1953dd2d4367462bf5485a08f9b89ecf9e2fc37b4c04cda0766763aa13677270633a3132372e302e302e313a39333030010000000000000034537eb025224f15bbc763ebc90431277e20923acfdc6fd2e0c3e2fabc26849313677270633a3132372e302e302e313a3932303001000000000000008e45fae6f0030f195b5818fdd7c4656da8a40c3401a248ecde6a6c0a8caf81a413677270633a3132372e302e302e313a393430300100000000000000a093522fb18888c54c3c3e9c2e808ee08d9aebc8fc8a8a42e751c0399cffb4ca13677270633a3132372e302e302e313a3931303001000000000000000400000000000000030000000000000002000000000000000300000000000000c5f4299a00f9050001cd127942d23e32ab5137a9ea07edd4db726da61affe4b7cdcdf85d71ff898f3d01b2e90cb542d342e8fc1f5b7e9ed9abbc6b04c9f08f234130ed346f7357076d2602000021afead36b9abfe5b0556c955f87cd167e2271eaa301546ca579be516db6eda300000221afead36b9abfe5b0556c955f87cd167e2271eaa301546ca579be516db6eda36443634d872afbbfcc3059ac87992c4029fa88e8feb0fff0723ac6c91408888891c7b394ef500cd000e365807b770d5b76a6e8c9c2f2af8e58c205e521b5f64600000000000000000100000000000000000403f5447c1953dd2d4367462bf5485a08f9b89ecf9e2fc37b4c04cda0766763aa13677270633a3132372e302e302e313a39333030010000000000000034537eb025224f15bbc763ebc90431277e20923acfdc6fd2e0c3e2fabc26849313677270633a3132372e302e302e313a3932303001000000000000008e45fae6f0030f195b5818fdd7c4656da8a40c3401a248ecde6a6c0a8caf81a413677270633a3132372e302e302e313a393430300100000000000000a093522fb18888c54c3c3e9c2e808ee08d9aebc8fc8a8a42e751c0399cffb4ca13677270633a3132372e302e302e313a393130300100000000000000040000000000000003000000000000000200000000000000000091c7b394ef500cd000e365807b770d5b76a6e8c9c2f2af8e58c205e521b5f64600000421afead36b9abfe5b0556c955f87cd167e2271eaa301546ca579be516db6eda391c7b394ef500cd000e365807b770d5b76a6e8c9c2f2af8e58c205e521b5f64601008095a889f7025d24dffccb5f9700439efd671de5dd453f9d2432ab73e6602613010334537eb025224f15bbc763ebc90431277e20923acfdc6fd2e0c3e2fabc2684938942c4b9c4efec2ca802d3841c5936cf1c7670794be06f4789e411ea3dd5398ca66a69630e9d0e7e3a5429e60a4332a3d927cbc22758bffe3784a7793b476903a093522fb18888c54c3c3e9c2e808ee08d9aebc8fc8a8a42e751c0399cffb4ca760f4f9c51ee0440cb6b26ca8d2e13a8265defe240c7bcb6d7c4fcc4532f36634b80ca3690f1d6c8c08a8befbb2c0ef1bd68a8b88fdef65aab973d61a31e93068e45fae6f0030f195b5818fdd7c4656da8a40c3401a248ecde6a6c0a8caf81a4138630adeca4b0b44f9904f95510048387177d16260207143dccf1946788ac7b491bbcd60d0d18f18acfed6138afbe45e0b5bea67e000da6e81facbcf0d62407
 </code></pre>
 <h2 id="node-service"><a class="header" href="#node-service">Node Service</a></h2>
 <p>So far we've seen how to interact with the wallet while treating it as a binary
@@ -506,7 +506,7 @@ and the system</li>
 chains.</li>
 </ol>
 <p>To interact with the node service, simply run the wallet in <code>service</code> mode:</p>
-<pre><code class="language-bash">./client --storage rocksdb:client.db --wallet wallet.json --genesis genesis.json --max-pending-messages 10000 service
+<pre><code class="language-bash">./linera --storage rocksdb:client.db --wallet wallet.json --genesis genesis.json --max-pending-messages 10000 service
 </code></pre>
 <p>This will run the node service on port 8080 by default (this can be overridden
 using the <code>--port</code> flag).</p>
@@ -603,7 +603,7 @@ a local network.</p>
 <p>generates keys and writes them, together with the options from the TOML files, to
 <code>server_1.json</code>, ..., <code>server_4.json</code>. It also stores the set of the new validators'
 public keys in <code>committee.json</code>.</p>
-<pre><code class="language-bash">./client --wallet wallet.json --genesis genesis.json create_genesis_config 10 --initial-funding 10 --committee committee.json
+<pre><code class="language-bash">./linera --wallet wallet.json --genesis genesis.json create_genesis_config 10 --initial-funding 10 --committee committee.json
 </code></pre>
 <p>creates a configuration for the initial state of the network, <code>genesis.json</code>, with 10
 chains, each with a balance of 10. It also creates a <code>wallet.json</code> for a client who owns
@@ -657,7 +657,7 @@ users are needed to create distinct applications.</li>
 </ol>
 <p>Happily, the application deployment lifecycle is abstracted from the user, and
 an application can be published with a single command:</p>
-<pre><code class="language-bash">./client --storage rocksdb:client.db --wallet wallet.json --genesis genesis.json --max-pending-messages 10000 publish &lt;contract-path&gt; &lt;service-path&gt; &lt;init-args&gt;
+<pre><code class="language-bash">./linera --storage rocksdb:client.db --wallet wallet.json --genesis genesis.json --max-pending-messages 10000 publish &lt;contract-path&gt; &lt;service-path&gt; &lt;init-args&gt;
 </code></pre>
 <p>This will publish the bytecode as well as initialise the application for you.</p>
 <h2 id="anatomy-of-an-application"><a class="header" href="#anatomy-of-an-application">Anatomy of an Application</a></h2>
@@ -743,35 +743,63 @@ end up with microchains which are simply full-scale Nakamoto blockchains. This '
 discovering' strategy enables Chains to only care about a finite subset of the
 state of the entire network.</p>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="linera-sdk"><a class="header" href="#linera-sdk">Linera SDK</a></h1>
+<p>In this section we'll be exploring the Linera SDK by building a simple counter application.</p>
+<p>This is going to cover most facets of building an app, with the notable exception of the front-end
+which is covered in a future section.</p>
 <h2 id="linera-sdk-crate"><a class="header" href="#linera-sdk-crate">Linera SDK Crate</a></h2>
 <p>The <code>linera-sdk</code> crate exposes the basic traits required to create a Linera
 application.</p>
 <p>This section takes you over the steps to create a full Web 3 application with a
 Linera application for the back end and a React front end.</p>
 <h2 id="creating-your-linera-project"><a class="header" href="#creating-your-linera-project">Creating your Linera Project</a></h2>
+<p>To create your Linera project, use the <code>linera project init</code> command to setup
+the scaffolding and requisite files:</p>
+<pre><code class="language-bash">./linera project new ../../linera-examples/my-counter
+</code></pre>
+<p><code>linera project init</code> bootstraps your project by creating the following key files:</p>
+<ul>
+<li><code>Cargo.toml</code>: your project's manifest filled with the necessary dependencies to create an app</li>
+<li><code>state.rs</code>: the file which holds your application's state</li>
+<li><code>contract.rs</code>: the file which holds your application's contract, and the binary target for the contract bytecode</li>
+<li><code>service.rs</code>: the file which holds your application's service, and the binary contract for the service bytecode</li>
+</ul>
 <h2 id="creating-the-state"><a class="header" href="#creating-the-state">Creating the State</a></h2>
-<p>The <code>State</code> is the place where the data of the application is stored. For
-example we can have for the application <code>FungibleToken</code>:</p>
+<p>The <code>struct</code> which defines your application's state can be found in <code>state.rs</code>.</p>
+<p>To represent our Counter, all we're going to need a single <code>u128</code>. To persist
+the counter we'll be using Linera's <a href="core_concepts/../advanced_topics/views.html">view</a> paradigm.</p>
+<p>Views are a little like an <a href="https://en.wikipedia.org/wiki/Object%E2%80%93relational_mapping">ORM</a>,
+however instead of mapping your datastructures to a relational database like Postgres, they are
+instead mapped onto key-value stores like <a href="https://rocksdb.org/">RocksDB</a>.</p>
+<p>In vanilla Rust, we might represent our Counter as so:</p>
 <pre><pre class="playground"><code class="language-rust"><span class="boring">#![allow(unused)]
 </span><span class="boring">fn main() {
-</span>#[derive(Debug, Default, Deserialize, Serialize)]
-pub struct FungibleToken {
-    accounts: BTreeMap&lt;AccountOwner, Amount&gt;,
+</span>struct Counter {
+  value: u128
 }
 <span class="boring">}</span></code></pre></pre>
-<p>If one uses the view version of the code then we will have</p>
+<p>However to persist your data, you'll need to replace the existing <code>State</code> struct in `state.rs
+with the following view:</p>
 <pre><pre class="playground"><code class="language-rust"><span class="boring">#![allow(unused)]
 </span><span class="boring">fn main() {
-</span>#[derive(RootView)]
-pub struct FungibleToken&lt;C&gt; {
-    accounts: MapView&lt;C, AccountOwner, Amount&gt;,
+</span>/// The application state.
+#[derive(RootView, Debug)]
+pub struct Counter&lt;C&gt; {
+    pub value: RegisterView&lt;C, u128&gt;,
 }
 <span class="boring">}</span></code></pre></pre>
-<p>for which every entry of the struct has to be a view.</p>
+<p>The <code>RegisterView</code> supports modifying a single value of type <code>T</code>. There are different types of
+views for different use-cases, but the majority of common data structures have already been implemented:</p>
+<ul>
+<li>A <code>Vec</code> maps to a <code>CollectionView</code></li>
+<li>A <code>HashMap</code> maps to a <code>MapView</code></li>
+<li>A <code>Queue</code> maps to a <code>QueueView</code></li>
+</ul>
+<p>For an exhaustive list refer to the Views <a href="core_concepts/TODO">documentation</a>.</p>
 <h2 id="creating-the-contract"><a class="header" href="#creating-the-contract">Creating the Contract</a></h2>
 <p>The <code>Contract</code> is the first component of your Linera application. It can
-actually change the state of the application. The <code>Contract</code> trait that
-has to be implemented is the following:</p>
+actually change the state of the application.</p>
+<p>To create a contract, we need to implement the <code>Contract</code> trait, which is
+as follows:</p>
 <pre><pre class="playground"><code class="language-rust"><span class="boring">#![allow(unused)]
 </span><span class="boring">fn main() {
 </span>#[async_trait]
@@ -820,22 +848,51 @@ pub trait Contract: Sized {
     ) -&gt; Result&lt;SessionCallResult, Self::Error&gt;;
 }
 <span class="boring">}</span></code></pre></pre>
-<p>This trait can be interpreted in the following way:</p>
-<ul>
-<li>The <code>initialize</code> is clear. This is how the application starts. It can be conceived
-of a constructor. If the application depends on other application such as <code>FungibleToken</code>
-then they will be typically be assigned during that initialization process.</li>
-<li>The <code>execute_operation</code> is for executing operations on the same chain in which
-they are received. If the state is located in another chain, then the operation
-has to be transmitted by creating an effect and returning it in the <code>ExecutionResult</code>.</li>
-<li>The <code>execute_effect</code> is executing the effects that have been created from other
-parts of the code.</li>
-<li>The <code>handle_application_call</code> is for executing operations originating from application calls.
-One way to process it is by creating an effect that carry the intent.</li>
-<li>The <code>handle_session_call</code> is an experimental feature that is not yet fully developed
-and should not be relevant at the present time. Therefore, the authors simply need to return
-a <code>Err(Error::SessionsNotSupported)</code> to indicate so.</li>
-</ul>
+<p>There's quite a bit going on here, so let's break it down and take one method at a time.</p>
+<p>For this application, we'll be using the <code>initialize</code> and <code>execute_operation</code> command.</p>
+<h3 id="initialising-our-application"><a class="header" href="#initialising-our-application">Initialising our Application</a></h3>
+<p>The first thing we need to do is initialize our application by using <code>Contract::initialize</code>.</p>
+<p><code>Contract::initialize</code> is only called once when the application is created and only on the microchain that 
+created the application. </p>
+<p>Deployment on other microchains will use the <code>Default</code> implementation of the application state if 
+<code>SimpleStateStorage</code> is used, or the Default value of all sub-views in the state if the <code>ViewStateStorage</code> is used.</p>
+<p>For our <code>Counter</code> application, we'll want to initialize the state of the application to an arbitrary number that can
+be specified on application creation using its initialization parameters:</p>
+<pre><pre class="playground"><code class="language-rust"><span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>    async fn initialize(
+        &amp;mut self,
+        _context: &amp;OperationContext,
+        argument: &amp;[u8],
+    ) -&gt; Result&lt;ExecutionResult, Self::Error&gt; {
+        self.value.set(bcs::from_bytes(argument)?);
+        Ok(ExecutionResult::default())
+    }
+<span class="boring">}</span></code></pre></pre>
+<blockquote>
+<p>Note: We're using the <a href="https://crates.io/crates/bcs">bcs</a> crate for serializing and deserializing values.
+This is a recurring theme throughout the Linera project. Using BCS for serialization is important
+because it enforces canonical serialization, meaning that every value of a given type has a <strong>single
+valid representation</strong>. This is especially important when computing hashes, signatures and certificates.</p>
+</blockquote>
+<h3 id="implementing-the-increment-operation"><a class="header" href="#implementing-the-increment-operation">Implementing the Increment Operation</a></h3>
+<p>Now that we have our counter's state and a way to initialize it to any value we would like, a way to increment
+our counter's value. Changes made by block proposers to application states are broadly called 'operations'.</p>
+<p>To create a new operation, we need to use the method <code>Contract::execute_operation</code>. In the counter's case,
+it will be receiving a <code>u128</code>  which needs to be deserialized and the used to increment the couter state like so:</p>
+<pre><pre class="playground"><code class="language-rust"><span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>    async fn execute_operation(
+        &amp;mut self,
+        _context: &amp;OperationContext,
+        operation: &amp;[u8],
+    ) -&gt; Result&lt;ExecutionResult, Self::Error&gt; {
+        let increment: u128 = bcs::from_bytes(operation)?;
+        let value = self.value.get_mut();
+        *value += increment;
+        Ok(ExecutionResult::default())
+    }
+<span class="boring">}</span></code></pre></pre>
 <h2 id="creating-the-service"><a class="header" href="#creating-the-service">Creating the Service</a></h2>
 <p>The <code>Service</code> is the second component of your Linera application. It is compiled
 into a separate Bytecode from the contract and is run independently. It is not
@@ -938,8 +995,21 @@ check out
 the <a href="https://github.com/linera-io/linera-protocol/blob/main/linera-examples/counter-graphql/src/service.rs">examples section</a>
 on GitHub.</p>
 <h2 id="deploying-your-application"><a class="header" href="#deploying-your-application">Deploying your Application</a></h2>
+<p>To deploy your application, you first need to navigate to <code>target/debug</code> where the <code>linera</code> binary is located.</p>
+<ol>
+<li>The location of the contract bytecode</li>
+<li>The location of the service bytecode</li>
+<li>The hex encoded initialization arguments</li>
+</ol>
+<pre><code class="language-bash">./linera --storage rocksdb:client.db --wallet wallet.json --genesis genesis.json --max-pending-messages 10000 publish_and_create \
+    ../../linera-examples/target/wasm32-unknown-unknown/release/my_counter_contract.wasm \
+    ../../linera-examples/target/wasm32-unknown-unknown/release/my_counter_service.wasm \
+    00
+</code></pre>
 <h2 id="building-a-front-end-for-your-application"><a class="header" href="#building-a-front-end-for-your-application">Building a Front End for your Application</a></h2>
+<p>// todo</p>
 <h2 id="running-your-web-3-app"><a class="header" href="#running-your-web-3-app">Running your Web 3 App</a></h2>
+<p>// todo</p>
 <div style="break-before: page; page-break-before: always;"></div><div style="break-before: page; page-break-before: always;"></div><h1 id="execution-model"><a class="header" href="#execution-model">Execution Model</a></h1>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="views"><a class="header" href="#views">Views</a></h1>
 <p>Views are a specific functionality of the Linera system that allow to have data in memory

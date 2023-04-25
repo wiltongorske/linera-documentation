@@ -219,7 +219,7 @@ a local network.</p>
 <p>generates keys and writes them, together with the options from the TOML files, to
 <code>server_1.json</code>, ..., <code>server_4.json</code>. It also stores the set of the new validators'
 public keys in <code>committee.json</code>.</p>
-<pre><code class="language-bash">./client --wallet wallet.json --genesis genesis.json create_genesis_config 10 --initial-funding 10 --committee committee.json
+<pre><code class="language-bash">./linera --wallet wallet.json --genesis genesis.json create_genesis_config 10 --initial-funding 10 --committee committee.json
 </code></pre>
 <p>creates a configuration for the initial state of the network, <code>genesis.json</code>, with 10
 chains, each with a balance of 10. It also creates a <code>wallet.json</code> for a client who owns
