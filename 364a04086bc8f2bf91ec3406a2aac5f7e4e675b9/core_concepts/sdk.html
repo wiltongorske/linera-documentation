@@ -155,16 +155,16 @@ application.</p>
 <p>This section takes you over the steps to create a full Web 3 application with a
 Linera application for the back end and a React front end.</p>
 <h2 id="creating-your-linera-project"><a class="header" href="#creating-your-linera-project">Creating your Linera Project</a></h2>
-<p>To create your Linera project, use the <code>linera project init</code> command to setup
+<p>To create your Linera project, use the <code>linera project new</code> command to setup
 the scaffolding and requisite files:</p>
 <pre><code class="language-bash">./linera project new ../../linera-examples/my-counter
 </code></pre>
-<p><code>linera project init</code> bootstraps your project by creating the following key files:</p>
+<p><code>linera project new</code> bootstraps your project by creating the following key files:</p>
 <ul>
 <li><code>Cargo.toml</code>: your project's manifest filled with the necessary dependencies to create an app</li>
 <li><code>state.rs</code>: the file which holds your application's state</li>
 <li><code>contract.rs</code>: the file which holds your application's contract, and the binary target for the contract bytecode</li>
-<li><code>service.rs</code>: the file which holds your application's service, and the binary contract for the service bytecode</li>
+<li><code>service.rs</code>: the file which holds your application's service, and the binary target for the service bytecode</li>
 </ul>
 <h2 id="creating-the-state"><a class="header" href="#creating-the-state">Creating the State</a></h2>
 <p>The <code>struct</code> which defines your application's state can be found in <code>state.rs</code>.</p>
@@ -255,9 +255,9 @@ pub trait Contract: Sized {
 <p>For this application, we'll be using the <code>initialize</code> and <code>execute_operation</code> command.</p>
 <h3 id="initialising-our-application"><a class="header" href="#initialising-our-application">Initialising our Application</a></h3>
 <p>The first thing we need to do is initialize our application by using <code>Contract::initialize</code>.</p>
-<p><code>Contract::initialize</code> is only called once when the application is created and only on the microchain that 
-created the application. </p>
-<p>Deployment on other microchains will use the <code>Default</code> implementation of the application state if 
+<p><code>Contract::initialize</code> is only called once when the application is created and only on the microchain that
+created the application.</p>
+<p>Deployment on other microchains will use the <code>Default</code> implementation of the application state if
 <code>SimpleStateStorage</code> is used, or the Default value of all sub-views in the state if the <code>ViewStateStorage</code> is used.</p>
 <p>For our <code>Counter</code> application, we'll want to initialize the state of the application to an arbitrary number that can
 be specified on application creation using its initialization parameters:</p>
@@ -282,7 +282,7 @@ valid representation</strong>. This is especially important when computing hashe
 <p>Now that we have our counter's state and a way to initialize it to any value we would like, a way to increment
 our counter's value. Changes made by block proposers to application states are broadly called 'operations'.</p>
 <p>To create a new operation, we need to use the method <code>Contract::execute_operation</code>. In the counter's case,
-it will be receiving a <code>u128</code>  which needs to be deserialized and the used to increment the couter state like so:</p>
+it will be receiving a <code>u128</code> which needs to be deserialized and the used to increment the counter state like so:</p>
 <pre><pre class="playground"><code class="language-rust"><span class="boring">#![allow(unused)]
 </span><span class="boring">fn main() {
 </span>    async fn execute_operation(
