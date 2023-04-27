@@ -296,7 +296,7 @@ in the previous section and can be found under <code>target/debug/linera</code>.
 first navigating to <code>target/debug</code> and then running a command to synchronize the
 balance for
 your <a href="getting_started/../core_concepts/wallet.html">default chain</a> with the rest of the network.</p>
-<pre><code class="language-bash">cd target/debug &amp;&amp; ./linera --wallet wallet.json sync_balance
+<pre><code class="language-bash">cd target/debug &amp;&amp; ./linera --wallet wallet.json sync-balance
 </code></pre>
 <p>You should see an output of <code>10</code>.</p>
 <h2 id="building-an-example-application"><a class="header" href="#building-an-example-application">Building an example Application</a></h2>
@@ -315,13 +315,13 @@ compilation target is set to <code>wasm32_unknown_unknown</code> by default)</p>
 <h2 id="publishing-your-application"><a class="header" href="#publishing-your-application">Publishing your Application</a></h2>
 <p>We can publish our compiled application to our local network by using
 the <code>linera</code> client. To do that, navigate back to <code>./target/debug</code>.</p>
-<p>To deploy the application we can use the <code>publish_and_create</code> command and provide:</p>
+<p>To deploy the application we can use the <code>publish-and-create</code> command and provide:</p>
 <ol>
 <li>The location of the contract bytecode</li>
 <li>The location of the service bytecode</li>
 <li>The hex encoded initialization arguments</li>
 </ol>
-<pre><code class="language-bash">./linera --storage rocksdb:linera.db --wallet wallet.json --max-pending-messages 10000 publish_and_create \
+<pre><code class="language-bash">./linera --storage rocksdb:linera.db --wallet wallet.json --max-pending-messages 10000 publish-and-create \
     ../../linera-examples/target/wasm32-unknown-unknown/release/counter_graphql_contract.wasm \
     ../../linera-examples/target/wasm32-unknown-unknown/release/counter_graphql_service.wasm \
     35
@@ -469,8 +469,8 @@ You can check the default chain for your wallet by running:</p>
 this 'opening a chain'. A chain cannot be opened in a vacuum, it needs to be
 created by an existing chain on the network.</p>
 <h4 id="open-a-chain-for-your-own-wallet"><a class="header" href="#open-a-chain-for-your-own-wallet">Open a Chain for Your Own Wallet</a></h4>
-<p>To open a chain for your own wallet, you can use the <code>open_chain</code> command:</p>
-<pre><code class="language-bash">$ ./linera --storage rocksdb:linera.db --wallet wallet.json open_chain
+<p>To open a chain for your own wallet, you can use the <code>open-chain</code> command:</p>
+<pre><code class="language-bash">$ ./linera --storage rocksdb:linera.db --wallet wallet.json open-chain
 </code></pre>
 <p>This will create a new chain (using the wallet's default chain) and add it to
 the wallet. Use the <code>wallet show</code> command to see your existing chains.</p>
@@ -485,7 +485,7 @@ is then sent to the <code>wallet</code> who is the chain creator.</p>
 6443634d872afbbfcc3059ac87992c4029fa88e8feb0fff0723ac6c914088888 # this is the public key for the unassigned keypair
 </code></pre>
 <p>Next, using the public key, <code>wallet</code> can open a chain for <code>wallet2</code>.</p>
-<pre><code class="language-bash">./linera --wallet wallet.json open_chain --to-owner 6443634d872afbbfcc3059ac87992c4029fa88e8feb0fff0723ac6c914088888
+<pre><code class="language-bash">./linera --wallet wallet.json open-chain --to-owner 6443634d872afbbfcc3059ac87992c4029fa88e8feb0fff0723ac6c914088888
 e476187f6ddfeb9d588c7b45d3df334d5501d6499b3f9ad5595cae86cce16a65010000000000000000000000
 fc9384defb0bcd8f6e206ffda32599e24ba715f45ec88d4ac81ec47eb84fa111
 </code></pre>
@@ -603,7 +603,7 @@ a local network.</p>
 <p>generates keys and writes them, together with the options from the TOML files, to
 <code>server_1.json</code>, ..., <code>server_4.json</code>. It also stores the set of the new validators'
 public keys in <code>committee.json</code>.</p>
-<pre><code class="language-bash">./linera --wallet wallet.json create_genesis_config 10 --genesis genesis.json --initial-funding 10 --committee committee.json
+<pre><code class="language-bash">./linera --wallet wallet.json create-genesis-config 10 --genesis genesis.json --initial-funding 10 --committee committee.json
 </code></pre>
 <p>creates a configuration for the initial state of the network, <code>genesis.json</code>, with 10
 chains, each with a balance of 10. It also creates a <code>wallet.json</code> for a client who owns
@@ -657,7 +657,7 @@ users are needed to create distinct applications.</li>
 </ol>
 <p>Happily, the application deployment lifecycle is abstracted from the user, and
 an application can be published with a single command:</p>
-<pre><code class="language-bash">./linera --storage rocksdb:linera.db --wallet wallet.json --max-pending-messages 10000 publish_and_create &lt;contract-path&gt; &lt;service-path&gt; &lt;init-args&gt;
+<pre><code class="language-bash">./linera --storage rocksdb:linera.db --wallet wallet.json --max-pending-messages 10000 publish-and-create &lt;contract-path&gt; &lt;service-path&gt; &lt;init-args&gt;
 </code></pre>
 <p>This will publish the bytecode as well as initialize the application for you.</p>
 <h2 id="anatomy-of-an-application"><a class="header" href="#anatomy-of-an-application">Anatomy of an Application</a></h2>
@@ -840,7 +840,7 @@ pub trait Contract: Sized {
 }
 <span class="boring">}</span></code></pre></pre>
 <p>There's quite a bit going on here, so let's break it down and take one method at a time.</p>
-<p>For this application, we'll be using the <code>initialize</code> and <code>execute_operation</code> command.</p>
+<p>For this application, we'll be using the <code>initialize</code> and <code>execute_operation</code> methods.</p>
 <h3 id="initializing-our-application"><a class="header" href="#initializing-our-application">Initializing our Application</a></h3>
 <p>The first thing we need to do is initialize our application by using <code>Contract::initialize</code>.</p>
 <p><code>Contract::initialize</code> is only called once when the application is created and only on the microchain that
@@ -1000,7 +1000,7 @@ it is used for implementing a deadline in an application.</li>
 <li>The location of the service bytecode</li>
 <li>The hex encoded initialization arguments</li>
 </ol>
-<pre><code class="language-bash">./linera --storage rocksdb:linera.db --wallet wallet.json --max-pending-messages 10000 publish_and_create \
+<pre><code class="language-bash">./linera --storage rocksdb:linera.db --wallet wallet.json --max-pending-messages 10000 publish-and-create \
     ../../linera-examples/target/wasm32-unknown-unknown/release/my_counter_contract.wasm \
     ../../linera-examples/target/wasm32-unknown-unknown/release/my_counter_service.wasm \
     00
@@ -1033,8 +1033,8 @@ examples.</p>
 validator, Linera validators do not need to exchange messages with each other directly.
 Instead, the chain owners' <code>linera</code> clients make the system progress by actively
 providing the required data to the validators. E.g. each command like <code>linera transfer</code>,
-<code>publish</code> or <code>open_chain</code> performs multiple steps to append a block containing the
-token transfer, application publishing or chain creation operation:</p>
+<code>publish-bytecode</code> or <code>open-chain</code> performs multiple steps to append a block containing
+the token transfer, application publishing or chain creation operation:</p>
 <ul>
 <li>The Linera client creates a new block containing the desired operation and new incoming
 effects, if there are any. It also contains the most recent block's hash to designate

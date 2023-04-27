@@ -251,7 +251,7 @@ pub trait Contract: Sized {
 }
 <span class="boring">}</span></code></pre></pre>
 <p>There's quite a bit going on here, so let's break it down and take one method at a time.</p>
-<p>For this application, we'll be using the <code>initialize</code> and <code>execute_operation</code> command.</p>
+<p>For this application, we'll be using the <code>initialize</code> and <code>execute_operation</code> methods.</p>
 <h3 id="initializing-our-application"><a class="header" href="#initializing-our-application">Initializing our Application</a></h3>
 <p>The first thing we need to do is initialize our application by using <code>Contract::initialize</code>.</p>
 <p><code>Contract::initialize</code> is only called once when the application is created and only on the microchain that
@@ -411,7 +411,7 @@ it is used for implementing a deadline in an application.</li>
 <li>The location of the service bytecode</li>
 <li>The hex encoded initialization arguments</li>
 </ol>
-<pre><code class="language-bash">./linera --storage rocksdb:linera.db --wallet wallet.json --max-pending-messages 10000 publish_and_create \
+<pre><code class="language-bash">./linera --storage rocksdb:linera.db --wallet wallet.json --max-pending-messages 10000 publish-and-create \
     ../../linera-examples/target/wasm32-unknown-unknown/release/my_counter_contract.wasm \
     ../../linera-examples/target/wasm32-unknown-unknown/release/my_counter_service.wasm \
     00

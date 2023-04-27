@@ -186,7 +186,7 @@ in the previous section and can be found under <code>target/debug/linera</code>.
 first navigating to <code>target/debug</code> and then running a command to synchronize the
 balance for
 your <a href="../core_concepts/wallet.html">default chain</a> with the rest of the network.</p>
-<pre><code class="language-bash">cd target/debug &amp;&amp; ./linera --wallet wallet.json sync_balance
+<pre><code class="language-bash">cd target/debug &amp;&amp; ./linera --wallet wallet.json sync-balance
 </code></pre>
 <p>You should see an output of <code>10</code>.</p>
 <h2 id="building-an-example-application"><a class="header" href="#building-an-example-application">Building an example Application</a></h2>
@@ -205,13 +205,13 @@ compilation target is set to <code>wasm32_unknown_unknown</code> by default)</p>
 <h2 id="publishing-your-application"><a class="header" href="#publishing-your-application">Publishing your Application</a></h2>
 <p>We can publish our compiled application to our local network by using
 the <code>linera</code> client. To do that, navigate back to <code>./target/debug</code>.</p>
-<p>To deploy the application we can use the <code>publish_and_create</code> command and provide:</p>
+<p>To deploy the application we can use the <code>publish-and-create</code> command and provide:</p>
 <ol>
 <li>The location of the contract bytecode</li>
 <li>The location of the service bytecode</li>
 <li>The hex encoded initialization arguments</li>
 </ol>
-<pre><code class="language-bash">./linera --storage rocksdb:linera.db --wallet wallet.json --max-pending-messages 10000 publish_and_create \
+<pre><code class="language-bash">./linera --storage rocksdb:linera.db --wallet wallet.json --max-pending-messages 10000 publish-and-create \
     ../../linera-examples/target/wasm32-unknown-unknown/release/counter_graphql_contract.wasm \
     ../../linera-examples/target/wasm32-unknown-unknown/release/counter_graphql_service.wasm \
     35
