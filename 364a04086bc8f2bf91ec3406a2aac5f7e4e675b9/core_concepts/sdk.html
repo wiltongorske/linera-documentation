@@ -411,7 +411,7 @@ it is used for implementing a deadline in an application.</li>
 <li>The location of the service bytecode</li>
 <li>The hex encoded initialization arguments</li>
 </ol>
-<pre><code class="language-bash">./linera --storage rocksdb:linera.db --wallet wallet.json --max-pending-messages 10000 publish-and-create \
+<pre><code class="language-bash">./linera --storage rocksdb:linera.db --wallet wallet.json publish-and-create \
     ../../linera-examples/target/wasm32-unknown-unknown/release/my_counter_contract.wasm \
     ../../linera-examples/target/wasm32-unknown-unknown/release/my_counter_service.wasm \
     00

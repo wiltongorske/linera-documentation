@@ -174,7 +174,7 @@ users are needed to create distinct applications.</li>
 </ol>
 <p>Happily, the application deployment lifecycle is abstracted from the user, and
 an application can be published with a single command:</p>
-<pre><code class="language-bash">./linera --storage rocksdb:linera.db --wallet wallet.json --max-pending-messages 10000 publish-and-create &lt;contract-path&gt; &lt;service-path&gt; &lt;init-args&gt;
+<pre><code class="language-bash">./linera --storage rocksdb:linera.db --wallet wallet.json publish-and-create &lt;contract-path&gt; &lt;service-path&gt; &lt;init-args&gt;
 </code></pre>
 <p>This will publish the bytecode as well as initialize the application for you.</p>
 <h2 id="anatomy-of-an-application"><a class="header" href="#anatomy-of-an-application">Anatomy of an Application</a></h2>

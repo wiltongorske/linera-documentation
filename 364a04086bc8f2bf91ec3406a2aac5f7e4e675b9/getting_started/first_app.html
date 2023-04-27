@@ -211,7 +211,7 @@ the <code>linera</code> client. To do that, navigate back to <code>./target/debu
 <li>The location of the service bytecode</li>
 <li>The hex encoded initialization arguments</li>
 </ol>
-<pre><code class="language-bash">./linera --storage rocksdb:linera.db --wallet wallet.json --max-pending-messages 10000 publish-and-create \
+<pre><code class="language-bash">./linera --storage rocksdb:linera.db --wallet wallet.json publish-and-create \
     ../../linera-examples/target/wasm32-unknown-unknown/release/counter_graphql_contract.wasm \
     ../../linera-examples/target/wasm32-unknown-unknown/release/counter_graphql_service.wasm \
     35
@@ -222,7 +222,7 @@ the <code>linera</code> client. To do that, navigate back to <code>./target/debu
 use the client running in <em>service</em> mode. This will expose a bunch of APIs locally which
 we can use to interact with applications on the network.</p>
 <p>Make sure you're in <code>./target/debug</code> and run:</p>
-<pre><code class="language-bash">./linera --storage rocksdb:linera.db --wallet wallet.json --max-pending-messages 10000 service
+<pre><code class="language-bash">./linera --storage rocksdb:linera.db --wallet wallet.json service
 </code></pre>
 <!-- TODO: add graphiql image here -->
 <p>Navigate to <code>http://localhost:8080</code> in your browser to access the GraphiQL, the
