@@ -177,21 +177,20 @@ may be a collision, in which case you may want to configure the port numbers
 in
 the <code>configuration/</code> directory.</p>
 </blockquote>
-<p>The <code>run_local.sh</code> script also initialises a test wallet for you, but more on
-that later.</p>
+<p>The <code>run_local.sh</code> script also initializes a test wallet for you.</p>
 <h2 id="interacting-with-the-network"><a class="header" href="#interacting-with-the-network">Interacting with the network</a></h2>
 <p>The main way of interacting with the network and deploying applications, is
-using your wallet. The wallet was compiled as a result of running <code>cargo build</code>
+using the <code>linera</code> client. It was compiled as a result of running <code>cargo build</code>
 in the previous section and can be found under <code>target/debug/linera</code>.</p>
-<p>Check that you have your wallet, and it can communicate with the network by
+<p>Check that you have the client, and it can communicate with the network by
 first navigating to <code>target/debug</code> and then running a command to synchronize the
 balance for
 your <a href="../core_concepts/wallet.html">default chain</a> with the rest of the network.</p>
-<pre><code class="language-bash">cd target/debug &amp;&amp; ./linera --wallet wallet.json --genesis genesis.json sync_balance
+<pre><code class="language-bash">cd target/debug &amp;&amp; ./linera --wallet wallet.json sync_balance
 </code></pre>
-<p>You should see an output of <code>10</code>. If you're curious why we're passing all these
-files to the client, we'll get to that in the <a href="../core_concepts/wallet.html">wallet section</a>.</p>
-<h2 id="building-and-example-application"><a class="header" href="#building-and-example-application">Building and example Application</a></h2>
+<p>You should see an output of <code>10</code>. If you're curious why we're passing this file
+to the client, we'll get to that in the <a href="../core_concepts/wallet.html">wallet section</a>.</p>
+<h2 id="building-an-example-application"><a class="header" href="#building-an-example-application">Building an example Application</a></h2>
 <p>Applications running on Linera are simply <a href="https://webassembly.org/">Wasm</a>
 bytecode. Each Linera validator and client has a built-in Wasm virtual machine
 which can execute bytecode, all we have to do is build and publish the app on
@@ -206,14 +205,14 @@ compilation target is set to <code>wasm32_unknown_unknown</code> by default)</p>
 </code></pre>
 <h2 id="publishing-your-application"><a class="header" href="#publishing-your-application">Publishing your Application</a></h2>
 <p>We can publish our compiled application to our local network by using
-the <code>client</code>. To do that, navigate back to <code>./target/debug</code>.</p>
-<p>To deploy the application we can use the <code>publish</code> command and provide:</p>
+the <code>linera</code> client. To do that, navigate back to <code>./target/debug</code>.</p>
+<p>To deploy the application we can use the <code>publish_and_create</code> command and provide:</p>
 <ol>
 <li>The location of the contract bytecode</li>
 <li>The location of the service bytecode</li>
 <li>The hex encoded initialization arguments</li>
 </ol>
-<pre><code class="language-bash">./linera --storage rocksdb:client.db --wallet wallet.json --genesis genesis.json --max-pending-messages 10000 publish_and_create \
+<pre><code class="language-bash">./linera --storage rocksdb:linera.db --wallet wallet.json --max-pending-messages 10000 publish_and_create \
     ../../linera-examples/target/wasm32-unknown-unknown/release/counter_graphql_contract.wasm \
     ../../linera-examples/target/wasm32-unknown-unknown/release/counter_graphql_service.wasm \
     35
@@ -225,9 +224,9 @@ the current counter value. To interact with an application on the network, we
 need to use the client running in 'service' mode. This will expose a bunch of
 APIs locally which we can use to interact with applications on the network.</p>
 <p>To run the client in service mode, make sure you're in <code>./target/debug</code> and run:</p>
-<pre><code class="language-bash">./linera --storage rocksdb:client.db --wallet wallet.json --genesis genesis.json --max-pending-messages 10000 service
+<pre><code class="language-bash">./linera --storage rocksdb:linera.db --wallet wallet.json --max-pending-messages 10000 service
 </code></pre>
-<p>// todo add graphiql image here</p>
+<!-- TODO: add graphiql image here -->
 <p>Navigate to <code>http://localhost:8080</code> in your browser to access the GraphiQL, the
 GraphQL IDE. We'll look at this in more detail in
 a <a href="../core_concepts/wallet.html#graphql">future section</a>; for now, list the applications deployed on your
@@ -249,7 +248,7 @@ Finally, to query the counter value of our deployed application, run:</p>
   value
 }
 </code></pre>
-<p>This will return a value of <code>35</code>, which is the initialisation argument we
+<p>This will return a value of <code>35</code>, which is the initialization argument we
 specified when deploying our application.</p>
 
                     </main>

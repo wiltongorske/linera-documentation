@@ -152,7 +152,7 @@ which is covered in a future section.</p>
 <h2 id="linera-sdk-crate"><a class="header" href="#linera-sdk-crate">Linera SDK Crate</a></h2>
 <p>The <code>linera-sdk</code> crate exposes the basic traits required to create a Linera
 application.</p>
-<p>This section takes you over the steps to create a full Web 3 application with a
+<p>This section takes you over the steps to create a full Web3 application with a
 Linera application for the back end and a React front end.</p>
 <h2 id="creating-your-linera-project"><a class="header" href="#creating-your-linera-project">Creating your Linera Project</a></h2>
 <p>To create your Linera project, use the <code>linera project new</code> command to setup
@@ -253,7 +253,7 @@ pub trait Contract: Sized {
 <span class="boring">}</span></code></pre></pre>
 <p>There's quite a bit going on here, so let's break it down and take one method at a time.</p>
 <p>For this application, we'll be using the <code>initialize</code> and <code>execute_operation</code> command.</p>
-<h3 id="initialising-our-application"><a class="header" href="#initialising-our-application">Initialising our Application</a></h3>
+<h3 id="initializing-our-application"><a class="header" href="#initializing-our-application">Initializing our Application</a></h3>
 <p>The first thing we need to do is initialize our application by using <code>Contract::initialize</code>.</p>
 <p><code>Contract::initialize</code> is only called once when the application is created and only on the microchain that
 created the application.</p>
@@ -329,7 +329,7 @@ pub trait Service {
 <p>Let's implement <code>Service</code> for our counter application.</p>
 <p>First, we want to generate the necessary boilerplate for implementing the
 service WIT interface, export the necessary resource types and functions so that
-the host (the process running the bytecode) can call the service. Happilly,
+the host (the process running the bytecode) can call the service. Happily,
 there is a macro to perform this code generation, so simply add the following
 to <code>service.rs</code>:</p>
 <pre><pre class="playground"><code class="language-rust"><span class="boring">#![allow(unused)]
@@ -369,12 +369,12 @@ impl&lt;C&gt; Service for Counter&lt;C&gt;
 pub enum Error {
     /// Invalid query argument; Counter application only supports a single (empty) query.
     #[error(
-    &quot;Invalid query argument; Counter application only supports JSON encoded GraphQL queries&quot;
+        &quot;Invalid query argument; Counter application only supports JSON encoded GraphQL queries&quot;
     )]
     InvalidQuery,
 }
 <span class="boring">}</span></code></pre></pre>
-<p>Notice, that the input <code>argument</code> and returned <code>Vec&lt;u8&gt;</code> are both simple byte
+<p>Notice that the input <code>argument</code> and returned <code>Vec&lt;u8&gt;</code> are both simple byte
 arrays. Therefore, the inputs and outputs made to the service can be effectively
 arbitrary. In our case, we'll be using the existing Linera GraphQL
 infrastructure to make our app easy for a graphical front end to consume.</p>
@@ -397,12 +397,12 @@ exercise to the reader. If you want the full source code and associated tests
 check out
 the <a href="https://github.com/linera-io/linera-protocol/blob/main/linera-examples/counter-graphql/src/service.rs">examples section</a>
 on GitHub.</p>
-<h2 id="variables-types"><a class="header" href="#variables-types">Variables types</a></h2>
+<h2 id="variable-types"><a class="header" href="#variable-types">Variable Types</a></h2>
 <p>The key variables from the linera-sdk modules that are important are</p>
 <ul>
-<li>The <code>Timestamp</code> in microsecond is the unix time, that is from 1970-01-01 00:00:00. See the example <code>crowd-funding</code> where
+<li>The <code>Timestamp</code> is the Unix time in microseconds, that is from 1970-01-01 00:00:00. See the example <code>crowd-funding</code> where
 it is used for implementing a deadline in an application.</li>
-<li>The <code>ChainId</code> on which the smart contracts is run. This is important when transfering from one microchain to another.</li>
+<li>The <code>ChainId</code> on which the smart contract is run. This is important when transfering from one microchain to another.</li>
 <li>The <code>Amount</code> for the amount of money.</li>
 </ul>
 <h2 id="deploying-your-application"><a class="header" href="#deploying-your-application">Deploying your Application</a></h2>
@@ -412,14 +412,14 @@ it is used for implementing a deadline in an application.</li>
 <li>The location of the service bytecode</li>
 <li>The hex encoded initialization arguments</li>
 </ol>
-<pre><code class="language-bash">./linera --storage rocksdb:client.db --wallet wallet.json --genesis genesis.json --max-pending-messages 10000 publish_and_create \
+<pre><code class="language-bash">./linera --storage rocksdb:linera.db --wallet wallet.json --max-pending-messages 10000 publish_and_create \
     ../../linera-examples/target/wasm32-unknown-unknown/release/my_counter_contract.wasm \
     ../../linera-examples/target/wasm32-unknown-unknown/release/my_counter_service.wasm \
     00
 </code></pre>
-<h2 id="building-a-front-end-for-your-application"><a class="header" href="#building-a-front-end-for-your-application">Building a Front End for your Application</a></h2>
+<h2 id="building-a-front-end-for-your-application"><a class="header" href="#building-a-front-end-for-your-application">Building a Front-End for your Application</a></h2>
 <p>// todo</p>
-<h2 id="running-your-web-3-app"><a class="header" href="#running-your-web-3-app">Running your Web 3 App</a></h2>
+<h2 id="running-your-web3-app"><a class="header" href="#running-your-web3-app">Running your Web3 App</a></h2>
 <p>// todo</p>
 
                     </main>
