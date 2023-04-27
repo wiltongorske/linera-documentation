@@ -205,8 +205,7 @@ with an application.</p>
 for a user to transfer funds to another user would look like this:</p>
 <pre><pre class="playground"><code class="language-rust"><span class="boring">#![allow(unused)]
 </span><span class="boring">fn main() {
-</span>/// An operation.
-#[derive(Deserialize, Serialize)]
+</span>#[derive(Deserialize, Serialize)]
 pub enum Operation {
     /// A transfer from a (locally owned) account to a (possibly remote) account.
     Transfer {
@@ -223,25 +222,19 @@ proposers also actively include effects in their block proposal, but unlike with
 operations, they are only allowed to include them in the right order (possibly
 skipping some), and only if they were actually created by another chain (or the
 same chain, earlier).</p>
-<p>Using our hypothetical 'fungible token' application as an example, an effect
-to credit an account would look like this:</p>
+<p>In our 'fungible token' application, an effect to credit an account would look like this:</p>
 <pre><pre class="playground"><code class="language-rust"><span class="boring">#![allow(unused)]
 </span><span class="boring">fn main() {
-</span>/// An effect.
-#[derive(Deserialize, Serialize)]
+</span>#[derive(Deserialize, Serialize)]
 pub enum Effect {
     Credit { owner: AccountOwner, amount: Amount },
     // Meant to be extended here
 }
 <span class="boring">}</span></code></pre></pre>
 <h2 id="interacting-with-an-application"><a class="header" href="#interacting-with-an-application">Interacting with an Application</a></h2>
-<p>To interact with an application, we follow the same principle as interacting
-with the Linera network system and we use the wallet.</p>
-<p>When <a href="wallet.html#node-service">run in 'service' mode</a>, the wallet exposes a
-GraphQL API for every application running on that chain. To interface with an
-application running on a given chain, run the wallet in <code>service</code> mode for that
-chain and the API for the application is then available
-at <code>localhost:8080/&lt;application-id&gt;</code>.</p>
+<p>To interact with an application, we run the Linera client
+<a href="wallet.html#node-service">in 'service' mode</a>. It exposes a GraphQL API for every
+application running on that chain at <code>localhost:8080/&lt;application-id&gt;</code>.</p>
 <p>Simple navigating there with your browser will open a GraphiQL interface which
 enables you to graphically explore the state of your application.</p>
 <h2 id="end-to-end-front-end"><a class="header" href="#end-to-end-front-end">End-to-End Front-end?</a></h2>

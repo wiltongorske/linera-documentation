@@ -149,10 +149,17 @@
 <p>Linera is a decentralized infrastructure optimized for Web3 applications that require processing high volumes of time-sensitive transactions created by many users in parallel.</p>
 <p>The core idea of the Linera protocol is to give each user a lightweight blockchain, called a <em>microchain</em>, and to run all the microchains in parallel in a single set of validators.</p>
 <h2 id="how-does-it-work"><a class="header" href="#how-does-it-work">How does it work?</a></h2>
-<p>Each Linera user <em>owns</em> one or several microchains. Concretely, the <em>owner</em> of a chain chooses when to add a new block in the chain and what goes inside the block. Users typically add new blocks to their chains to process <em>incoming messages</em> or to execute secure <em>operations</em> on their accounts, for instance to transfer assets to another user.</p>
-<p>Importantly, validators ensure that new blocks are <em>valid</em>, that is, can be safely executed according to the rules of the infrastructure. For instance, a block initiating a transfer from the wrong account or from an account with insufficient funds will be rejected.</p>
-<p>Linera applications are meant to be multi-chain: once published and initialized, applications are deployed automatically to the chains where they are needed. To coordinate the state of an application across chains, Linera provides developers with the ability to exchange cheap and efficient cross-chain asynchronous messages. <!-- Incoming messages from another chains are first placed into an inbox. They are executed later when they are picked in a block of the receiving chain. -->
-Inside a chain, applications may compose arbitrarily using synchronous function calls.</p>
+<p>Each Linera user <em>owns</em> one or several microchains. The <em>owner</em> of a chain chooses when to add a new block in the chain and what goes inside the block. Users typically add new blocks to their chains to process <em>incoming messages</em>
+from other chains or to execute secure <em>operations</em> on their accounts, for instance to transfer assets to another user.</p>
+<p>Importantly, validators ensure that new blocks are <em>valid</em>. For instance, that a transfer
+operation is from an account with sufficient funds; or that an incoming message actually
+matches what the other chain has sent. Invalid blocks will be rejected.</p>
+<p>A Linera <em>application</em> is a Wasm program that defines its own state and operations.
+Users can publish bytecode and initialize an application on one chain, and it will be
+automatically deployed to all chains where it is needed, with separate state on each
+chain. It can coordinate chains by defining its own asynchronous cross-chain messages.</p>
+<p>Every chain can have multiple applications. On the same chain, applications can call each
+other synchronously.</p>
 <h2 id="how-does-linera-compare-to-existing-multi-chain-infrastructure"><a class="header" href="#how-does-linera-compare-to-existing-multi-chain-infrastructure">How does Linera compare to existing multi-chain infrastructure?</a></h2>
 <p>Linera is the first infrastructure designed to support an arbitrary number of lightweight user chains.</p>
 <p>In existing multi-chain infrastructures, each chain runs a full blockchain protocol in a separate set of validators. Creating a new chain or exchanging messages between chains is expensive. As a result, the total number of chains is generally limited. Some chains may be specialized to a given use case: these are called &quot;app chains&quot;.</p>
@@ -189,7 +196,7 @@ that require processing time-sensitive transactions created by many simultaneous
 <p>marketplaces for AI.</p>
 </li>
 </ul>
-<p>Lightweight user chains are instrumental in providing elastic scalability but they have other benefits as well. Because user chains have fewer blocks than traditional blockchain, we intend to embed the full-nodes of user chains in user wallet applications, notably browser extensions and mobile devices.</p>
+<p>Lightweight user chains are instrumental in providing elastic scalability but they have other benefits as well. Because user chains have fewer blocks than traditional blockchains, we intend to embed the full-nodes of user chains in user wallet applications, notably browser extensions and mobile devices.</p>
 
                     </main>
 

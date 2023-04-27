@@ -153,7 +153,7 @@ to successfully <code>cargo build</code> the workspace.</p>
 <a href="../core_concepts/micro_chains.html">microchain</a>.</p>
 <h2 id="starting-the-local-network"><a class="header" href="#starting-the-local-network">Starting the local network</a></h2>
 <p>The first step is to start your local development network.
-The local development network consists of 4 <a href="../core_concepts/validators.html">validators</a>, each
+It consists of 4 <a href="../core_concepts/validators.html">validators</a>, each
 of which consist of an ingress proxy and 4 workers or shards.</p>
 <p>To start your local network, navigate to the root of the <code>linera-protocol</code>
 repository and run the following command:</p>
@@ -188,8 +188,7 @@ balance for
 your <a href="../core_concepts/wallet.html">default chain</a> with the rest of the network.</p>
 <pre><code class="language-bash">cd target/debug &amp;&amp; ./linera --wallet wallet.json sync_balance
 </code></pre>
-<p>You should see an output of <code>10</code>. If you're curious why we're passing this file
-to the client, we'll get to that in the <a href="../core_concepts/wallet.html">wallet section</a>.</p>
+<p>You should see an output of <code>10</code>.</p>
 <h2 id="building-an-example-application"><a class="header" href="#building-an-example-application">Building an example Application</a></h2>
 <p>Applications running on Linera are simply <a href="https://webassembly.org/">Wasm</a>
 bytecode. Each Linera validator and client has a built-in Wasm virtual machine
@@ -219,11 +218,10 @@ the <code>linera</code> client. To do that, navigate back to <code>./target/debu
 </code></pre>
 <p>Congratulations! You've published your first application on Linera!</p>
 <h2 id="querying-your-application"><a class="header" href="#querying-your-application">Querying your Application</a></h2>
-<p>Now that we've published our application on the network, let's query it to get
-the current counter value. To interact with an application on the network, we
-need to use the client running in 'service' mode. This will expose a bunch of
-APIs locally which we can use to interact with applications on the network.</p>
-<p>To run the client in service mode, make sure you're in <code>./target/debug</code> and run:</p>
+<p>Now let's query our application to get the current counter value. To do that, we need to
+use the client running in <em>service</em> mode. This will expose a bunch of APIs locally which
+we can use to interact with applications on the network.</p>
+<p>Make sure you're in <code>./target/debug</code> and run:</p>
 <pre><code class="language-bash">./linera --storage rocksdb:linera.db --wallet wallet.json --max-pending-messages 10000 service
 </code></pre>
 <!-- TODO: add graphiql image here -->
