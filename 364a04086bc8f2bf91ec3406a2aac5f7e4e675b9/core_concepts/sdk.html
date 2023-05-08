@@ -84,7 +84,7 @@
 
         <nav id="sidebar" class="sidebar" aria-label="Table of contents">
             <div class="sidebar-scrollbox">
-                <ol class="chapter"><li class="chapter-item expanded "><a href="../introduction.html"><strong aria-hidden="true">1.</strong> Introduction</a></li><li class="chapter-item expanded "><a href="../overview.html"><strong aria-hidden="true">2.</strong> Overview</a></li><li class="chapter-item expanded "><a href="../getting_started.html"><strong aria-hidden="true">3.</strong> Getting started</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../getting_started/installation.html"><strong aria-hidden="true">3.1.</strong> Installation</a></li><li class="chapter-item expanded "><a href="../getting_started/first_app.html"><strong aria-hidden="true">3.2.</strong> Your First App</a></li></ol></li><li class="chapter-item expanded "><a href="../core_concepts.html"><strong aria-hidden="true">4.</strong> Core Concepts</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../core_concepts/micro_chains.html"><strong aria-hidden="true">4.1.</strong> Microchains</a></li><li class="chapter-item expanded "><a href="../core_concepts/wallet.html"><strong aria-hidden="true">4.2.</strong> The Wallet</a></li><li class="chapter-item expanded "><a href="../core_concepts/validators.html"><strong aria-hidden="true">4.3.</strong> Validators</a></li><li class="chapter-item expanded "><a href="../core_concepts/applications.html"><strong aria-hidden="true">4.4.</strong> Applications</a></li><li class="chapter-item expanded "><a href="../core_concepts/sdk.html" class="active"><strong aria-hidden="true">4.5.</strong> Linera SDK</a></li><li class="chapter-item expanded "><a href="../core_concepts/testing.html"><strong aria-hidden="true">4.6.</strong> Testing</a></li></ol></li><li class="chapter-item expanded "><a href="../advanced.html"><strong aria-hidden="true">5.</strong> Advanced Topics</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../advanced_topics/execution_model.html"><strong aria-hidden="true">5.1.</strong> Execution Model</a></li><li class="chapter-item expanded "><a href="../advanced_topics/views.html"><strong aria-hidden="true">5.2.</strong> Views</a></li><li class="chapter-item expanded "><a href="../advanced_topics/block_creation.html"><strong aria-hidden="true">5.3.</strong> Creating New Blocks</a></li></ol></li><li class="chapter-item expanded "><a href="../examples.html"><strong aria-hidden="true">6.</strong> Examples</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../examples/hello_world.html"><strong aria-hidden="true">6.1.</strong> Hello World</a></li></ol></li><li class="chapter-item expanded "><a href="../glossary.html"><strong aria-hidden="true">7.</strong> Glossary</a></li></ol>
+                <ol class="chapter"><li class="chapter-item expanded "><a href="../introduction.html"><strong aria-hidden="true">1.</strong> Introduction</a></li><li class="chapter-item expanded "><a href="../overview.html"><strong aria-hidden="true">2.</strong> Overview</a></li><li class="chapter-item expanded "><a href="../getting_started.html"><strong aria-hidden="true">3.</strong> Getting started</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../getting_started/installation.html"><strong aria-hidden="true">3.1.</strong> Installation</a></li><li class="chapter-item expanded "><a href="../getting_started/first_app.html"><strong aria-hidden="true">3.2.</strong> Your First App</a></li></ol></li><li class="chapter-item expanded "><a href="../core_concepts.html"><strong aria-hidden="true">4.</strong> Core Concepts</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../core_concepts/micro_chains.html"><strong aria-hidden="true">4.1.</strong> Microchains</a></li><li class="chapter-item expanded "><a href="../core_concepts/wallet.html"><strong aria-hidden="true">4.2.</strong> The Wallet</a></li><li class="chapter-item expanded "><a href="../core_concepts/applications.html"><strong aria-hidden="true">4.3.</strong> Applications</a></li><li class="chapter-item expanded "><a href="../core_concepts/sdk.html" class="active"><strong aria-hidden="true">4.4.</strong> Linera SDK</a></li><li class="chapter-item expanded "><a href="../core_concepts/testing.html"><strong aria-hidden="true">4.5.</strong> Testing</a></li></ol></li><li class="chapter-item expanded "><a href="../advanced.html"><strong aria-hidden="true">5.</strong> Advanced Topics</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../advanced_topics/views.html"><strong aria-hidden="true">5.1.</strong> Views</a></li><li class="chapter-item expanded "><a href="../advanced_topics/validators.html"><strong aria-hidden="true">5.2.</strong> Validators</a></li><li class="chapter-item expanded "><a href="../advanced_topics/block_creation.html"><strong aria-hidden="true">5.3.</strong> Creating New Blocks</a></li></ol></li></ol>
             </div>
             <div id="sidebar-resize-handle" class="sidebar-resize-handle"></div>
         </nav>
@@ -156,7 +156,7 @@ Linera application for the back end and a React front end.</p>
 <h2 id="creating-your-linera-project"><a class="header" href="#creating-your-linera-project">Creating your Linera Project</a></h2>
 <p>To create your Linera project, use the <code>linera project new</code> command to setup
 the scaffolding and requisite files:</p>
-<pre><code class="language-bash">./linera project new ../../linera-examples/my-counter
+<pre><code class="language-bash">./linera project new ../../examples/my-counter
 </code></pre>
 <p><code>linera project new</code> bootstraps your project by creating the following key files:</p>
 <ul>
@@ -173,22 +173,16 @@ the counter we'll be using Linera's <a href="../advanced_topics/views.html">view
 however instead of mapping your datastructures to a relational database like Postgres, they are
 instead mapped onto key-value stores like <a href="https://rocksdb.org/">RocksDB</a>.</p>
 <p>In vanilla Rust, we might represent our Counter as so:</p>
-<pre><pre class="playground"><code class="language-rust"><span class="boring">#![allow(unused)]
-</span><span class="boring">fn main() {
-</span>struct Counter {
+<pre><code class="language-rust ignore">struct Counter {
   value: u128
-}
-<span class="boring">}</span></code></pre></pre>
+}</code></pre>
 <p>However to persist your data, you'll need to replace the existing <code>State</code> struct in `state.rs
 with the following view:</p>
-<pre><pre class="playground"><code class="language-rust"><span class="boring">#![allow(unused)]
-</span><span class="boring">fn main() {
-</span>/// The application state.
+<pre><code class="language-rust ignore">/// The application state.
 #[derive(RootView, Debug)]
 pub struct Counter&lt;C&gt; {
     pub value: RegisterView&lt;C, u128&gt;,
-}
-<span class="boring">}</span></code></pre></pre>
+}</code></pre>
 <p>The <code>RegisterView</code> supports modifying a single value of type <code>T</code>. There are different types of
 views for different use-cases, but the majority of common data structures have already been implemented:</p>
 <ul>
@@ -202,9 +196,7 @@ views for different use-cases, but the majority of common data structures have a
 actually change the state of the application.</p>
 <p>To create a contract, we need to implement the <code>Contract</code> trait, which is
 as follows:</p>
-<pre><pre class="playground"><code class="language-rust"><span class="boring">#![allow(unused)]
-</span><span class="boring">fn main() {
-</span>#[async_trait]
+<pre><code class="language-rust ignore">#[async_trait]
 pub trait Contract: Sized {
     /// Message reports for application execution errors.
     type Error: Error;
@@ -248,8 +240,7 @@ pub trait Contract: Sized {
         argument: &amp;[u8],
         forwarded_sessions: Vec&lt;SessionId&gt;,
     ) -&gt; Result&lt;SessionCallResult, Self::Error&gt;;
-}
-<span class="boring">}</span></code></pre></pre>
+}</code></pre>
 <p>There's quite a bit going on here, so let's break it down and take one method at a time.</p>
 <p>For this application, we'll be using the <code>initialize</code> and <code>execute_operation</code> methods.</p>
 <h3 id="initializing-our-application"><a class="header" href="#initializing-our-application">Initializing our Application</a></h3>
@@ -260,17 +251,14 @@ created the application.</p>
 <code>SimpleStateStorage</code> is used, or the Default value of all sub-views in the state if the <code>ViewStateStorage</code> is used.</p>
 <p>For our <code>Counter</code> application, we'll want to initialize the state of the application to an arbitrary number that can
 be specified on application creation using its initialization parameters:</p>
-<pre><pre class="playground"><code class="language-rust"><span class="boring">#![allow(unused)]
-</span><span class="boring">fn main() {
-</span>    async fn initialize(
+<pre><code class="language-rust ignore">    async fn initialize(
         &amp;mut self,
         _context: &amp;OperationContext,
         argument: &amp;[u8],
     ) -&gt; Result&lt;ExecutionResult, Self::Error&gt; {
         self.value.set(bcs::from_bytes(argument)?);
         Ok(ExecutionResult::default())
-    }
-<span class="boring">}</span></code></pre></pre>
+    }</code></pre>
 <blockquote>
 <p>Note: We're using the <a href="https://crates.io/crates/bcs">bcs</a> crate for serializing and deserializing values.
 This is a recurring theme throughout the Linera project. Using BCS for serialization is important
@@ -282,9 +270,7 @@ valid representation</strong>. This is especially important when computing hashe
 our counter's value. Changes made by block proposers to application states are broadly called 'operations'.</p>
 <p>To create a new operation, we need to use the method <code>Contract::execute_operation</code>. In the counter's case,
 it will be receiving a <code>u128</code> which needs to be deserialized and the used to increment the counter state like so:</p>
-<pre><pre class="playground"><code class="language-rust"><span class="boring">#![allow(unused)]
-</span><span class="boring">fn main() {
-</span>    async fn execute_operation(
+<pre><code class="language-rust ignore">    async fn execute_operation(
         &amp;mut self,
         _context: &amp;OperationContext,
         operation: &amp;[u8],
@@ -293,8 +279,7 @@ it will be receiving a <code>u128</code> which needs to be deserialized and the 
         let value = self.value.get_mut();
         *value += increment;
         Ok(ExecutionResult::default())
-    }
-<span class="boring">}</span></code></pre></pre>
+    }</code></pre>
 <h2 id="creating-the-service"><a class="header" href="#creating-the-service">Creating the Service</a></h2>
 <p>The <code>Service</code> is the second component of your Linera application. It is compiled
 into a separate Bytecode from the contract and is run independently. It is not
@@ -308,9 +293,7 @@ that
 can be made against your application.</p>
 <p>The <code>Service</code> trait is how you define the interface into your application.
 The <code>Service</code> trait is defined as follows:</p>
-<pre><pre class="playground"><code class="language-rust"><span class="boring">#![allow(unused)]
-</span><span class="boring">fn main() {
-</span>#[async_trait]
+<pre><code class="language-rust ignore">#[async_trait]
 pub trait Service {
     /// Message reports for service execution errors.
     type Error: Error;
@@ -323,26 +306,20 @@ pub trait Service {
         context: &amp;QueryContext,
         argument: &amp;[u8],
     ) -&gt; Result&lt;Vec&lt;u8&gt;, Self::Error&gt;;
-}
-<span class="boring">}</span></code></pre></pre>
+}</code></pre>
 <p>Let's implement <code>Service</code> for our counter application.</p>
 <p>First, we want to generate the necessary boilerplate for implementing the
 service WIT interface, export the necessary resource types and functions so that
 the host (the process running the bytecode) can call the service. Happily,
 there is a macro to perform this code generation, so simply add the following
 to <code>service.rs</code>:</p>
-<pre><pre class="playground"><code class="language-rust"><span class="boring">#![allow(unused)]
-</span><span class="boring">fn main() {
-</span>linera_sdk::service!(Counter&lt;ReadOnlyViewStorageContext&gt;);
-<span class="boring">}</span></code></pre></pre>
+<pre><code class="language-rust ignore">linera_sdk::service!(Counter&lt;ReadOnlyViewStorageContext&gt;);</code></pre>
 <p>Notice that the Counter context is <code>ReadOnlyViewStorageContext</code>. This ensures
 that the host has a read-only view on the application's state.</p>
 <p>Next, we need to implement the <code>Service</code> for <code>Counter</code>. To do this we need to
 define <code>Service</code>'s associated types and implement <code>query_application</code>, as well
 as define the <code>Error</code> type:</p>
-<pre><pre class="playground"><code class="language-rust"><span class="boring">#![allow(unused)]
-</span><span class="boring">fn main() {
-</span>#[async_trait]
+<pre><code class="language-rust ignore">#[async_trait]
 impl&lt;C&gt; Service for Counter&lt;C&gt;
     where
         C: Context + Send + Sync + Clone + 'static,
@@ -371,17 +348,14 @@ pub enum Error {
         &quot;Invalid query argument; Counter application only supports JSON encoded GraphQL queries&quot;
     )]
     InvalidQuery,
-}
-<span class="boring">}</span></code></pre></pre>
+}</code></pre>
 <p>Notice that the input <code>argument</code> and returned <code>Vec&lt;u8&gt;</code> are both simple byte
 arrays. Therefore, the inputs and outputs made to the service can be effectively
 arbitrary. In our case, we'll be using the existing Linera GraphQL
 infrastructure to make our app easy for a graphical front end to consume.</p>
 <p>The final piece of the the service is the <code>MutationRoot</code>. This is a convencience
 schema which is used for GraphQL introspection queries:</p>
-<pre><pre class="playground"><code class="language-rust"><span class="boring">#![allow(unused)]
-</span><span class="boring">fn main() {
-</span>struct MutationRoot;
+<pre><code class="language-rust ignore">struct MutationRoot;
 
 #[Object]
 impl MutationRoot {
@@ -389,12 +363,11 @@ impl MutationRoot {
     async fn execute_operation(&amp;self, operation: CounterOperation) -&gt; Vec&lt;u8&gt; {
         bcs::to_bytes(&amp;operation).unwrap()
     }
-}
-<span class="boring">}</span></code></pre></pre>
+}</code></pre>
 <p>We haven't included the imports in the above code; they are left as an
 exercise to the reader. If you want the full source code and associated tests
 check out
-the <a href="https://github.com/linera-io/linera-protocol/blob/main/linera-examples/counter-graphql/src/service.rs">examples section</a>
+the <a href="https://github.com/linera-io/linera-protocol/blob/main/examples/counter-graphql/src/service.rs">examples section</a>
 on GitHub.</p>
 <h2 id="variable-types"><a class="header" href="#variable-types">Variable Types</a></h2>
 <p>The key variables from the linera-sdk modules that are important are</p>
@@ -412,8 +385,8 @@ it is used for implementing a deadline in an application.</li>
 <li>The hex encoded initialization arguments</li>
 </ol>
 <pre><code class="language-bash">./linera --storage rocksdb:linera.db --wallet wallet.json publish-and-create \
-    ../../linera-examples/target/wasm32-unknown-unknown/release/my_counter_contract.wasm \
-    ../../linera-examples/target/wasm32-unknown-unknown/release/my_counter_service.wasm \
+    ../../examples/target/wasm32-unknown-unknown/release/my_counter_contract.wasm \
+    ../../examples/target/wasm32-unknown-unknown/release/my_counter_service.wasm \
     00
 </code></pre>
 <h2 id="building-a-front-end-for-your-application"><a class="header" href="#building-a-front-end-for-your-application">Building a Front-End for your Application</a></h2>

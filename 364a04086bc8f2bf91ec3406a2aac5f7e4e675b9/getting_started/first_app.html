@@ -84,7 +84,7 @@
 
         <nav id="sidebar" class="sidebar" aria-label="Table of contents">
             <div class="sidebar-scrollbox">
-                <ol class="chapter"><li class="chapter-item expanded "><a href="../introduction.html"><strong aria-hidden="true">1.</strong> Introduction</a></li><li class="chapter-item expanded "><a href="../overview.html"><strong aria-hidden="true">2.</strong> Overview</a></li><li class="chapter-item expanded "><a href="../getting_started.html"><strong aria-hidden="true">3.</strong> Getting started</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../getting_started/installation.html"><strong aria-hidden="true">3.1.</strong> Installation</a></li><li class="chapter-item expanded "><a href="../getting_started/first_app.html" class="active"><strong aria-hidden="true">3.2.</strong> Your First App</a></li></ol></li><li class="chapter-item expanded "><a href="../core_concepts.html"><strong aria-hidden="true">4.</strong> Core Concepts</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../core_concepts/micro_chains.html"><strong aria-hidden="true">4.1.</strong> Microchains</a></li><li class="chapter-item expanded "><a href="../core_concepts/wallet.html"><strong aria-hidden="true">4.2.</strong> The Wallet</a></li><li class="chapter-item expanded "><a href="../core_concepts/validators.html"><strong aria-hidden="true">4.3.</strong> Validators</a></li><li class="chapter-item expanded "><a href="../core_concepts/applications.html"><strong aria-hidden="true">4.4.</strong> Applications</a></li><li class="chapter-item expanded "><a href="../core_concepts/sdk.html"><strong aria-hidden="true">4.5.</strong> Linera SDK</a></li><li class="chapter-item expanded "><a href="../core_concepts/testing.html"><strong aria-hidden="true">4.6.</strong> Testing</a></li></ol></li><li class="chapter-item expanded "><a href="../advanced.html"><strong aria-hidden="true">5.</strong> Advanced Topics</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../advanced_topics/execution_model.html"><strong aria-hidden="true">5.1.</strong> Execution Model</a></li><li class="chapter-item expanded "><a href="../advanced_topics/views.html"><strong aria-hidden="true">5.2.</strong> Views</a></li><li class="chapter-item expanded "><a href="../advanced_topics/block_creation.html"><strong aria-hidden="true">5.3.</strong> Creating New Blocks</a></li></ol></li><li class="chapter-item expanded "><a href="../examples.html"><strong aria-hidden="true">6.</strong> Examples</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../examples/hello_world.html"><strong aria-hidden="true">6.1.</strong> Hello World</a></li></ol></li><li class="chapter-item expanded "><a href="../glossary.html"><strong aria-hidden="true">7.</strong> Glossary</a></li></ol>
+                <ol class="chapter"><li class="chapter-item expanded "><a href="../introduction.html"><strong aria-hidden="true">1.</strong> Introduction</a></li><li class="chapter-item expanded "><a href="../overview.html"><strong aria-hidden="true">2.</strong> Overview</a></li><li class="chapter-item expanded "><a href="../getting_started.html"><strong aria-hidden="true">3.</strong> Getting started</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../getting_started/installation.html"><strong aria-hidden="true">3.1.</strong> Installation</a></li><li class="chapter-item expanded "><a href="../getting_started/first_app.html" class="active"><strong aria-hidden="true">3.2.</strong> Your First App</a></li></ol></li><li class="chapter-item expanded "><a href="../core_concepts.html"><strong aria-hidden="true">4.</strong> Core Concepts</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../core_concepts/micro_chains.html"><strong aria-hidden="true">4.1.</strong> Microchains</a></li><li class="chapter-item expanded "><a href="../core_concepts/wallet.html"><strong aria-hidden="true">4.2.</strong> The Wallet</a></li><li class="chapter-item expanded "><a href="../core_concepts/applications.html"><strong aria-hidden="true">4.3.</strong> Applications</a></li><li class="chapter-item expanded "><a href="../core_concepts/sdk.html"><strong aria-hidden="true">4.4.</strong> Linera SDK</a></li><li class="chapter-item expanded "><a href="../core_concepts/testing.html"><strong aria-hidden="true">4.5.</strong> Testing</a></li></ol></li><li class="chapter-item expanded "><a href="../advanced.html"><strong aria-hidden="true">5.</strong> Advanced Topics</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../advanced_topics/views.html"><strong aria-hidden="true">5.1.</strong> Views</a></li><li class="chapter-item expanded "><a href="../advanced_topics/validators.html"><strong aria-hidden="true">5.2.</strong> Validators</a></li><li class="chapter-item expanded "><a href="../advanced_topics/block_creation.html"><strong aria-hidden="true">5.3.</strong> Creating New Blocks</a></li></ol></li></ol>
             </div>
             <div id="sidebar-resize-handle" class="sidebar-resize-handle"></div>
         </nav>
@@ -153,29 +153,24 @@ to successfully <code>cargo build</code> the workspace.</p>
 <a href="../core_concepts/micro_chains.html">microchain</a>.</p>
 <h2 id="starting-the-local-network"><a class="header" href="#starting-the-local-network">Starting the local network</a></h2>
 <p>The first step is to start your local development network.
-It consists of 4 <a href="../core_concepts/validators.html">validators</a>, each
-of which consist of an ingress proxy and 4 workers or shards.</p>
+It consists of a numbers of <a href="../core_concepts/validators.html">validators</a>, each
+of which consist of an ingress proxy (aka a &quot;load balancer&quot;) and 4 workers (aka &quot;physical shards&quot;).</p>
 <p>To start your local network, navigate to the root of the <code>linera-protocol</code>
 repository and run the following command:</p>
 <pre><code class="language-bash">./scripts/run_local.sh
 </code></pre>
-<p>you will the see the names of the 4 validators running in your local network,
-something like:</p>
+<p>You will the see the names of the validators running in your local network, for instance:</p>
 <pre><code class="language-bash">$ ./scripts/run_local.sh
     Finished dev [unoptimized + debuginfo] target(s) in 0.13s
 5b611b86cc1f54f73a4abfb4a2167c7327cc85a74cb2a5502431f67b554850b4
 f65a585f05852f0610e2460a99c23faa3969f3cfce8a519f843a793dbfb4cb84
 abfbf26c6f45955067f60de0317816454dbd54459dc773f185fbcaf8c72d5041
 140f3259cae9ea2a3b50cbcba2495661aea42641ef44751dec0a29b192ccf32f
-
 </code></pre>
 <blockquote>
-<p>The local network is running on operating system network ports, taking a total
-of 20 ports to run locally. These ports are in the range P &gt; 9000 however
-there
-may be a collision, in which case you may want to configure the port numbers
-in
-the <code>configuration/</code> directory.</p>
+<p>The local network is running on operating system network ports, taking a number of ports
+to run locally. These ports are in the range P &gt; 9000. Yet, there may be a collision, in
+which case you may want to configure the port numbers in the <code>configuration/</code> directory.</p>
 </blockquote>
 <p>The <code>run_local.sh</code> script also initializes a test wallet for you.</p>
 <h2 id="interacting-with-the-network"><a class="header" href="#interacting-with-the-network">Interacting with the network</a></h2>
@@ -196,11 +191,11 @@ which can execute bytecode, all we have to do is build and publish the app on
 the network.</p>
 <p>We'll look at the anatomy of an application in
 a <a href="../core_concepts/applications.html">later section</a> but for now we want to compile one of the
-example Linera applications which can be found in the <code>linera-examples/</code>
+example Linera applications which can be found in the <code>examples/</code>
 subdirectory.</p>
 <p>To do that, navigate to one of the example applications and compile it (the
 compilation target is set to <code>wasm32_unknown_unknown</code> by default)</p>
-<pre><code>cd linera-examples/counter-graphql &amp;&amp; cargo build --release
+<pre><code class="language-bash">cd examples/counter &amp;&amp; cargo build --release
 </code></pre>
 <h2 id="publishing-your-application"><a class="header" href="#publishing-your-application">Publishing your Application</a></h2>
 <p>We can publish our compiled application to our local network by using
@@ -212,8 +207,7 @@ the <code>linera</code> client. To do that, navigate back to <code>./target/debu
 <li>The hex encoded initialization arguments</li>
 </ol>
 <pre><code class="language-bash">./linera --storage rocksdb:linera.db --wallet wallet.json publish-and-create \
-    ../../linera-examples/target/wasm32-unknown-unknown/release/counter_graphql_contract.wasm \
-    ../../linera-examples/target/wasm32-unknown-unknown/release/counter_graphql_service.wasm \
+    ../../examples/target/wasm32-unknown-unknown/release/counter_{contract,service}.wasm \
     35
 </code></pre>
 <p>Congratulations! You've published your first application on Linera!</p>

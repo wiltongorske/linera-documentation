@@ -84,7 +84,7 @@
 
         <nav id="sidebar" class="sidebar" aria-label="Table of contents">
             <div class="sidebar-scrollbox">
-                <ol class="chapter"><li class="chapter-item expanded "><a href="introduction.html"><strong aria-hidden="true">1.</strong> Introduction</a></li><li class="chapter-item expanded "><a href="overview.html" class="active"><strong aria-hidden="true">2.</strong> Overview</a></li><li class="chapter-item expanded "><a href="getting_started.html"><strong aria-hidden="true">3.</strong> Getting started</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="getting_started/installation.html"><strong aria-hidden="true">3.1.</strong> Installation</a></li><li class="chapter-item expanded "><a href="getting_started/first_app.html"><strong aria-hidden="true">3.2.</strong> Your First App</a></li></ol></li><li class="chapter-item expanded "><a href="core_concepts.html"><strong aria-hidden="true">4.</strong> Core Concepts</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="core_concepts/micro_chains.html"><strong aria-hidden="true">4.1.</strong> Microchains</a></li><li class="chapter-item expanded "><a href="core_concepts/wallet.html"><strong aria-hidden="true">4.2.</strong> The Wallet</a></li><li class="chapter-item expanded "><a href="core_concepts/validators.html"><strong aria-hidden="true">4.3.</strong> Validators</a></li><li class="chapter-item expanded "><a href="core_concepts/applications.html"><strong aria-hidden="true">4.4.</strong> Applications</a></li><li class="chapter-item expanded "><a href="core_concepts/sdk.html"><strong aria-hidden="true">4.5.</strong> Linera SDK</a></li><li class="chapter-item expanded "><a href="core_concepts/testing.html"><strong aria-hidden="true">4.6.</strong> Testing</a></li></ol></li><li class="chapter-item expanded "><a href="advanced.html"><strong aria-hidden="true">5.</strong> Advanced Topics</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="advanced_topics/execution_model.html"><strong aria-hidden="true">5.1.</strong> Execution Model</a></li><li class="chapter-item expanded "><a href="advanced_topics/views.html"><strong aria-hidden="true">5.2.</strong> Views</a></li><li class="chapter-item expanded "><a href="advanced_topics/block_creation.html"><strong aria-hidden="true">5.3.</strong> Creating New Blocks</a></li></ol></li><li class="chapter-item expanded "><a href="examples.html"><strong aria-hidden="true">6.</strong> Examples</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="examples/hello_world.html"><strong aria-hidden="true">6.1.</strong> Hello World</a></li></ol></li><li class="chapter-item expanded "><a href="glossary.html"><strong aria-hidden="true">7.</strong> Glossary</a></li></ol>
+                <ol class="chapter"><li class="chapter-item expanded "><a href="introduction.html"><strong aria-hidden="true">1.</strong> Introduction</a></li><li class="chapter-item expanded "><a href="overview.html" class="active"><strong aria-hidden="true">2.</strong> Overview</a></li><li class="chapter-item expanded "><a href="getting_started.html"><strong aria-hidden="true">3.</strong> Getting started</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="getting_started/installation.html"><strong aria-hidden="true">3.1.</strong> Installation</a></li><li class="chapter-item expanded "><a href="getting_started/first_app.html"><strong aria-hidden="true">3.2.</strong> Your First App</a></li></ol></li><li class="chapter-item expanded "><a href="core_concepts.html"><strong aria-hidden="true">4.</strong> Core Concepts</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="core_concepts/micro_chains.html"><strong aria-hidden="true">4.1.</strong> Microchains</a></li><li class="chapter-item expanded "><a href="core_concepts/wallet.html"><strong aria-hidden="true">4.2.</strong> The Wallet</a></li><li class="chapter-item expanded "><a href="core_concepts/applications.html"><strong aria-hidden="true">4.3.</strong> Applications</a></li><li class="chapter-item expanded "><a href="core_concepts/sdk.html"><strong aria-hidden="true">4.4.</strong> Linera SDK</a></li><li class="chapter-item expanded "><a href="core_concepts/testing.html"><strong aria-hidden="true">4.5.</strong> Testing</a></li></ol></li><li class="chapter-item expanded "><a href="advanced.html"><strong aria-hidden="true">5.</strong> Advanced Topics</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="advanced_topics/views.html"><strong aria-hidden="true">5.1.</strong> Views</a></li><li class="chapter-item expanded "><a href="advanced_topics/validators.html"><strong aria-hidden="true">5.2.</strong> Validators</a></li><li class="chapter-item expanded "><a href="advanced_topics/block_creation.html"><strong aria-hidden="true">5.3.</strong> Creating New Blocks</a></li></ol></li></ol>
             </div>
             <div id="sidebar-resize-handle" class="sidebar-resize-handle"></div>
         </nav>
@@ -149,8 +149,8 @@
 <p>Linera is a decentralized infrastructure optimized for Web3 applications that require processing high volumes of time-sensitive transactions created by many users in parallel.</p>
 <p>The core idea of the Linera protocol is to run many lightweight blockchains, called <strong>microchains</strong>, in parallel in a single set of validators.</p>
 <h2 id="how-does-it-work"><a class="header" href="#how-does-it-work">How does it work?</a></h2>
-<p>In Linera, end users (or rather their wallets) are expected to operate their own microchains. By definition, the <strong>owner</strong> of a chain chooses when to add new blocks to the chain and what goes inside the blocks.</p>
-<p>Users typically add new blocks to their chains in order to process <strong>incoming messages</strong> from other chains or to execute secure <strong>operations</strong> on their accounts, for instance to transfer assets to another user.</p>
+<p>In Linera, end users (or rather their wallets) are expected to operate their own microchains, called <strong>user chains</strong>. The owner of a chain chooses when to add new blocks to the chain and what goes inside the blocks.</p>
+<p>Users may add new blocks to their chains in order to process <strong>incoming messages</strong> from other chains or to execute secure <strong>operations</strong> on their accounts, for instance to transfer assets to another user.</p>
 <p>Importantly, validators ensure that all new blocks are <strong>valid</strong>. For instance, transfer operations must originate from accounts with sufficient funds; and incoming messages must have been actually sent from another chain. Blocks are verified by validators in the same way for every chain.</p>
 <p>A Linera <strong>application</strong> is a Wasm program that defines its own state and operations.
 Users can publish bytecode and initialize an application on one chain, and it will be
@@ -161,9 +161,9 @@ messages</strong>. Message payloads are application-specific and opaque to the
 rest of the system.</p>
 <p>The number of applications present on a single chain is not limited. On the same chain, applications are <strong>composed</strong> as usual using synchronous calls.</p>
 <p>The current Linera SDK uses <strong>Rust</strong> as a source language to create Wasm applications. It relies on the normal Rust toolchains so that Rust programmers can work in their preferred environments.</p>
-<p>Linera applications are packaged using the familiar notion of <strong>crate</strong>: the external interfaces of each application (including initialization parameters, operations, messages, and cross-application calls) go into the library part of the crate, while the core of each application is compiled into binary files for the Wasm architecture.</p>
+<p>Linera applications are structured using the familiar notion of <strong>Rust crate</strong>: the external interfaces of an application (including initialization parameters, operations, messages, and cross-application calls) generally go into the library part of its crate, while the core of each application is compiled into binary files for the Wasm architecture.</p>
 <h2 id="how-does-linera-compare-to-existing-multi-chain-infrastructure"><a class="header" href="#how-does-linera-compare-to-existing-multi-chain-infrastructure">How does Linera compare to existing multi-chain infrastructure?</a></h2>
-<p>Linera is the first infrastructure designed to support many chains in parallel, and notably an arbitrary number of <strong>user chains</strong> operated directly by user wallets.</p>
+<p>Linera is the first infrastructure designed to support many chains in parallel, and notably an arbitrary number of <strong>user chains</strong> meant to be operated by user wallets.</p>
 <p>In traditional multi-chain infrastructures, each chain usually runs a full blockchain protocol in a separate set of validators. Creating a new chain or exchanging messages between chains is expensive. As a result, the total number of chains is generally limited. Some chains may be specialized to a given use case: these are called &quot;app chains&quot;.</p>
 <p>In contrast, Linera is optimized for a large number of user chains:</p>
 <ul>
@@ -186,7 +186,7 @@ rest of the system.</p>
 <p>The specifications of the Linera protocol (see the <a href="https://linera.io/whitepaper">whitepaper</a>) also include other types of microchains, called &quot;permissioned&quot; and &quot;public&quot;. Public chains are operated by validators and similar to classical blockchains in this regard. Permissioned chains are meant to be used for temporary interactions between users, such as atomic swaps.</p>
 <h2 id="why-build-on-top-of-linera"><a class="header" href="#why-build-on-top-of-linera">Why build on top of Linera?</a></h2>
 <p>We believe that many high-value use cases are currently out of reach of existing Web3 infrastructures because of the challenges of serving <strong>many active users</strong> simultaneously without degrading user experience (unpredictable fees, latency, etc).</p>
-<p>Some high-value use cases that require processing time-sensitive transactions created by many simultaneous users include:</p>
+<p>Examples of applications that require processing time-sensitive transactions created by many simultaneous users include:</p>
 <ul>
 <li>
 <p>real-time micro-payments and micro-rewards,</p>
@@ -198,19 +198,17 @@ rest of the system.</p>
 <p>real-time auction systems,</p>
 </li>
 <li>
-<p>turn-based onchain games,</p>
+<p>turn-based games,</p>
 </li>
 <li>
-<p>marketplaces for software (e.g. based on a decentralized software repository),</p>
-</li>
-<li>
-<p>marketplaces for AI (e.g. defining training pipelines on-chain to help with model traceability and AI economics).</p>
+<p>version control systems for software, data pipelines, or AI training pipelines.</p>
 </li>
 </ul>
-<p>Lightweight user chains are instrumental in providing elastic scalability but they have other benefits as well. Because user chains have fewer blocks than traditional blockchains, in Linera, the full-nodes of user chains will be embedded into the users' wallets, typically deployed as a browser extension. This means that Web UIs connected to a wallet will be able to query the state of the user chain directly (no API provider, no light client) using familiar frameworks (React/GraphQL). Furthermore, wallets will be able to leverage the full node as well for security purposes, including to display meaningful confirmation messages to users.</p>
+<p>Lightweight user chains are instrumental in providing elastic scalability but they have other benefits as well. Because user chains have fewer blocks than traditional blockchains, in Linera, the full-nodes of user chains will be embedded into the users' wallets, typically deployed as a browser extension.</p>
+<p>This means that Web UIs connected to a wallet will be able to query the state of the user chain directly (no API provider, no light client) using familiar frameworks (React/GraphQL). Furthermore, wallets will be able to leverage the full node as well for security purposes, including to display meaningful confirmation messages to users.</p>
 <h2 id="what-is-the-current-state-of-the-development-of-linera"><a class="header" href="#what-is-the-current-state-of-the-development-of-linera">What is the current state of the development of Linera?</a></h2>
-<p>The initial <a href="https://github.com/linera-io/linera-protocol">open-source implementation</a> of Linera provides the core features necessary to prototype Web3 applications and test them locally on the same machine. Notably, Web UIs (possibly reactive) can already be built on top of Wasm-embedded GraphQL services, and tested locally in the browser.</p>
-<p>The main limitations of our current implementation of the protocol include:</p>
+<p>The current <a href="https://github.com/linera-io/linera-protocol">open-source implementation</a> of Linera is under active development. Yet, it already includes a Web3 SDK with the necessary features to prototype simple Web3 applications and test them locally on the same machine. Notably, Web UIs (possibly reactive) can already be built on top of Wasm-embedded GraphQL services, and tested locally in the browser.</p>
+<p>The main limitations of our current Web3 SDK include:</p>
 <ul>
 <li>
 <p>Web UIs need to query a local HTTP service acting as a wallet. This setup is meant to be temporary and for testing only: in the future, web UIs will securely connect to a Wallet installed as a browser extension, as usual.</p>
@@ -218,8 +216,11 @@ rest of the system.</p>
 <li>
 <p>Gas metering is activated in the Wasm VM but the accounting and purchase of fuel is not implemented yet. (As a placeholder, apps are given a fixed amount of fuel for free at every block.) Other aspects of the systems that incur costs to validators (e.g. uploading large bytecode) are also not yet protected by fees and/or hard limits.</p>
 </li>
+<li>
+<p>Only user chains are currently available for testing. Support for other types of chain (called &quot;public&quot; and &quot;permissioned&quot;) will be added later.</p>
+</li>
 </ul>
-<p>The development statuses of the main workstreams of the Linera protocol can be broken down as follows.</p>
+<p>The main development workstreams of Linera, beyond its SDK, can be broken down as follows.</p>
 <h3 id="core-protocol"><a class="header" href="#core-protocol"><a href="https://github.com/orgs/linera-io/projects/2">Core Protocol</a></a></h3>
 <ul>
 <li><input disabled="" type="checkbox" checked=""/>
@@ -253,7 +254,7 @@ External services to help users create their first chain and migrate their chain
 <li><input disabled="" type="checkbox"/>
 Support for archiving chains</li>
 <li><input disabled="" type="checkbox"/>
-Wallet-friendly chain clients (run in Wasm, do not verify transactions for other chains)</li>
+Wallet-friendly chain clients (compile to Wasm/JS, do not maintain execution states for other chains)</li>
 <li><input disabled="" type="checkbox"/>
 General tokenomics and incentives for all stakeholders</li>
 <li><input disabled="" type="checkbox"/>
@@ -343,7 +344,13 @@ Support for integration tests</li>
 <li><input disabled="" type="checkbox"/>
 Final (type-safe) traits for contract and service interfaces</li>
 <li><input disabled="" type="checkbox"/>
-Improv</li>
+Support for handling gas fees</li>
+<li><input disabled="" type="checkbox"/>
+Safety programming guidelines (including reentrancy)</li>
+<li><input disabled="" type="checkbox"/>
+Bindings to use native cryptographic primitives from Wasm</li>
+<li><input disabled="" type="checkbox"/>
+Allowing applications to create permissioned chains and public chains</li>
 <li><input disabled="" type="checkbox"/>
 Wallet as a browser extension (no VM)</li>
 <li><input disabled="" type="checkbox"/>

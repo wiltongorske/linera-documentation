@@ -84,7 +84,7 @@
 
         <nav id="sidebar" class="sidebar" aria-label="Table of contents">
             <div class="sidebar-scrollbox">
-                <ol class="chapter"><li class="chapter-item expanded "><a href="../introduction.html"><strong aria-hidden="true">1.</strong> Introduction</a></li><li class="chapter-item expanded "><a href="../overview.html"><strong aria-hidden="true">2.</strong> Overview</a></li><li class="chapter-item expanded "><a href="../getting_started.html"><strong aria-hidden="true">3.</strong> Getting started</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../getting_started/installation.html"><strong aria-hidden="true">3.1.</strong> Installation</a></li><li class="chapter-item expanded "><a href="../getting_started/first_app.html"><strong aria-hidden="true">3.2.</strong> Your First App</a></li></ol></li><li class="chapter-item expanded "><a href="../core_concepts.html"><strong aria-hidden="true">4.</strong> Core Concepts</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../core_concepts/micro_chains.html"><strong aria-hidden="true">4.1.</strong> Microchains</a></li><li class="chapter-item expanded "><a href="../core_concepts/wallet.html"><strong aria-hidden="true">4.2.</strong> The Wallet</a></li><li class="chapter-item expanded "><a href="../core_concepts/validators.html"><strong aria-hidden="true">4.3.</strong> Validators</a></li><li class="chapter-item expanded "><a href="../core_concepts/applications.html"><strong aria-hidden="true">4.4.</strong> Applications</a></li><li class="chapter-item expanded "><a href="../core_concepts/sdk.html"><strong aria-hidden="true">4.5.</strong> Linera SDK</a></li><li class="chapter-item expanded "><a href="../core_concepts/testing.html" class="active"><strong aria-hidden="true">4.6.</strong> Testing</a></li></ol></li><li class="chapter-item expanded "><a href="../advanced.html"><strong aria-hidden="true">5.</strong> Advanced Topics</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../advanced_topics/execution_model.html"><strong aria-hidden="true">5.1.</strong> Execution Model</a></li><li class="chapter-item expanded "><a href="../advanced_topics/views.html"><strong aria-hidden="true">5.2.</strong> Views</a></li><li class="chapter-item expanded "><a href="../advanced_topics/block_creation.html"><strong aria-hidden="true">5.3.</strong> Creating New Blocks</a></li></ol></li><li class="chapter-item expanded "><a href="../examples.html"><strong aria-hidden="true">6.</strong> Examples</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../examples/hello_world.html"><strong aria-hidden="true">6.1.</strong> Hello World</a></li></ol></li><li class="chapter-item expanded "><a href="../glossary.html"><strong aria-hidden="true">7.</strong> Glossary</a></li></ol>
+                <ol class="chapter"><li class="chapter-item expanded "><a href="../introduction.html"><strong aria-hidden="true">1.</strong> Introduction</a></li><li class="chapter-item expanded "><a href="../overview.html"><strong aria-hidden="true">2.</strong> Overview</a></li><li class="chapter-item expanded "><a href="../getting_started.html"><strong aria-hidden="true">3.</strong> Getting started</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../getting_started/installation.html"><strong aria-hidden="true">3.1.</strong> Installation</a></li><li class="chapter-item expanded "><a href="../getting_started/first_app.html"><strong aria-hidden="true">3.2.</strong> Your First App</a></li></ol></li><li class="chapter-item expanded "><a href="../core_concepts.html"><strong aria-hidden="true">4.</strong> Core Concepts</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../core_concepts/micro_chains.html"><strong aria-hidden="true">4.1.</strong> Microchains</a></li><li class="chapter-item expanded "><a href="../core_concepts/wallet.html"><strong aria-hidden="true">4.2.</strong> The Wallet</a></li><li class="chapter-item expanded "><a href="../core_concepts/applications.html"><strong aria-hidden="true">4.3.</strong> Applications</a></li><li class="chapter-item expanded "><a href="../core_concepts/sdk.html"><strong aria-hidden="true">4.4.</strong> Linera SDK</a></li><li class="chapter-item expanded "><a href="../core_concepts/testing.html" class="active"><strong aria-hidden="true">4.5.</strong> Testing</a></li></ol></li><li class="chapter-item expanded "><a href="../advanced.html"><strong aria-hidden="true">5.</strong> Advanced Topics</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../advanced_topics/views.html"><strong aria-hidden="true">5.1.</strong> Views</a></li><li class="chapter-item expanded "><a href="../advanced_topics/validators.html"><strong aria-hidden="true">5.2.</strong> Validators</a></li><li class="chapter-item expanded "><a href="../advanced_topics/block_creation.html"><strong aria-hidden="true">5.3.</strong> Creating New Blocks</a></li></ol></li></ol>
             </div>
             <div id="sidebar-resize-handle" class="sidebar-resize-handle"></div>
         </nav>
@@ -170,7 +170,7 @@ is used instead of the usual <code>#[test]</code> attribute.</li>
 <p>Running <code>linera test</code> is easier, but if there's a need to run <code>cargo test</code> explicitly to run the
 unit tests, Cargo must be configured to use the custom <code>test-runner</code>. The <code>test-runner</code> can be built
 from the repository.</p>
-<pre><code>git clone https://github.com/linera-io/linera-protocol
+<pre><code class="language-bash">git clone https://github.com/linera-io/linera-protocol
 cd linera-protocol
 cargo build -p linera-sdk --bin test-runner --release
 </code></pre>
@@ -181,16 +181,16 @@ quick way is to set the <code>CARGO_TARGET_WASM32_UNKNOWN_UNKNOWN_RUNNER</code> 
 path of the binary. A more persistent way is to change one of <a href="https://doc.rust-lang.org/cargo/reference/config.html#hierarchical-structure">Cargo's configuration
 files</a>. As an example,
 the following file can be placed inside the project's directory at <code>PROJECT_DIR/.cargo/config.toml</code>:</p>
-<pre><code>[target.wasm32-unknown-unknown]
+<pre><code class="language-ignore">[target.wasm32-unknown-unknown]
 runner = &quot;PATH_TO/test-runner&quot;
 </code></pre>
 <p>After configuring the test runner, unit tests can be executed with</p>
-<pre><code>cargo test --target wasm32-unknown-unknown
+<pre><code class="language-bash">cargo test --target wasm32-unknown-unknown
 </code></pre>
 <h3 id="example"><a class="header" href="#example">Example</a></h3>
 <p>A simple unit test is shown below, which tests if the application's <code>do_something</code> method changes
 the application state.</p>
-<pre><code>#[cfg(test)]
+<pre><code class="language-rust ignore">#[cfg(test)]
 mod tests {
     use crate::state::ApplicationState;
     use webassembly_test::webassembly_test:
@@ -210,15 +210,14 @@ mod tests {
             ..ApplicationState::default()
         });
     }
-}
-</code></pre>
+}</code></pre>
 <h3 id="mocking-system-apis"><a class="header" href="#mocking-system-apis">Mocking System APIs</a></h3>
 <p>Unit tests run in a constrained environment, so things like access to the key-value store,
 cross-chain messages and cross-application calls can't be executed. However, they can be simulated
 using mock APIs. The <code>linera-sdk::test</code> module provides some helper functions to mock the system
 APIs.</p>
 <p>Here's an example mocking the key-value store.</p>
-<pre><code>#[cfg(test)]
+<pre><code class="language-rust ignore">#[cfg(test)]
 mod tests {
     use crate::state::ApplicationState;
     use linera_sdk::test::mock_key_value_store;
@@ -242,8 +241,7 @@ mod tests {
         // Check that the state in memory is different from the state in storage
         assert_ne!(application, ApplicatonState::load(storage));
     }
-}
-</code></pre>
+}</code></pre>
 <h2 id="integration-tests"><a class="header" href="#integration-tests">Integration Tests</a></h2>
 <p>Integration tests are usually written separately from the application's source code (i.e., inside a
 <code>tests</code> directory that's beside the <code>src</code> directory). Integration tests are normal Rust integration
@@ -255,8 +253,8 @@ operation of each block added to each chain.</p>
 and publish blocks to microchains in order to execute the application.</p>
 <h3 id="example-1"><a class="header" href="#example-1">Example</a></h3>
 <p>A simple test that sends a message between application instances on different chains is shown below.</p>
-<pre><code>#[tokio::test]
-fn test_cross_chain_message() {
+<pre><code class="language-rust ignore">#[tokio::test]
+async fn test_cross_chain_message() {
     let (validator, application_id) = TestValidator::with_current_application(vec![], vec![]).await;
 
     let mut sender_chain = validator.get_chain(application_id.creation.chain_id).await;
@@ -278,8 +276,7 @@ fn test_cross_chain_message() {
             .await,
         sender_chain.id(),
     );
-}
-</code></pre>
+}</code></pre>
 
                     </main>
 
