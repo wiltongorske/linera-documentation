@@ -757,18 +757,21 @@ application running on that chain at <code>localhost:8080/&lt;application-id&gt;
 enables you to graphically explore the state of your application.</p>
 <h2 id="end-to-end-front-end"><a class="header" href="#end-to-end-front-end">End-to-End Front-end?</a></h2>
 <h2 id="registering-an-application-across-chains"><a class="header" href="#registering-an-application-across-chains">Registering an Application across Chains</a></h2>
-<p>Let us assume that User A has Chain X, and User B has Chain Y. Let us also
-assume that Application 1 is deployed on Chain X.</p>
-<p>User A can interact with Application 1 since it is deployed on their Chain (
-Chain X), however User B cannot see Application 1 since his Chain, Chain Y has
-not registered the application.</p>
-<p>In order for User B to use Application 1, Application 1 <em>must</em> first make a
-cross-chain request to Chain Y in order for tha application to get registered on
-Chain Y. Once that is done, User B can interact with Application 1 on Chain Y.</p>
-<p>If this was not the case, every chain would run every application, and we would
-end up with microchains which are simply full-scale Nakamoto blockchains. This
-'discovering' strategy enables chains to only care about a small subset of the
-state of the entire network.</p>
+<p>If Alice is using an application on her chain and starts interacting with Bob
+via the application, e.g. sends him some tokens using the <code>fungible</code> example,
+the application automatically gets registered on Bob's chain, too, as soon as
+he handles the incoming cross-chain messages. After that, he can execute the
+application's operations on his chain, too, and e.g. send tokens to someone.</p>
+<p>But there are also cases where Bob may want to start using an application he
+doesn't have yet. E.g. maybe Alice regularly makes posts using the <code>social</code>
+example, and Bob wants to subscribe to her.</p>
+<p>In that case, trying to execute an application-specific operation would fail,
+because the application is not registered on his chain.
+He needs to request it from Alice first:</p>
+<pre><code>./linera request-application &lt;application-id&gt; --target-chain-id &lt;alices-chain-id&gt;
+</code></pre>
+<p>Once Alice processes his message (which happens automatically if she is running
+the client in service mode), he can start using the application.</p>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="linera-sdk"><a class="header" href="#linera-sdk">Linera SDK</a></h1>
 <p>In this section we'll be exploring the Linera SDK by building a simple counter application.</p>
 <p>This is going to cover most facets of building an app.</p>
@@ -1262,7 +1265,11 @@ network, these would be running on different machines.</p>
 must be updated.</p>
 <p>The system has has one designated <em>admin chain</em>, where the validators can join or leave
 or, and where new <em>epochs</em> are defined. During every epoch, the set of validators is
-fixed.</p>
+fixed. If you own the admin chain, you can use the <code>set-validator</code> and <code>remove-validator</code>
+commands to start a new epoch with a modified set of validators:</p>
+<pre><code class="language-bash">./linera --wallet wallet.json set-validator --name 5b611b86cc1f54f73a4abfb4a2167c7327cc85a74cb2a5502431f67b554850b4 --address 127.0.0.1:9100 --votes 3
+./linera --wallet wallet.json remove-validator --name f65a585f05852f0610e2460a99c23faa3969f3cfce8a519f843a793dbfb4cb84
+</code></pre>
 <p>Chain owners must then create a block that receives the <code>SetCommittees</code> effect from the
 admin chain, and have it certified by the old validators. Only the <em>next</em> block in their
 chain will be certified by the new validator set!</p>
