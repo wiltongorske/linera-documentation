@@ -217,7 +217,7 @@ pub enum Error {
     InvalidQuery(#[from] serde_json::Error),
 }</code></pre>
 <h2 id="adding-graphql-compatibility"><a class="header" href="#adding-graphql-compatibility">Adding GraphQL compatibility</a></h2>
-<p>Finally, we want our application to have GraphQL compatibility. To achieve this we need a <code>QueryRoot</code> 
+<p>Finally, we want our application to have GraphQL compatibility. To achieve this we need a <code>QueryRoot</code>
 for intercepting queries and a <code>MutationRoot</code> for introspection queries for mutations.</p>
 <pre><code class="language-rust ignore">struct MutationRoot;
 

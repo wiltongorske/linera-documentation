@@ -764,7 +764,7 @@ example, and Bob wants to subscribe to her.</p>
 <p>In that case, trying to execute an application-specific operation would fail,
 because the application is not registered on his chain.
 He needs to request it from Alice first:</p>
-<pre><code>./linera request-application &lt;application-id&gt; --target-chain-id &lt;alices-chain-id&gt;
+<pre><code class="language-bash">./linera request-application &lt;application-id&gt; --target-chain-id &lt;alices-chain-id&gt;
 </code></pre>
 <p>Once Alice processes his message (which happens automatically if she is running
 the client in service mode), he can start using the application.</p>
@@ -880,7 +880,7 @@ pub trait Contract: WithContractAbi + ContractAbi + Send + Sized {
         argument: Self::SessionCall,
         forwarded_sessions: Vec&lt;SessionId&gt;,
     ) -&gt; Result&lt;SessionCallResult&lt;Self::Effect, Self::Response, Self::SessionState&gt;, Self::Error&gt;;
-    
+
 }</code></pre>
 <p>The full trait definition can be found <a href="https://github.com/linera-io/linera-protocol/blob/main/linera-sdk/src/lib.rs">here</a>.</p>
 <p>There's quite a bit going on here, so let's break it down and take one method at a time.</p>
@@ -986,7 +986,7 @@ pub enum Error {
     InvalidQuery(#[from] serde_json::Error),
 }</code></pre>
 <h2 id="adding-graphql-compatibility"><a class="header" href="#adding-graphql-compatibility">Adding GraphQL compatibility</a></h2>
-<p>Finally, we want our application to have GraphQL compatibility. To achieve this we need a <code>QueryRoot</code> 
+<p>Finally, we want our application to have GraphQL compatibility. To achieve this we need a <code>QueryRoot</code>
 for intercepting queries and a <code>MutationRoot</code> for introspection queries for mutations.</p>
 <pre><code class="language-rust ignore">struct MutationRoot;
 

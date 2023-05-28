@@ -247,7 +247,7 @@ example, and Bob wants to subscribe to her.</p>
 <p>In that case, trying to execute an application-specific operation would fail,
 because the application is not registered on his chain.
 He needs to request it from Alice first:</p>
-<pre><code>./linera request-application &lt;application-id&gt; --target-chain-id &lt;alices-chain-id&gt;
+<pre><code class="language-bash">./linera request-application &lt;application-id&gt; --target-chain-id &lt;alices-chain-id&gt;
 </code></pre>
 <p>Once Alice processes his message (which happens automatically if she is running
 the client in service mode), he can start using the application.</p>
