@@ -84,7 +84,7 @@
 
         <nav id="sidebar" class="sidebar" aria-label="Table of contents">
             <div class="sidebar-scrollbox">
-                <ol class="chapter"><li class="chapter-item expanded "><a href="../introduction.html"><strong aria-hidden="true">1.</strong> Introduction</a></li><li class="chapter-item expanded "><a href="../overview.html"><strong aria-hidden="true">2.</strong> Overview</a></li><li class="chapter-item expanded "><a href="../getting_started.html"><strong aria-hidden="true">3.</strong> Getting started</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../getting_started/installation.html"><strong aria-hidden="true">3.1.</strong> Installation</a></li><li class="chapter-item expanded "><a href="../getting_started/first_app.html"><strong aria-hidden="true">3.2.</strong> Your First App</a></li></ol></li><li class="chapter-item expanded "><a href="../core_concepts.html"><strong aria-hidden="true">4.</strong> Core Concepts</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../core_concepts/micro_chains.html"><strong aria-hidden="true">4.1.</strong> Microchains</a></li><li class="chapter-item expanded "><a href="../core_concepts/wallet.html" class="active"><strong aria-hidden="true">4.2.</strong> The Wallet</a></li><li class="chapter-item expanded "><a href="../core_concepts/applications.html"><strong aria-hidden="true">4.3.</strong> Applications</a></li><li class="chapter-item expanded "><a href="../core_concepts/sdk.html"><strong aria-hidden="true">4.4.</strong> Linera SDK</a></li><li class="chapter-item expanded "><a href="../core_concepts/testing.html"><strong aria-hidden="true">4.5.</strong> Testing</a></li></ol></li><li class="chapter-item expanded "><a href="../advanced.html"><strong aria-hidden="true">5.</strong> Advanced Topics</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../advanced_topics/views.html"><strong aria-hidden="true">5.1.</strong> Views</a></li><li class="chapter-item expanded "><a href="../advanced_topics/validators.html"><strong aria-hidden="true">5.2.</strong> Validators</a></li><li class="chapter-item expanded "><a href="../advanced_topics/block_creation.html"><strong aria-hidden="true">5.3.</strong> Creating New Blocks</a></li></ol></li></ol>
+                <ol class="chapter"><li class="chapter-item expanded "><a href="../introduction.html"><strong aria-hidden="true">1.</strong> Introduction</a></li><li class="chapter-item expanded "><a href="../overview.html"><strong aria-hidden="true">2.</strong> Overview</a></li><li class="chapter-item expanded "><a href="../getting_started.html"><strong aria-hidden="true">3.</strong> Getting started</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../getting_started/installation.html"><strong aria-hidden="true">3.1.</strong> Installation</a></li><li class="chapter-item expanded "><a href="../getting_started/first_app.html"><strong aria-hidden="true">3.2.</strong> Your First App</a></li></ol></li><li class="chapter-item expanded "><a href="../core_concepts.html"><strong aria-hidden="true">4.</strong> Core Concepts</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../core_concepts/micro_chains.html"><strong aria-hidden="true">4.1.</strong> Microchains</a></li><li class="chapter-item expanded "><a href="../core_concepts/wallet.html" class="active"><strong aria-hidden="true">4.2.</strong> The Wallet</a></li><li class="chapter-item expanded "><a href="../core_concepts/node_service.html"><strong aria-hidden="true">4.3.</strong> Node Service</a></li><li class="chapter-item expanded "><a href="../core_concepts/applications.html"><strong aria-hidden="true">4.4.</strong> Applications</a></li></ol></li><li class="chapter-item expanded "><a href="../sdk/sdk.html"><strong aria-hidden="true">5.</strong> Linera SDK</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../sdk/creating_a_project.html"><strong aria-hidden="true">5.1.</strong> Creating a Project</a></li><li class="chapter-item expanded "><a href="../sdk/state.html"><strong aria-hidden="true">5.2.</strong> Creating the Application State</a></li><li class="chapter-item expanded "><a href="../sdk/contract.html"><strong aria-hidden="true">5.3.</strong> Writing the Contract</a></li><li class="chapter-item expanded "><a href="../sdk/service.html"><strong aria-hidden="true">5.4.</strong> Writing the Service</a></li><li class="chapter-item expanded "><a href="../sdk/deploy.html"><strong aria-hidden="true">5.5.</strong> Deploying your App</a></li><li class="chapter-item expanded "><a href="../sdk/reentrancy.html"><strong aria-hidden="true">5.6.</strong> Adding Re-Entrancy</a></li><li class="chapter-item expanded "><a href="../sdk/meta.html"><strong aria-hidden="true">5.7.</strong> Cross-Application Calls</a></li><li class="chapter-item expanded "><a href="../sdk/testing.html"><strong aria-hidden="true">5.8.</strong> Testing</a></li></ol></li><li class="chapter-item expanded "><a href="../advanced.html"><strong aria-hidden="true">6.</strong> Advanced Topics</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../advanced_topics/views.html"><strong aria-hidden="true">6.1.</strong> Views</a></li><li class="chapter-item expanded "><a href="../advanced_topics/validators.html"><strong aria-hidden="true">6.2.</strong> Validators</a></li><li class="chapter-item expanded "><a href="../advanced_topics/block_creation.html"><strong aria-hidden="true">6.3.</strong> Creating New Blocks</a></li></ol></li></ol>
             </div>
             <div id="sidebar-resize-handle" class="sidebar-resize-handle"></div>
         </nav>
@@ -219,40 +219,6 @@ chain. of the newly created chain. The second line is the new chain's ID.</p>
 the <code>assign</code> command:</p>
 <pre><code class="language-bash"> ./linera --wallet wallet2.json assign --key 6443634d872afbbfcc3059ac87992c4029fa88e8feb0fff0723ac6c914088888 --effect-id e476187f6ddfeb9d588c7b45d3df334d5501d6499b3f9ad5595cae86cce16a65010000000000000000000000
 </code></pre>
-<h2 id="node-service"><a class="header" href="#node-service">Node Service</a></h2>
-<p>So far we've seen how to use the Linera client treating it as a binary
-in your terminal. However, the client also acts as a partial node which:</p>
-<ol>
-<li>Executes blocks</li>
-<li>Exposes an GraphQL API and IDE for dynamically interacting with applications
-and the system</li>
-<li>Listens for notifications from validators and automatically updates local
-chains.</li>
-</ol>
-<p>To interact with the node service, simply run <code>linera</code> in <code>service</code> mode:</p>
-<pre><code class="language-bash">./linera --storage rocksdb:linera.db --wallet wallet.json service
-</code></pre>
-<p>This will run the node service on port 8080 by default (this can be overridden
-using the <code>--port</code> flag).</p>
-<h3 id="a-note-on-graphql"><a class="header" href="#a-note-on-graphql">A Note on GraphQL</a></h3>
-<p>Linera uses GraphQL as the primary query language for interfacing with different
-parts of the system. GraphQL is a query language developed by Facebook which
-enables clients to craft queries such that they receive exactly what they want
-and nothing more.</p>
-<p>GraphQL is used extensively during application development, especially to query
-the state of an application from a front-end for example.</p>
-<p>To learn more about GraphQL check out
-the <a href="https://graphql.org/learn/">official docs</a>.</p>
-<h3 id="graphiql-ide"><a class="header" href="#graphiql-ide">GraphiQL IDE</a></h3>
-<p>Conveniently, the node service exposes a GraphQL IDE called GraphiQL. To use
-GraphiQL start the node service and navigate to <code>localhost:8080/</code>.</p>
-<p>Using the schema explorer on the left of the GraphiQL IDE you can dynamically
-explore the state of the system and your applications.</p>
-<p><img src="graphiql.png" alt="graphiql.png" /></p>
-<h2 id="graphql-api"><a class="header" href="#graphql-api">GraphQL API</a></h2>
-<p>The node service also exposes a GraphQL API which corresponds to the set of
-system operations. You can explore the full set of operations by using the
-aforementioned schema explorer under <code>MutationRoot</code>.</p>
 
                     </main>
 
@@ -262,7 +228,7 @@ aforementioned schema explorer under <code>MutationRoot</code>.</p>
                                 <i class="fa fa-angle-left"></i>
                             </a>
 
-                            <a rel="next" href="../core_concepts/applications.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                            <a rel="next" href="../core_concepts/node_service.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
                                 <i class="fa fa-angle-right"></i>
                             </a>
 
@@ -276,7 +242,7 @@ aforementioned schema explorer under <code>MutationRoot</code>.</p>
                         <i class="fa fa-angle-left"></i>
                     </a>
 
-                    <a rel="next" href="../core_concepts/applications.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                    <a rel="next" href="../core_concepts/node_service.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
                         <i class="fa fa-angle-right"></i>
                     </a>
             </nav>

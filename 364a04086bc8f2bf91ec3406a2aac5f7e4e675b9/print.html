@@ -85,7 +85,7 @@
 
         <nav id="sidebar" class="sidebar" aria-label="Table of contents">
             <div class="sidebar-scrollbox">
-                <ol class="chapter"><li class="chapter-item expanded "><a href="introduction.html"><strong aria-hidden="true">1.</strong> Introduction</a></li><li class="chapter-item expanded "><a href="overview.html"><strong aria-hidden="true">2.</strong> Overview</a></li><li class="chapter-item expanded "><a href="getting_started.html"><strong aria-hidden="true">3.</strong> Getting started</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="getting_started/installation.html"><strong aria-hidden="true">3.1.</strong> Installation</a></li><li class="chapter-item expanded "><a href="getting_started/first_app.html"><strong aria-hidden="true">3.2.</strong> Your First App</a></li></ol></li><li class="chapter-item expanded "><a href="core_concepts.html"><strong aria-hidden="true">4.</strong> Core Concepts</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="core_concepts/micro_chains.html"><strong aria-hidden="true">4.1.</strong> Microchains</a></li><li class="chapter-item expanded "><a href="core_concepts/wallet.html"><strong aria-hidden="true">4.2.</strong> The Wallet</a></li><li class="chapter-item expanded "><a href="core_concepts/applications.html"><strong aria-hidden="true">4.3.</strong> Applications</a></li><li class="chapter-item expanded "><a href="core_concepts/sdk.html"><strong aria-hidden="true">4.4.</strong> Linera SDK</a></li><li class="chapter-item expanded "><a href="core_concepts/testing.html"><strong aria-hidden="true">4.5.</strong> Testing</a></li></ol></li><li class="chapter-item expanded "><a href="advanced.html"><strong aria-hidden="true">5.</strong> Advanced Topics</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="advanced_topics/views.html"><strong aria-hidden="true">5.1.</strong> Views</a></li><li class="chapter-item expanded "><a href="advanced_topics/validators.html"><strong aria-hidden="true">5.2.</strong> Validators</a></li><li class="chapter-item expanded "><a href="advanced_topics/block_creation.html"><strong aria-hidden="true">5.3.</strong> Creating New Blocks</a></li></ol></li></ol>
+                <ol class="chapter"><li class="chapter-item expanded "><a href="introduction.html"><strong aria-hidden="true">1.</strong> Introduction</a></li><li class="chapter-item expanded "><a href="overview.html"><strong aria-hidden="true">2.</strong> Overview</a></li><li class="chapter-item expanded "><a href="getting_started.html"><strong aria-hidden="true">3.</strong> Getting started</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="getting_started/installation.html"><strong aria-hidden="true">3.1.</strong> Installation</a></li><li class="chapter-item expanded "><a href="getting_started/first_app.html"><strong aria-hidden="true">3.2.</strong> Your First App</a></li></ol></li><li class="chapter-item expanded "><a href="core_concepts.html"><strong aria-hidden="true">4.</strong> Core Concepts</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="core_concepts/micro_chains.html"><strong aria-hidden="true">4.1.</strong> Microchains</a></li><li class="chapter-item expanded "><a href="core_concepts/wallet.html"><strong aria-hidden="true">4.2.</strong> The Wallet</a></li><li class="chapter-item expanded "><a href="core_concepts/node_service.html"><strong aria-hidden="true">4.3.</strong> Node Service</a></li><li class="chapter-item expanded "><a href="core_concepts/applications.html"><strong aria-hidden="true">4.4.</strong> Applications</a></li></ol></li><li class="chapter-item expanded "><a href="sdk/sdk.html"><strong aria-hidden="true">5.</strong> Linera SDK</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="sdk/creating_a_project.html"><strong aria-hidden="true">5.1.</strong> Creating a Project</a></li><li class="chapter-item expanded "><a href="sdk/state.html"><strong aria-hidden="true">5.2.</strong> Creating the Application State</a></li><li class="chapter-item expanded "><a href="sdk/contract.html"><strong aria-hidden="true">5.3.</strong> Writing the Contract</a></li><li class="chapter-item expanded "><a href="sdk/service.html"><strong aria-hidden="true">5.4.</strong> Writing the Service</a></li><li class="chapter-item expanded "><a href="sdk/deploy.html"><strong aria-hidden="true">5.5.</strong> Deploying your App</a></li><li class="chapter-item expanded "><a href="sdk/reentrancy.html"><strong aria-hidden="true">5.6.</strong> Adding Re-Entrancy</a></li><li class="chapter-item expanded "><a href="sdk/meta.html"><strong aria-hidden="true">5.7.</strong> Cross-Application Calls</a></li><li class="chapter-item expanded "><a href="sdk/testing.html"><strong aria-hidden="true">5.8.</strong> Testing</a></li></ol></li><li class="chapter-item expanded "><a href="advanced.html"><strong aria-hidden="true">6.</strong> Advanced Topics</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="advanced_topics/views.html"><strong aria-hidden="true">6.1.</strong> Views</a></li><li class="chapter-item expanded "><a href="advanced_topics/validators.html"><strong aria-hidden="true">6.2.</strong> Validators</a></li><li class="chapter-item expanded "><a href="advanced_topics/block_creation.html"><strong aria-hidden="true">6.3.</strong> Creating New Blocks</a></li></ol></li></ol>
             </div>
             <div id="sidebar-resize-handle" class="sidebar-resize-handle"></div>
         </nav>
@@ -414,14 +414,7 @@ of which consist of an ingress proxy (aka a &quot;load balancer&quot;) and 4 wor
 repository and run the following command:</p>
 <pre><code class="language-bash">./scripts/run_local.sh
 </code></pre>
-<p>You will the see the names of the validators running in your local network, for instance:</p>
-<pre><code class="language-bash">$ ./scripts/run_local.sh
-    Finished dev [unoptimized + debuginfo] target(s) in 0.13s
-5b611b86cc1f54f73a4abfb4a2167c7327cc85a74cb2a5502431f67b554850b4
-f65a585f05852f0610e2460a99c23faa3969f3cfce8a519f843a793dbfb4cb84
-abfbf26c6f45955067f60de0317816454dbd54459dc773f185fbcaf8c72d5041
-140f3259cae9ea2a3b50cbcba2495661aea42641ef44751dec0a29b192ccf32f
-</code></pre>
+<p>this will start a validator with 4 shards.</p>
 <blockquote>
 <p>The local network is running on operating system network ports, taking a number of ports
 to run locally. These ports are in the range P &gt; 9000. Yet, there may be a collision, in
@@ -459,11 +452,11 @@ the <code>linera</code> client. To do that, navigate back to <code>./target/debu
 <ol>
 <li>The location of the contract bytecode</li>
 <li>The location of the service bytecode</li>
-<li>The hex encoded initialization arguments</li>
+<li>The JSON encoded initialization arguments</li>
 </ol>
 <pre><code class="language-bash">./linera --storage rocksdb:linera.db --wallet wallet.json publish-and-create \
-    ../../examples/target/wasm32-unknown-unknown/release/counter_{contract,service}.wasm \
-    35
+  ../../examples/target/wasm32-unknown-unknown/release/counter_{contract,service}.wasm \
+  --json-argument &quot;42&quot;
 </code></pre>
 <p>Congratulations! You've published your first application on Linera!</p>
 <h2 id="querying-your-application"><a class="header" href="#querying-your-application">Querying your Application</a></h2>
@@ -495,7 +488,7 @@ Finally, to query the counter value of our deployed application, run:</p>
   value
 }
 </code></pre>
-<p>This will return a value of <code>35</code>, which is the initialization argument we
+<p>This will return a value of <code>42</code>, which is the initialization argument we
 specified when deploying our application.</p>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="core-concepts"><a class="header" href="#core-concepts">Core Concepts</a></h1>
 <p>We now describe the main concepts of the Linera protocol when it comes to programming Web3 applications.</p>
@@ -635,7 +628,7 @@ chain. of the newly created chain. The second line is the new chain's ID.</p>
 the <code>assign</code> command:</p>
 <pre><code class="language-bash"> ./linera --wallet wallet2.json assign --key 6443634d872afbbfcc3059ac87992c4029fa88e8feb0fff0723ac6c914088888 --effect-id e476187f6ddfeb9d588c7b45d3df334d5501d6499b3f9ad5595cae86cce16a65010000000000000000000000
 </code></pre>
-<h2 id="node-service"><a class="header" href="#node-service">Node Service</a></h2>
+<div style="break-before: page; page-break-before: always;"></div><h2 id="node-service"><a class="header" href="#node-service">Node Service</a></h2>
 <p>So far we've seen how to use the Linera client treating it as a binary
 in your terminal. However, the client also acts as a partial node which:</p>
 <ol>
@@ -759,7 +752,6 @@ pub enum Effect {
 application running on that chain at <code>localhost:8080/&lt;application-id&gt;</code>.</p>
 <p>Simple navigating there with your browser will open a GraphiQL interface which
 enables you to graphically explore the state of your application.</p>
-<h2 id="end-to-end-front-end"><a class="header" href="#end-to-end-front-end">End-to-End Front-end?</a></h2>
 <h2 id="registering-an-application-across-chains"><a class="header" href="#registering-an-application-across-chains">Registering an Application across Chains</a></h2>
 <p>If Alice is using an application on her chain and starts interacting with Bob
 via the application, e.g. sends him some tokens using the <code>fungible</code> example,
@@ -784,10 +776,26 @@ the client in service mode), he can start using the application.</p>
 application.</p>
 <p>This section takes you over the steps to create a full Web3 application with a
 Linera application for the back end and a React front end.</p>
+<h2 id="variable-types"><a class="header" href="#variable-types">Variable Types</a></h2>
+<p>The key variables from the <code>linera-sdk</code> modules that are important are:</p>
+<ul>
+<li>The <a href="sdk/TODO"><code>Timestamp</code></a> is the Unix time in microseconds, that is from 1970-01-01 00:00:00. See the example <code>crowd-funding</code> where
+it is used for implementing a deadline in an application.</li>
+<li>The <a href="sdk/TODO"><code>ChainId</code></a> on which the smart contract is run. This is important when transfering from one microchain to another.</li>
+<li>The <a href="sdk/TODO"><code>Amount</code></a> for the amount of money.</li>
+</ul>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="linera-sdk-1"><a class="header" href="#linera-sdk-1">Linera SDK</a></h1>
+<p>In this section we'll be exploring the Linera SDK by building a simple counter application.</p>
+<p>This is going to cover most facets of building an app.</p>
+<h2 id="linera-sdk-crate-1"><a class="header" href="#linera-sdk-crate-1">Linera SDK Crate</a></h2>
+<p>The <code>linera-sdk</code> crate exposes the basic traits required to create a Linera
+application.</p>
+<p>This section takes you over the steps to create a full Web3 application with a
+Linera application for the back end and a React front end.</p>
 <h2 id="creating-your-linera-project"><a class="header" href="#creating-your-linera-project">Creating your Linera Project</a></h2>
 <p>To create your Linera project, use the <code>linera project new</code> command to setup
 the scaffolding and requisite files:</p>
-<pre><code class="language-bash">./linera project new ../../examples/my-counter
+<pre><code class="language-bash">./linera project new my-counter
 </code></pre>
 <p><code>linera project new</code> bootstraps your project by creating the following key files:</p>
 <ul>
@@ -796,10 +804,10 @@ the scaffolding and requisite files:</p>
 <li><code>contract.rs</code>: the file which holds your application's contract, and the binary target for the contract bytecode</li>
 <li><code>service.rs</code>: the file which holds your application's service, and the binary target for the service bytecode</li>
 </ul>
-<h2 id="creating-the-state"><a class="header" href="#creating-the-state">Creating the State</a></h2>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="creating-the-application-state"><a class="header" href="#creating-the-application-state">Creating the Application State</a></h1>
 <p>The <code>struct</code> which defines your application's state can be found in <code>state.rs</code>.</p>
 <p>To represent our Counter, all we're going to need a single <code>u128</code>. To persist
-the counter we'll be using Linera's <a href="core_concepts/../advanced_topics/views.html">view</a> paradigm.</p>
+the counter we'll be using Linera's <a href="sdk/../advanced_topics/views.html">view</a> paradigm.</p>
 <p>Views are a little like an <a href="https://en.wikipedia.org/wiki/Object%E2%80%93relational_mapping">ORM</a>,
 however instead of mapping your datastructures to a relational database like Postgres, they are
 instead mapped onto key-value stores like <a href="https://rocksdb.org/">RocksDB</a>.</p>
@@ -821,60 +829,63 @@ views for different use-cases, but the majority of common data structures have a
 <li>A <code>HashMap</code> maps to a <code>MapView</code></li>
 <li>A <code>Queue</code> maps to a <code>QueueView</code></li>
 </ul>
-<p>For an exhaustive list refer to the Views <a href="core_concepts/TODO">documentation</a>.</p>
-<h2 id="creating-the-contract"><a class="header" href="#creating-the-contract">Creating the Contract</a></h2>
+<p>For an exhaustive list refer to the Views <a href="sdk/../advanced_topics/views.html">documentation</a>.</p>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="writing-the-contract"><a class="header" href="#writing-the-contract">Writing the Contract</a></h1>
 <p>The <code>Contract</code> is the first component of your Linera application. It can
 actually change the state of the application.</p>
 <p>To create a contract, we need to implement the <code>Contract</code> trait, which is
 as follows:</p>
 <pre><code class="language-rust ignore">#[async_trait]
-pub trait Contract: Sized {
-    /// Message reports for application execution errors.
-    type Error: Error;
-    /// The desired storage backend to use to store the application's state.
-    type Storage;
+pub trait Contract: WithContractAbi + ContractAbi + Send + Sized {
+    /// The type used to report errors to the execution environment.
+    type Error: Error + From&lt;serde_json::Error&gt; + From&lt;bcs::Error&gt; + 'static;
+
+    /// The desired storage backend used to store the application's state.
+    type Storage: ContractStateStorage&lt;Self&gt; + Send + 'static;
 
     /// Initializes the application on the chain that created it.
     async fn initialize(
         &amp;mut self,
         context: &amp;OperationContext,
-        argument: &amp;[u8],
-    ) -&gt; Result&lt;ExecutionResult, Self::Error&gt;;
+        argument: Self::InitializationArgument,
+    ) -&gt; Result&lt;ExecutionResult&lt;Self::Effect&gt;, Self::Error&gt;;
 
     /// Applies an operation from the current block.
     async fn execute_operation(
         &amp;mut self,
         context: &amp;OperationContext,
-        operation: &amp;[u8],
-    ) -&gt; Result&lt;ExecutionResult, Self::Error&gt;;
+        operation: Self::Operation,
+    ) -&gt; Result&lt;ExecutionResult&lt;Self::Effect&gt;, Self::Error&gt;;
 
     /// Applies an effect originating from a cross-chain message.
     async fn execute_effect(
         &amp;mut self,
         context: &amp;EffectContext,
-        effect: &amp;[u8],
-    ) -&gt; Result&lt;ExecutionResult, Self::Error&gt;;
+        effect: Self::Effect,
+    ) -&gt; Result&lt;ExecutionResult&lt;Self::Effect&gt;, Self::Error&gt;;
 
     /// Handles a call from another application.
     async fn handle_application_call(
         &amp;mut self,
         context: &amp;CalleeContext,
-        argument: &amp;[u8],
+        argument: Self::ApplicationCall,
         forwarded_sessions: Vec&lt;SessionId&gt;,
-    ) -&gt; Result&lt;ApplicationCallResult, Self::Error&gt;;
+    ) -&gt; Result&lt;ApplicationCallResult&lt;Self::Effect, Self::Response, Self::SessionState&gt;, Self::Error&gt;;
 
     /// Handles a call into a session created by this application.
     async fn handle_session_call(
         &amp;mut self,
         context: &amp;CalleeContext,
-        session: Session,
-        argument: &amp;[u8],
+        session: Self::SessionState,
+        argument: Self::SessionCall,
         forwarded_sessions: Vec&lt;SessionId&gt;,
-    ) -&gt; Result&lt;SessionCallResult, Self::Error&gt;;
+    ) -&gt; Result&lt;SessionCallResult&lt;Self::Effect, Self::Response, Self::SessionState&gt;, Self::Error&gt;;
+    
 }</code></pre>
+<p>The full trait definition can be found <a href="https://github.com/linera-io/linera-protocol/blob/main/linera-sdk/src/lib.rs">here</a>.</p>
 <p>There's quite a bit going on here, so let's break it down and take one method at a time.</p>
 <p>For this application, we'll be using the <code>initialize</code> and <code>execute_operation</code> methods.</p>
-<h3 id="initializing-our-application"><a class="header" href="#initializing-our-application">Initializing our Application</a></h3>
+<h2 id="initializing-our-application"><a class="header" href="#initializing-our-application">Initializing our Application</a></h2>
 <p>The first thing we need to do is initialize our application by using <code>Contract::initialize</code>.</p>
 <p><code>Contract::initialize</code> is only called once when the application is created and only on the microchain that
 created the application.</p>
@@ -885,33 +896,25 @@ be specified on application creation using its initialization parameters:</p>
 <pre><code class="language-rust ignore">    async fn initialize(
         &amp;mut self,
         _context: &amp;OperationContext,
-        argument: &amp;[u8],
-    ) -&gt; Result&lt;ExecutionResult, Self::Error&gt; {
-        self.value.set(bcs::from_bytes(argument)?);
+        value: u64,
+    ) -&gt; Result&lt;ExecutionResult&lt;Self::Effect&gt;, Self::Error&gt; {
+        self.value = value;
         Ok(ExecutionResult::default())
     }</code></pre>
-<blockquote>
-<p>Note: We're using the <a href="https://crates.io/crates/bcs">bcs</a> crate for serializing and deserializing values.
-This is a recurring theme throughout the Linera project. Using BCS for serialization is important
-because it enforces canonical serialization, meaning that every value of a given type has a <strong>single
-valid representation</strong>. This is especially important when computing hashes, signatures and certificates.</p>
-</blockquote>
-<h3 id="implementing-the-increment-operation"><a class="header" href="#implementing-the-increment-operation">Implementing the Increment Operation</a></h3>
+<h2 id="implementing-the-increment-operation"><a class="header" href="#implementing-the-increment-operation">Implementing the Increment Operation</a></h2>
 <p>Now that we have our counter's state and a way to initialize it to any value we would like, a way to increment
 our counter's value. Changes made by block proposers to application states are broadly called 'operations'.</p>
 <p>To create a new operation, we need to use the method <code>Contract::execute_operation</code>. In the counter's case,
-it will be receiving a <code>u128</code> which needs to be deserialized and the used to increment the counter state like so:</p>
+it will be receiving a <code>u64</code> which is used to increment the counter:</p>
 <pre><code class="language-rust ignore">    async fn execute_operation(
         &amp;mut self,
         _context: &amp;OperationContext,
-        operation: &amp;[u8],
-    ) -&gt; Result&lt;ExecutionResult, Self::Error&gt; {
-        let increment: u128 = bcs::from_bytes(operation)?;
-        let value = self.value.get_mut();
-        *value += increment;
+        operation: u64,
+    ) -&gt; Result&lt;ExecutionResult&lt;Self::Effect&gt;, Self::Error&gt; {
+        self.value += operation;
         Ok(ExecutionResult::default())
     }</code></pre>
-<h2 id="creating-the-service"><a class="header" href="#creating-the-service">Creating the Service</a></h2>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="creating-the-service"><a class="header" href="#creating-the-service">Creating the Service</a></h1>
 <p>The <code>Service</code> is the second component of your Linera application. It is compiled
 into a separate Bytecode from the contract and is run independently. It is not
 metered (meaning that querying an application's service does not consume gas),
@@ -924,20 +927,23 @@ that
 can be made against your application.</p>
 <p>The <code>Service</code> trait is how you define the interface into your application.
 The <code>Service</code> trait is defined as follows:</p>
-<pre><code class="language-rust ignore">#[async_trait]
-pub trait Service {
-    /// Message reports for service execution errors.
-    type Error: Error;
-    /// The desired storage backend to use to read the application's state.
-    type Storage;
+<pre><code class="language-rust ignore">/// The service interface of a Linera application.
+#[async_trait]
+pub trait Service: WithServiceAbi + ServiceAbi {
+    /// Type used to report errors to the execution environment.
+    type Error: Error + From&lt;serde_json::Error&gt;;
+
+    /// The desired storage backend used to store the application's state.
+    type Storage: ServiceStateStorage;
 
     /// Executes a read-only query on the state of this application.
     async fn query_application(
         self: Arc&lt;Self&gt;,
         context: &amp;QueryContext,
-        argument: &amp;[u8],
-    ) -&gt; Result&lt;Vec&lt;u8&gt;, Self::Error&gt;;
+        argument: Self::Query,
+    ) -&gt; Result&lt;Self::QueryResponse, Self::Error&gt;;
 }</code></pre>
+<p>The full service trait definition can be found <a href="https://github.com/linera-io/linera-protocol/blob/main/linera-sdk/src/lib.rs">here</a>.</p>
 <p>Let's implement <code>Service</code> for our counter application.</p>
 <p>First, we want to generate the necessary boilerplate for implementing the
 service WIT interface, export the necessary resource types and functions so that
@@ -951,48 +957,54 @@ that the host has a read-only view on the application's state.</p>
 define <code>Service</code>'s associated types and implement <code>query_application</code>, as well
 as define the <code>Error</code> type:</p>
 <pre><code class="language-rust ignore">#[async_trait]
-impl&lt;C&gt; Service for Counter&lt;C&gt;
-    where
-        C: Context + Send + Sync + Clone + 'static,
-        ViewError: From&lt;C::Error&gt;,
-{
+impl Service for Counter {
     type Error = Error;
-    type Storage = ViewStateStorage&lt;Self&gt;;
+    type Storage = SimpleStateStorage&lt;Self&gt;;
 
     async fn query_application(
         self: Arc&lt;Self&gt;,
         _context: &amp;QueryContext,
-        argument: &amp;[u8],
-    ) -&gt; Result&lt;Vec&lt;u8&gt;, Self::Error&gt; {
-        let graphql_request: async_graphql::Request = serde_json::from_slice(argument).map_err(|_| Error::InvalidQuery)?;
-        let schema = Schema::build(self.clone(), MutationRoot {}, EmptySubscription).finish();
-        let res = schema.execute(graphql_request).await;
-        Ok(serde_json::to_vec(&amp;res).unwrap())
+        request: Request,
+    ) -&gt; Result&lt;Response, Self::Error&gt; {
+        let schema = Schema::build(
+            // implemented in the next section
+            QueryRoot { value: self.value },
+            // implemented in the next section
+            MutationRoot {},
+            EmptySubscription,
+        )
+        .finish();
+        Ok(schema.execute(request).await)
     }
 }
 
 /// An error that can occur during the contract execution.
-#[derive(Debug, Error, Eq, PartialEq)]
+#[derive(Debug, Error)]
 pub enum Error {
-    /// Invalid query argument; Counter application only supports a single (empty) query.
-    #[error(
-        &quot;Invalid query argument; Counter application only supports JSON encoded GraphQL queries&quot;
-    )]
-    InvalidQuery,
+    /// Invalid query argument; could not deserialize GraphQL request.
+    #[error(&quot;Invalid query argument; could not deserialize GraphQL request&quot;)]
+    InvalidQuery(#[from] serde_json::Error),
 }</code></pre>
-<p>Notice that the input <code>argument</code> and returned <code>Vec&lt;u8&gt;</code> are both simple byte
-arrays. Therefore, the inputs and outputs made to the service can be effectively
-arbitrary. In our case, we'll be using the existing Linera GraphQL
-infrastructure to make our app easy for a graphical front end to consume.</p>
-<p>The final piece of the the service is the <code>MutationRoot</code>. This is a convencience
-schema which is used for GraphQL introspection queries:</p>
+<h2 id="adding-graphql-compatibility"><a class="header" href="#adding-graphql-compatibility">Adding GraphQL compatibility</a></h2>
+<p>Finally, we want our application to have GraphQL compatibility. To achieve this we need a <code>QueryRoot</code> 
+for intercepting queries and a <code>MutationRoot</code> for introspection queries for mutations.</p>
 <pre><code class="language-rust ignore">struct MutationRoot;
 
 #[Object]
 impl MutationRoot {
-    #[allow(unused)]
-    async fn execute_operation(&amp;self, operation: CounterOperation) -&gt; Vec&lt;u8&gt; {
-        bcs::to_bytes(&amp;operation).unwrap()
+    async fn increment(&amp;self, value: u64) -&gt; Vec&lt;u8&gt; {
+        bcs::to_bytes(&amp;value).unwrap()
+    }
+}
+
+struct QueryRoot {
+    value: u64,
+}
+
+#[Object]
+impl QueryRoot {
+    async fn value(&amp;self) -&gt; &amp;u64 {
+        &amp;self.value
     }
 }</code></pre>
 <p>We haven't included the imports in the above code; they are left as an
@@ -1000,15 +1012,7 @@ exercise to the reader. If you want the full source code and associated tests
 check out
 the <a href="https://github.com/linera-io/linera-protocol/blob/main/examples/counter-graphql/src/service.rs">examples section</a>
 on GitHub.</p>
-<h2 id="variable-types"><a class="header" href="#variable-types">Variable Types</a></h2>
-<p>The key variables from the linera-sdk modules that are important are</p>
-<ul>
-<li>The <code>Timestamp</code> is the Unix time in microseconds, that is from 1970-01-01 00:00:00. See the example <code>crowd-funding</code> where
-it is used for implementing a deadline in an application.</li>
-<li>The <code>ChainId</code> on which the smart contract is run. This is important when transfering from one microchain to another.</li>
-<li>The <code>Amount</code> for the amount of money.</li>
-</ul>
-<h2 id="deploying-your-application"><a class="header" href="#deploying-your-application">Deploying your Application</a></h2>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="deploying-your-application"><a class="header" href="#deploying-your-application">Deploying your Application</a></h1>
 <p>To deploy your application, you first need to navigate to <code>target/debug</code> where the <code>linera</code> binary is located.</p>
 <ol>
 <li>The location of the contract bytecode</li>
@@ -1016,14 +1020,10 @@ it is used for implementing a deadline in an application.</li>
 <li>The hex encoded initialization arguments</li>
 </ol>
 <pre><code class="language-bash">./linera --storage rocksdb:linera.db --wallet wallet.json publish-and-create \
-    ../../examples/target/wasm32-unknown-unknown/release/my_counter_contract.wasm \
-    ../../examples/target/wasm32-unknown-unknown/release/my_counter_service.wasm \
-    00
+  target/wasm32-unknown-unknown/release/counter_{contract,service}.wasm \
+  --json-argument &quot;42&quot;
 </code></pre>
-<h2 id="building-a-front-end-for-your-application"><a class="header" href="#building-a-front-end-for-your-application">Building a Front-End for your Application</a></h2>
-<p>// todo</p>
-<h2 id="running-your-web3-app"><a class="header" href="#running-your-web3-app">Running your Web3 App</a></h2>
-<p>// todo</p>
+<div style="break-before: page; page-break-before: always;"></div><div style="break-before: page; page-break-before: always;"></div><h1 id="cross-application-calls"><a class="header" href="#cross-application-calls">Cross-Application Calls</a></h1>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="testing"><a class="header" href="#testing">Testing</a></h1>
 <p>Linera applications can be tested using unit tests or integration tests. Both are a bit different
 than usual Rust tests. Unit tests are executed inside a WebAssembly virtual machine in an
@@ -1041,7 +1041,7 @@ application behaves on a more complex environment that's closer to the real netw
 the project). There are two major differences to normal Rust unit tests:</p>
 <ul>
 <li><code>linera test</code> is used instead of <code>cargo test</code> (or the environment must be configured so that Cargo
-uses a custom test runner, as described <a href="core_concepts/testing.html#manually-configuring-the-environment">below</a>);</li>
+uses a custom test runner, as described <a href="sdk/testing.html#manually-configuring-the-environment">below</a>);</li>
 <li>the <a href="https://docs.rs/webassembly-test/latest/webassembly_test/"><code>#[webassembly_test]</code></a> attribute
 is used instead of the usual <code>#[test]</code> attribute.</li>
 </ul>
