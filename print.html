@@ -715,7 +715,7 @@ an application can be published with a single command:</p>
 </code></pre>
 <p>This will publish the bytecode as well as initialize the application for you.</p>
 <h2 id="anatomy-of-an-application"><a class="header" href="#anatomy-of-an-application">Anatomy of an Application</a></h2>
-<p>An application is broken into two major components, the 'contract' and the 'service'.</p>
+<p>An application is broken into two major components, the <em>contract</em> and the <em>service</em>.</p>
 <p>The contract is gas-metered (for more details,
 see <a href="core_concepts/../advanced_topics/execution_model.html">execution model</a>), and is the part
 of the application which executes operations and effects, make cross-application
@@ -729,7 +729,7 @@ with the data required for a user interface.</p>
 the form of a <a href="core_concepts/./../advanced_topics/views.html">View</a>, but more on that later.</p>
 <h2 id="operations-and-effects"><a class="header" href="#operations-and-effects">Operations and Effects</a></h2>
 <blockquote>
-<p>For this section we'll be using the example of a hypothetical 'fungible token'
+<p>For this section we'll be using the example of a hypothetical &quot;fungible token&quot;
 application where users can send tokens to each other.</p>
 </blockquote>
 <p>At the system-level, interacting with an application can be done via operations
@@ -738,7 +738,7 @@ and effects.</p>
 application can have a completely different set of operations. Chain owners then
 actively create operations and put them in their block proposals to interact
 with an application.</p>
-<p>Using our hypothetical 'fungible token' application as an example, an operation
+<p>Using our hypothetical &quot;fungible token&quot; application as an example, an operation
 for a user to transfer funds to another user would look like this:</p>
 <pre><code class="language-rust ignore"><span class="boring">extern crate serde;
 </span><span class="boring">use serde::{Deserialize, Serialize};
@@ -758,7 +758,7 @@ proposers also actively include effects in their block proposal, but unlike with
 operations, they are only allowed to include them in the right order (possibly
 skipping some), and only if they were actually created by another chain (or the
 same chain, earlier).</p>
-<p>In our 'fungible token' application, an effect to credit an account would look like this:</p>
+<p>In our &quot;fungible token&quot; application, an effect to credit an account would look like this:</p>
 <pre><code class="language-rust ignore"><span class="boring">extern crate serde;
 </span><span class="boring">use serde::{Deserialize, Serialize};
 </span>#[derive(Debug, Deserialize, Serialize)]
@@ -768,7 +768,7 @@ pub enum Effect {
 }</code></pre>
 <h2 id="interacting-with-an-application"><a class="header" href="#interacting-with-an-application">Interacting with an Application</a></h2>
 <p>To interact with an application, we run the Linera client
-<a href="core_concepts/wallet.html#node-service">in 'service' mode</a>. It exposes a GraphQL API for every
+<a href="core_concepts/wallet.html#node-service">in service mode</a>. It exposes a GraphQL API for every
 application running on that chain at <code>localhost:8080/&lt;application-id&gt;</code>.</p>
 <p>Simple navigating there with your browser will open a GraphiQL interface which
 enables you to graphically explore the state of your application.</p>
