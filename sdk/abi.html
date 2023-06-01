@@ -154,9 +154,8 @@ data types, and functions exposed by on-chain contracts and services.</p>
 <h2 id="defining-a-marker-struct"><a class="header" href="#defining-a-marker-struct">Defining a marker struct</a></h2>
 <p>The library part of your application (generally in <code>src/lib.rs</code>) must define a public
 empty struct that implements the <code>Abi</code> trait.</p>
-<pre><code>#[derive(Clone, Copy, Eq, PartialEq, Ord, PartialOrd, Hash, Debug, Serialize, Deserialize)]
-struct CounterAbi;
-</code></pre>
+<pre><code class="language-rust ignore">#[derive(Clone, Copy, Eq, PartialEq, Ord, PartialOrd, Hash, Debug, Serialize, Deserialize)]
+struct CounterAbi;</code></pre>
 <p>NOTE: The derive macros are temporarily needed until
 <a href="https://github.com/linera-io/linera-protocol/issues/768">#768</a> is addressed.</p>
 <p>The <code>Abi</code> trait combines the <code>ContractAbi</code> and <code>ServiceAbi</code> traits to include the types
