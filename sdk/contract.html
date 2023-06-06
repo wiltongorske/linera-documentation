@@ -163,21 +163,21 @@ pub trait Contract: WithContractAbi + ContractAbi + Send + Sized {
         &amp;mut self,
         context: &amp;OperationContext,
         argument: Self::InitializationArgument,
-    ) -&gt; Result&lt;ExecutionResult&lt;Self::Effect&gt;, Self::Error&gt;;
+    ) -&gt; Result&lt;ExecutionResult&lt;Self::Message&gt;, Self::Error&gt;;
 
     /// Applies an operation from the current block.
     async fn execute_operation(
         &amp;mut self,
         context: &amp;OperationContext,
         operation: Self::Operation,
-    ) -&gt; Result&lt;ExecutionResult&lt;Self::Effect&gt;, Self::Error&gt;;
+    ) -&gt; Result&lt;ExecutionResult&lt;Self::Message&gt;, Self::Error&gt;;
 
-    /// Applies an effect originating from a cross-chain message.
-    async fn execute_effect(
+    /// Applies a message originating from a cross-chain message.
+    async fn execute_message(
         &amp;mut self,
-        context: &amp;EffectContext,
-        effect: Self::Effect,
-    ) -&gt; Result&lt;ExecutionResult&lt;Self::Effect&gt;, Self::Error&gt;;
+        context: &amp;MessageContext,
+        message: Self::Message,
+    ) -&gt; Result&lt;ExecutionResult&lt;Self::Message&gt;, Self::Error&gt;;
 
     /// Handles a call from another application.
     async fn handle_application_call(
@@ -185,7 +185,7 @@ pub trait Contract: WithContractAbi + ContractAbi + Send + Sized {
         context: &amp;CalleeContext,
         argument: Self::ApplicationCall,
         forwarded_sessions: Vec&lt;SessionId&gt;,
-    ) -&gt; Result&lt;ApplicationCallResult&lt;Self::Effect, Self::Response, Self::SessionState&gt;, Self::Error&gt;;
+    ) -&gt; Result&lt;ApplicationCallResult&lt;Self::Message, Self::Response, Self::SessionState&gt;, Self::Error&gt;;
 
     /// Handles a call into a session created by this application.
     async fn handle_session_call(
@@ -194,7 +194,7 @@ pub trait Contract: WithContractAbi + ContractAbi + Send + Sized {
         session: Self::SessionState,
         argument: Self::SessionCall,
         forwarded_sessions: Vec&lt;SessionId&gt;,
-    ) -&gt; Result&lt;SessionCallResult&lt;Self::Effect, Self::Response, Self::SessionState&gt;, Self::Error&gt;;
+    ) -&gt; Result&lt;SessionCallResult&lt;Self::Message, Self::Response, Self::SessionState&gt;, Self::Error&gt;;
 
 }</code></pre>
 <p>The full trait definition can be found <a href="https://github.com/linera-io/linera-protocol/blob/main/linera-sdk/src/lib.rs">here</a>.</p>
@@ -212,7 +212,7 @@ be specified on application creation using its initialization parameters:</p>
         &amp;mut self,
         _context: &amp;OperationContext,
         value: u64,
-    ) -&gt; Result&lt;ExecutionResult&lt;Self::Effect&gt;, Self::Error&gt; {
+    ) -&gt; Result&lt;ExecutionResult&lt;Self::Message&gt;, Self::Error&gt; {
         self.value.set(value);
         Ok(ExecutionResult::default())
     }</code></pre>
@@ -225,7 +225,7 @@ it will be receiving a <code>u64</code> which is used to increment the counter:<
         &amp;mut self,
         _context: &amp;OperationContext,
         operation: u64,
-    ) -&gt; Result&lt;ExecutionResult&lt;Self::Effect&gt;, Self::Error&gt; {
+    ) -&gt; Result&lt;ExecutionResult&lt;Self::Message&gt;, Self::Error&gt; {
         let current = self.value.get();
         self.value.set(current + operation);
         Ok(ExecutionResult::default())

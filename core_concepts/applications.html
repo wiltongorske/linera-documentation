@@ -181,7 +181,7 @@ an application can be published with a single command:</p>
 <p>An application is broken into two major components, the <em>contract</em> and the <em>service</em>.</p>
 <p>The contract is gas-metered (for more details,
 see <a href="../advanced_topics/execution_model.html">execution model</a>), and is the part
-of the application which executes operations and effects, make cross-application
+of the application which executes operations and messages, make cross-application
 calls and modifies the application's state. The details are covered in more
 depth in the
 <a href="./sdk.html">SDK docs</a>.</p>
@@ -190,13 +190,13 @@ state of an application and hydrate the presentation layer (think front-end)
 with the data required for a user interface.</p>
 <p>Finally, spanning both the contract and service is the Application's state in
 the form of a <a href="./../advanced_topics/views.html">View</a>, but more on that later.</p>
-<h2 id="operations-and-effects"><a class="header" href="#operations-and-effects">Operations and Effects</a></h2>
+<h2 id="operations-and-messages"><a class="header" href="#operations-and-messages">Operations and Messages</a></h2>
 <blockquote>
 <p>For this section we'll be using the example of a hypothetical &quot;fungible token&quot;
 application where users can send tokens to each other.</p>
 </blockquote>
 <p>At the system-level, interacting with an application can be done via operations
-and effects.</p>
+and messages.</p>
 <p><strong>Operations</strong> are defined by an application developer and each
 application can have a completely different set of operations. Chain owners then
 actively create operations and put them in their block proposals to interact
@@ -215,17 +215,17 @@ pub enum Operation {
     },
     // Meant to be extended here
 }</code></pre>
-<p><strong>Effects</strong> are outcomes of execution (of operations or other effects).
-Effects from one chain can be sent in a cross-chain message to another. Block
-proposers also actively include effects in their block proposal, but unlike with
+<p><strong>Messages</strong> are outcomes of execution (of operations or other messages).
+Messages from one chain can be sent in a cross-chain message to another. Block
+proposers also actively include messages in their block proposal, but unlike with
 operations, they are only allowed to include them in the right order (possibly
 skipping some), and only if they were actually created by another chain (or the
 same chain, earlier).</p>
-<p>In our &quot;fungible token&quot; application, an effect to credit an account would look like this:</p>
+<p>In our &quot;fungible token&quot; application, a message to credit an account would look like this:</p>
 <pre><code class="language-rust ignore"><span class="boring">extern crate serde;
 </span><span class="boring">use serde::{Deserialize, Serialize};
 </span>#[derive(Debug, Deserialize, Serialize)]
-pub enum Effect {
+pub enum Message {
     Credit { owner: AccountOwner, amount: Amount },
     // Meant to be extended here
 }</code></pre>

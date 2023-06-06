@@ -156,10 +156,10 @@ security.</p>
 <ul>
 <li>
 <p>Each block is valid, i.e. it has the correct format, its operations are allowed, the
-received effects are in the correct order, and e.g. the balance was correctly computed.</p>
+received messages are in the correct order, and e.g. the balance was correctly computed.</p>
 </li>
 <li>
-<p>Every effect received by one chain was actually sent by another chain.</p>
+<p>Every message received by one chain was actually sent by another chain.</p>
 </li>
 <li>
 <p>If one block on a particular height is certified, no other block on the same height is.</p>
@@ -171,10 +171,10 @@ a validator to be considered malicious and to lose their <em>stake</em>.</p>
 <p>Validators also play a role in the liveness of the system by making sure that the history
 of the chains stays available. However, since validators do not propose blocks on most
 chains (see <a href="block_creation.html">next section</a>), they do <em>not</em> guarantee that any
-particular operation or effect will eventually be executed on a chain. Instead, chain
-owners decide whether and when to propose new blocks, and which operations and effects to
+particular operation or message will eventually be executed on a chain. Instead, chain
+owners decide whether and when to propose new blocks, and which operations and messages to
 include. The current implementation of the Linera client automatically includes all
-incoming effects in new blocks. The operations are the actions the chain owner explicitly
+incoming messages in new blocks. The operations are the actions the chain owner explicitly
 adds, e.g. transfer.</p>
 <h2 id="scalability"><a class="header" href="#scalability">Scalability</a></h2>
 <p>Since every chain uses the same validators, adding more chains does not require adding
@@ -183,7 +183,7 @@ additional load.</p>
 <p>That is why Linera allows the same validator to run multiple <code>server</code>
 processes—<em>workers</em>—on different machines, each one processing a different subset of
 the microchains. The workers communicate directly with each other whenever a chain sends
-an effect to another chain.</p>
+a message to another chain.</p>
 <h2 id="anatomy-of-a-validator"><a class="header" href="#anatomy-of-a-validator">Anatomy of a Validator</a></h2>
 <p>To achieve scalability, Linera validators need to be horizontally scalable (sometimes
 referred to as &quot;elastic&quot;). To achieve this scalability, the architecture of a validator
@@ -253,7 +253,7 @@ to start a new epoch with a modified set of validators:</p>
 <pre><code class="language-bash">linera --wallet wallet.json set-validator --name 5b611b86cc1f54f73a4abfb4a2167c7327cc85a74cb2a5502431f67b554850b4 --address 127.0.0.1:9100 --votes 3
 linera --wallet wallet.json remove-validator --name f65a585f05852f0610e2460a99c23faa3969f3cfce8a519f843a793dbfb4cb84
 </code></pre>
-<p>Chain owners must then create a block that receives the <code>SetCommittees</code> effect from the
+<p>Chain owners must then create a block that receives the <code>SetCommittees</code> message from the
 admin chain, and have it certified by the old validators. Only the <em>next</em> block in their
 chain will be certified by the new validator set!</p>
 <p>The <em>admin chain</em> is currently managed by a single user. In the future, it will be a

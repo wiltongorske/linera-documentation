@@ -391,7 +391,7 @@ Wallet as a browser extension (with Wasm VM)</li>
 <pre><code class="language-bash">git clone https://github.com/linera-io/linera-protocol.git
 </code></pre>
 <p>This manual has been tested against the following commit:</p>
-<pre><code class="language-text">734bf8b4d67305fc28d2ad909aaac19a7a4c850b
+<pre><code class="language-text">ced607670694e229856a0b9b65d467c6b4d42864
 </code></pre>
 <h2 id="dependencies"><a class="header" href="#dependencies">Dependencies</a></h2>
 <p>To install Linera from scratch, you will require the following dependencies:</p>
@@ -543,7 +543,7 @@ only once.</p>
 <p>Instead of immediately modifying the target chain, messages are placed first in the target
 chain's <strong>inbox</strong>. When the owner(s) of the target chain creates its next block in the
 future, it may reference a selection of messages taken from the current inbox in the new
-block. This executes the selected messages and applies their effects to the chain state.</p>
+block. This executes the selected messages and applies their messages to the chain state.</p>
 <p>Below is an example set of chains sending asynchronous messages to each other
 over consecutive blocks.</p>
 <pre><code class="language-ignore">                               ┌───┐     ┌───┐     ┌───┐
@@ -642,11 +642,11 @@ is then sent to the <code>wallet</code> who is the chain creator.</p>
 e476187f6ddfeb9d588c7b45d3df334d5501d6499b3f9ad5595cae86cce16a65010000000000000000000000
 fc9384defb0bcd8f6e206ffda32599e24ba715f45ec88d4ac81ec47eb84fa111
 </code></pre>
-<p>The first line is the effect ID specifying the cross-chain message that creates the new
+<p>The first line is the message ID specifying the cross-chain message that creates the new
 chain. of the newly created chain. The second line is the new chain's ID.</p>
 <p>Finally, to add the chain to <code>wallet2</code> for the given unassigned key we use
 the <code>assign</code> command:</p>
-<pre><code class="language-bash"> linera --wallet wallet2.json assign --key 6443634d872afbbfcc3059ac87992c4029fa88e8feb0fff0723ac6c914088888 --effect-id e476187f6ddfeb9d588c7b45d3df334d5501d6499b3f9ad5595cae86cce16a65010000000000000000000000
+<pre><code class="language-bash"> linera --wallet wallet2.json assign --key 6443634d872afbbfcc3059ac87992c4029fa88e8feb0fff0723ac6c914088888 --message-id e476187f6ddfeb9d588c7b45d3df334d5501d6499b3f9ad5595cae86cce16a65010000000000000000000000
 </code></pre>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="node-service"><a class="header" href="#node-service">Node Service</a></h1>
 <p>So far we've seen how to use the Linera client treating it as a binary
@@ -718,7 +718,7 @@ an application can be published with a single command:</p>
 <p>An application is broken into two major components, the <em>contract</em> and the <em>service</em>.</p>
 <p>The contract is gas-metered (for more details,
 see <a href="core_concepts/../advanced_topics/execution_model.html">execution model</a>), and is the part
-of the application which executes operations and effects, make cross-application
+of the application which executes operations and messages, make cross-application
 calls and modifies the application's state. The details are covered in more
 depth in the
 <a href="core_concepts/./sdk.html">SDK docs</a>.</p>
@@ -727,13 +727,13 @@ state of an application and hydrate the presentation layer (think front-end)
 with the data required for a user interface.</p>
 <p>Finally, spanning both the contract and service is the Application's state in
 the form of a <a href="core_concepts/./../advanced_topics/views.html">View</a>, but more on that later.</p>
-<h2 id="operations-and-effects"><a class="header" href="#operations-and-effects">Operations and Effects</a></h2>
+<h2 id="operations-and-messages"><a class="header" href="#operations-and-messages">Operations and Messages</a></h2>
 <blockquote>
 <p>For this section we'll be using the example of a hypothetical &quot;fungible token&quot;
 application where users can send tokens to each other.</p>
 </blockquote>
 <p>At the system-level, interacting with an application can be done via operations
-and effects.</p>
+and messages.</p>
 <p><strong>Operations</strong> are defined by an application developer and each
 application can have a completely different set of operations. Chain owners then
 actively create operations and put them in their block proposals to interact
@@ -752,17 +752,17 @@ pub enum Operation {
     },
     // Meant to be extended here
 }</code></pre>
-<p><strong>Effects</strong> are outcomes of execution (of operations or other effects).
-Effects from one chain can be sent in a cross-chain message to another. Block
-proposers also actively include effects in their block proposal, but unlike with
+<p><strong>Messages</strong> are outcomes of execution (of operations or other messages).
+Messages from one chain can be sent in a cross-chain message to another. Block
+proposers also actively include messages in their block proposal, but unlike with
 operations, they are only allowed to include them in the right order (possibly
 skipping some), and only if they were actually created by another chain (or the
 same chain, earlier).</p>
-<p>In our &quot;fungible token&quot; application, an effect to credit an account would look like this:</p>
+<p>In our &quot;fungible token&quot; application, a message to credit an account would look like this:</p>
 <pre><code class="language-rust ignore"><span class="boring">extern crate serde;
 </span><span class="boring">use serde::{Deserialize, Serialize};
 </span>#[derive(Debug, Deserialize, Serialize)]
-pub enum Effect {
+pub enum Message {
     Credit { owner: AccountOwner, amount: Amount },
     // Meant to be extended here
 }</code></pre>
@@ -883,11 +883,11 @@ pub trait ContractAbi {
     /// application on their own chain.
     type Operation: Serialize + DeserializeOwned + Send + Sync + Debug + 'static;
 
-    /// The type of effect executed by the application.
+    /// The type of message executed by the application.
     ///
-    /// Effects are executed when a message created by the same application is received
+    /// Messages are executed when a message created by the same application is received
     /// from another chain and accepted in a block.
-    type Effect: Serialize + DeserializeOwned + Send + Sync + Debug + 'static;
+    type Message: Serialize + DeserializeOwned + Send + Sync + Debug + 'static;
 
     /// The argument type when this application is called from another application on the same chain.
     type ApplicationCall: Serialize + DeserializeOwned + Send + Sync + Debug + 'static;
@@ -916,7 +916,7 @@ pub trait ContractAbi {
     type Parameters = ();
     type Operation = u64;
     type ApplicationCall = ();
-    type Effect = ();
+    type Message = ();
     type SessionCall = ();
     type Response = ();
     type SessionState = ();
@@ -965,21 +965,21 @@ pub trait Contract: WithContractAbi + ContractAbi + Send + Sized {
         &amp;mut self,
         context: &amp;OperationContext,
         argument: Self::InitializationArgument,
-    ) -&gt; Result&lt;ExecutionResult&lt;Self::Effect&gt;, Self::Error&gt;;
+    ) -&gt; Result&lt;ExecutionResult&lt;Self::Message&gt;, Self::Error&gt;;
 
     /// Applies an operation from the current block.
     async fn execute_operation(
         &amp;mut self,
         context: &amp;OperationContext,
         operation: Self::Operation,
-    ) -&gt; Result&lt;ExecutionResult&lt;Self::Effect&gt;, Self::Error&gt;;
+    ) -&gt; Result&lt;ExecutionResult&lt;Self::Message&gt;, Self::Error&gt;;
 
-    /// Applies an effect originating from a cross-chain message.
-    async fn execute_effect(
+    /// Applies a message originating from a cross-chain message.
+    async fn execute_message(
         &amp;mut self,
-        context: &amp;EffectContext,
-        effect: Self::Effect,
-    ) -&gt; Result&lt;ExecutionResult&lt;Self::Effect&gt;, Self::Error&gt;;
+        context: &amp;MessageContext,
+        message: Self::Message,
+    ) -&gt; Result&lt;ExecutionResult&lt;Self::Message&gt;, Self::Error&gt;;
 
     /// Handles a call from another application.
     async fn handle_application_call(
@@ -987,7 +987,7 @@ pub trait Contract: WithContractAbi + ContractAbi + Send + Sized {
         context: &amp;CalleeContext,
         argument: Self::ApplicationCall,
         forwarded_sessions: Vec&lt;SessionId&gt;,
-    ) -&gt; Result&lt;ApplicationCallResult&lt;Self::Effect, Self::Response, Self::SessionState&gt;, Self::Error&gt;;
+    ) -&gt; Result&lt;ApplicationCallResult&lt;Self::Message, Self::Response, Self::SessionState&gt;, Self::Error&gt;;
 
     /// Handles a call into a session created by this application.
     async fn handle_session_call(
@@ -996,7 +996,7 @@ pub trait Contract: WithContractAbi + ContractAbi + Send + Sized {
         session: Self::SessionState,
         argument: Self::SessionCall,
         forwarded_sessions: Vec&lt;SessionId&gt;,
-    ) -&gt; Result&lt;SessionCallResult&lt;Self::Effect, Self::Response, Self::SessionState&gt;, Self::Error&gt;;
+    ) -&gt; Result&lt;SessionCallResult&lt;Self::Message, Self::Response, Self::SessionState&gt;, Self::Error&gt;;
 
 }</code></pre>
 <p>The full trait definition can be found <a href="https://github.com/linera-io/linera-protocol/blob/main/linera-sdk/src/lib.rs">here</a>.</p>
@@ -1014,7 +1014,7 @@ be specified on application creation using its initialization parameters:</p>
         &amp;mut self,
         _context: &amp;OperationContext,
         value: u64,
-    ) -&gt; Result&lt;ExecutionResult&lt;Self::Effect&gt;, Self::Error&gt; {
+    ) -&gt; Result&lt;ExecutionResult&lt;Self::Message&gt;, Self::Error&gt; {
         self.value.set(value);
         Ok(ExecutionResult::default())
     }</code></pre>
@@ -1027,7 +1027,7 @@ it will be receiving a <code>u64</code> which is used to increment the counter:<
         &amp;mut self,
         _context: &amp;OperationContext,
         operation: u64,
-    ) -&gt; Result&lt;ExecutionResult&lt;Self::Effect&gt;, Self::Error&gt; {
+    ) -&gt; Result&lt;ExecutionResult&lt;Self::Message&gt;, Self::Error&gt; {
         let current = self.value.get();
         self.value.set(current + operation);
         Ok(ExecutionResult::default())
@@ -1207,11 +1207,11 @@ to transfer 10 tokens to Carol's account on Bob's chain:</p>
 <p>This causes <code>Fungible::handle_application_call</code> to be run, which will create a cross-chain
 message sending the amount 10 to the Pugecoin application instance on Bob's chain.</p>
 <p>After the cross-application call returns, <code>CrowdFunding::execute_operation</code> continues to
-create another cross-chain message <code>crowd_funding::Effect::PledgeWithAccount</code>, which
+create another cross-chain message <code>crowd_funding::Message::PledgeWithAccount</code>, which
 informs the crowd-funding application on Bob's chain that the 10 tokens are meant for
 the campaign.</p>
 <p>When Bob now adds a block to his chain that handles the two incoming messages,
-first <code>Fungible::execute_effect</code> gets executed, and then <code>CrowdFunding::execute_effect</code>.
+first <code>Fungible::execute_message</code> gets executed, and then <code>CrowdFunding::execute_message</code>.
 The latter makes another cross-application call to transfer the 10 tokens from Carol's
 account to the crowd-funding application's account (both on Bob's chain). That is
 successful because Carol does now have 10 tokens on this chain and she authenticated
@@ -1342,7 +1342,7 @@ async fn test_cross_chain_message() {
         })
         .await;
 
-    receiver_chain.handle_received_effects().await;
+    receiver_chain.handle_received_messages().await;
 
     assert_eq!(
         receiver_chain
@@ -1394,10 +1394,10 @@ security.</p>
 <ul>
 <li>
 <p>Each block is valid, i.e. it has the correct format, its operations are allowed, the
-received effects are in the correct order, and e.g. the balance was correctly computed.</p>
+received messages are in the correct order, and e.g. the balance was correctly computed.</p>
 </li>
 <li>
-<p>Every effect received by one chain was actually sent by another chain.</p>
+<p>Every message received by one chain was actually sent by another chain.</p>
 </li>
 <li>
 <p>If one block on a particular height is certified, no other block on the same height is.</p>
@@ -1409,10 +1409,10 @@ a validator to be considered malicious and to lose their <em>stake</em>.</p>
 <p>Validators also play a role in the liveness of the system by making sure that the history
 of the chains stays available. However, since validators do not propose blocks on most
 chains (see <a href="advanced_topics/block_creation.html">next section</a>), they do <em>not</em> guarantee that any
-particular operation or effect will eventually be executed on a chain. Instead, chain
-owners decide whether and when to propose new blocks, and which operations and effects to
+particular operation or message will eventually be executed on a chain. Instead, chain
+owners decide whether and when to propose new blocks, and which operations and messages to
 include. The current implementation of the Linera client automatically includes all
-incoming effects in new blocks. The operations are the actions the chain owner explicitly
+incoming messages in new blocks. The operations are the actions the chain owner explicitly
 adds, e.g. transfer.</p>
 <h2 id="scalability"><a class="header" href="#scalability">Scalability</a></h2>
 <p>Since every chain uses the same validators, adding more chains does not require adding
@@ -1421,7 +1421,7 @@ additional load.</p>
 <p>That is why Linera allows the same validator to run multiple <code>server</code>
 processes—<em>workers</em>—on different machines, each one processing a different subset of
 the microchains. The workers communicate directly with each other whenever a chain sends
-an effect to another chain.</p>
+a message to another chain.</p>
 <h2 id="anatomy-of-a-validator"><a class="header" href="#anatomy-of-a-validator">Anatomy of a Validator</a></h2>
 <p>To achieve scalability, Linera validators need to be horizontally scalable (sometimes
 referred to as &quot;elastic&quot;). To achieve this scalability, the architecture of a validator
@@ -1491,7 +1491,7 @@ to start a new epoch with a modified set of validators:</p>
 <pre><code class="language-bash">linera --wallet wallet.json set-validator --name 5b611b86cc1f54f73a4abfb4a2167c7327cc85a74cb2a5502431f67b554850b4 --address 127.0.0.1:9100 --votes 3
 linera --wallet wallet.json remove-validator --name f65a585f05852f0610e2460a99c23faa3969f3cfce8a519f843a793dbfb4cb84
 </code></pre>
-<p>Chain owners must then create a block that receives the <code>SetCommittees</code> effect from the
+<p>Chain owners must then create a block that receives the <code>SetCommittees</code> message from the
 admin chain, and have it certified by the old validators. Only the <em>next</em> block in their
 chain will be certified by the new validator set!</p>
 <p>The <em>admin chain</em> is currently managed by a single user. In the future, it will be a
@@ -1527,7 +1527,7 @@ publishing, or chain creation operation:</p>
 <ul>
 <li>
 <p>The Linera client creates a new block containing the desired operation and new incoming
-effects, if there are any. It also contains the most recent block's hash to designate
+messages, if there are any. It also contains the most recent block's hash to designate
 its parent. The client sends the new block to all validators.</p>
 </li>
 <li>
@@ -1543,15 +1543,15 @@ was confirmed. The client sends the certificate to every validator.</p>
 </li>
 <li>
 <p>The validators &quot;execute&quot; the block: They update their own view of the most recent state
-of the chain by applying all effects and operations, and if it generated any cross-chain
+of the chain by applying all messages and operations, and if it generated any cross-chain
 messages, they send these to the appropriate workers.</p>
 </li>
 </ul>
-<p>To guarantee that each incoming effect in a block was actually sent by another chain, a
+<p>To guarantee that each incoming message in a block was actually sent by another chain, a
 validator will, in the second step, only <em>vote</em> for a block if it has already executed
 the block that sent it. However, when receiving a valid certificate for a block that
-receives an effect it has not seen yet, it will accept and <em>execute</em> the block anyway. The
-certificate is proof that most other validators have seen the effect, so it must be
+receives a message it has not seen yet, it will accept and <em>execute</em> the block anyway. The
+certificate is proof that most other validators have seen the message, so it must be
 correct.</p>
 <p>In the case of single-owner chains, clients must be carefully implemented so that they
 never propose multiple blocks at the same height. Otherwise, the chain may be stuck: once
