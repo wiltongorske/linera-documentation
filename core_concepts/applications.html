@@ -146,13 +146,11 @@
                 <div id="content" class="content">
                     <main>
                         <h1 id="applications"><a class="header" href="#applications">Applications</a></h1>
-<p>This section is all about building applications in Linera. The Linera programming
-model is designed to provide a rich ecosystem to enable developers to take advantage
-of the scaling architecture of microchains.</p>
-<p>Linera uses the WebAssembly VM to execute user applications. For now
-the <a href="./sdk.html">SDK</a> used to develop Linera applications is exclusively for
-the <a href="https://www.rust-lang.org/">Rust</a> programming language. This will be
-covered in depth in the <a href="./sdk.html">next section</a>.</p>
+<p>The programming model of Linera is designed so that developers can take advantage of
+microchains to scale their applications.</p>
+<p>Linera uses the WebAssembly Virtual Machine (Wasm) to execute user applications.
+Currently, the <a href="../sdk.html">Linera SDK</a> is focused on the <a href="https://www.rust-lang.org/">Rust</a>
+programming language. This will be covered in depth in the <a href="../sdk.html">next section</a>.</p>
 <h2 id="the-application-deployment-lifecycle"><a class="header" href="#the-application-deployment-lifecycle">The Application Deployment Lifecycle</a></h2>
 <p>Linera Applications are designed to be powerful yet re-usable. For this reason
 there is a distinction between the application bytecode and an application
@@ -179,12 +177,9 @@ an application can be published with a single command:</p>
 <p>This will publish the bytecode as well as initialize the application for you.</p>
 <h2 id="anatomy-of-an-application"><a class="header" href="#anatomy-of-an-application">Anatomy of an Application</a></h2>
 <p>An application is broken into two major components, the <em>contract</em> and the <em>service</em>.</p>
-<p>The contract is gas-metered (for more details,
-see <a href="../advanced_topics/execution_model.html">execution model</a>), and is the part
-of the application which executes operations and messages, make cross-application
-calls and modifies the application's state. The details are covered in more
-depth in the
-<a href="./sdk.html">SDK docs</a>.</p>
+<p>The contract is gas-metered, and is the part of the application which executes operations
+and messages, make cross-application calls and modifies the application's state. The
+details are covered in more depth in the <a href="../sdk.html">SDK docs</a>.</p>
 <p>The service is non-metered and read-only. It is used primarily to query the
 state of an application and hydrate the presentation layer (think front-end)
 with the data required for a user interface.</p>

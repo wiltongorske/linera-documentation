@@ -686,13 +686,11 @@ explore the state of the system and your applications.</p>
 system operations. You can explore the full set of operations by using the
 aforementioned schema explorer under <code>MutationRoot</code>.</p>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="applications"><a class="header" href="#applications">Applications</a></h1>
-<p>This section is all about building applications in Linera. The Linera programming
-model is designed to provide a rich ecosystem to enable developers to take advantage
-of the scaling architecture of microchains.</p>
-<p>Linera uses the WebAssembly VM to execute user applications. For now
-the <a href="core_concepts/./sdk.html">SDK</a> used to develop Linera applications is exclusively for
-the <a href="https://www.rust-lang.org/">Rust</a> programming language. This will be
-covered in depth in the <a href="core_concepts/./sdk.html">next section</a>.</p>
+<p>The programming model of Linera is designed so that developers can take advantage of
+microchains to scale their applications.</p>
+<p>Linera uses the WebAssembly Virtual Machine (Wasm) to execute user applications.
+Currently, the <a href="core_concepts/../sdk.html">Linera SDK</a> is focused on the <a href="https://www.rust-lang.org/">Rust</a>
+programming language. This will be covered in depth in the <a href="core_concepts/../sdk.html">next section</a>.</p>
 <h2 id="the-application-deployment-lifecycle"><a class="header" href="#the-application-deployment-lifecycle">The Application Deployment Lifecycle</a></h2>
 <p>Linera Applications are designed to be powerful yet re-usable. For this reason
 there is a distinction between the application bytecode and an application
@@ -719,12 +717,9 @@ an application can be published with a single command:</p>
 <p>This will publish the bytecode as well as initialize the application for you.</p>
 <h2 id="anatomy-of-an-application"><a class="header" href="#anatomy-of-an-application">Anatomy of an Application</a></h2>
 <p>An application is broken into two major components, the <em>contract</em> and the <em>service</em>.</p>
-<p>The contract is gas-metered (for more details,
-see <a href="core_concepts/../advanced_topics/execution_model.html">execution model</a>), and is the part
-of the application which executes operations and messages, make cross-application
-calls and modifies the application's state. The details are covered in more
-depth in the
-<a href="core_concepts/./sdk.html">SDK docs</a>.</p>
+<p>The contract is gas-metered, and is the part of the application which executes operations
+and messages, make cross-application calls and modifies the application's state. The
+details are covered in more depth in the <a href="core_concepts/../sdk.html">SDK docs</a>.</p>
 <p>The service is non-metered and read-only. It is used primarily to query the
 state of an application and hydrate the presentation layer (think front-end)
 with the data required for a user interface.</p>
@@ -1135,10 +1130,10 @@ impl QueryRoot {
         &amp;self.value
     }
 }</code></pre>
-<p>We haven't included the imports in the above code; they are left as an
-exercise to the reader (but remember to import <code>async_graphql::Object</code>). If you want the full source code and associated tests
-check out
-the <a href="https://github.com/linera-io/linera-protocol/blob/main/examples/counter-graphql/src/service.rs">examples section</a>
+<p>We haven't included the imports in the above code; they are left as an exercise to the
+reader (but remember to import <code>async_graphql::Object</code>). If you want the full source code
+and associated tests check out the <a href="https://github.com/linera-io/linera-protocol/blob/main/examples/counter/src/service.rs">examples
+section</a>
 on GitHub.</p>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="deploying-the-application"><a class="header" href="#deploying-the-application">Deploying the Application</a></h1>
 <p>To deploy your application, build your contract in release mode with <code>cargo build --release</code> and then
@@ -1459,7 +1454,7 @@ independently of the rest of the validator</p>
 
 </code></pre>
 <h2 id="configuring-networks-workers-and-proxies"><a class="header" href="#configuring-networks-workers-and-proxies">Configuring Networks, Workers, and Proxies</a></h2>
-<p>In <a href="advanced_topics/../getting_started/first_app.html">a previous section</a>, we used the <code>run_local.sh</code> script
+<p>In <a href="advanced_topics/../getting_started/hello_linera.html">a previous section</a>, we used the <code>run_local.sh</code> script
 to start a local network. This should be sufficient for most use cases when you're running
 a local network.</p>
 <pre><code class="language-bash">./scripts/run_local.sh
@@ -1515,7 +1510,7 @@ types of chains, depending on how new blocks are produced.</p>
 </li>
 <li>
 <p>Other types of Linera chains not currently supported in the SDK include <em>permissioned
-chains</em> and <em>public chains</em> (see the <a href="advanced_topics/linera.io/whitepaper">whitepaper</a> for more context).</p>
+chains</em> and <em>public chains</em> (see the <a href="https://linera.io/whitepaper">whitepaper</a> for more context).</p>
 </li>
 </ul>
 <blockquote>
