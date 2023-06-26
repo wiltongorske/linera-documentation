@@ -153,7 +153,7 @@ but a separate state on every chain. To coordinate, the instances can send
 by the <em>same</em> application on the target chain: The handling code is guaranteed to be the
 same as the sending code, but the state may be different.</p>
 <p>For your application, you can specify any serializable type as the <code>Message</code> type in your
-<code>ContractAbi</code> implementation. To sent a message, simply return it among the
+<code>ContractAbi</code> implementation. To send a message, return it among the
 <a href="https://docs.rs/linera-sdk/latest/linera_sdk/struct.ExecutionResult.html"><code>ExecutionResult</code></a>'s
 <code>messages</code>:</p>
 <pre><code class="language-rust ignore">    pub messages: Vec&lt;(Destination, bool, Message)&gt;,</code></pre>

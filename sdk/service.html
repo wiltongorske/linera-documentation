@@ -177,7 +177,7 @@ pub trait Service: WithServiceAbi + ServiceAbi {
 <p>First, we want to generate the necessary boilerplate for implementing the
 service WIT interface, export the necessary resource types and functions so that
 the host (the process running the bytecode) can call the service. Happily,
-there is a macro to perform this code generation, so simply add the following
+there is a macro to perform this code generation, so just add the following
 to <code>service.rs</code>:</p>
 <pre><code class="language-rust ignore">linera_sdk::service!(Counter);</code></pre>
 <p>Next, we need to implement the <code>Service</code> for <code>Counter</code>. To do this we need to
