@@ -574,9 +574,9 @@ section on <a href="core_concepts/wallet.html#opening-a-chain">chain management<
 <p>The Linera client is the main way to interact with the network and manage
 users' wallets. Like most wallets, a Linera wallet holds user private and
 public keys. Unlike most wallet applications, the Linera client also acts as a
-partial node, executing blocks for chains owned by a user.</p>
+node, executing blocks for chains owned by a user.</p>
 <p>The state of the wallet lives in <code>wallet.json</code>, while the state of the chains
-running on your local partial node are stored in <code>linera.db</code>.</p>
+running on your local node are stored in <code>linera.db</code>.</p>
 <h2 id="chain-management"><a class="header" href="#chain-management">Chain Management</a></h2>
 <p>User chains are managed explicitly via the client.</p>
 <h3 id="listing-chains"><a class="header" href="#listing-chains">Listing Chains</a></h3>
@@ -646,7 +646,7 @@ the <code>assign</code> command:</p>
 </code></pre>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="node-service"><a class="header" href="#node-service">Node Service</a></h1>
 <p>So far we've seen how to use the Linera client treating it as a binary
-in your terminal. However, the client also acts as a partial node which:</p>
+in your terminal. However, the client also acts as a node which:</p>
 <ol>
 <li>Executes blocks</li>
 <li>Exposes an GraphQL API and IDE for dynamically interacting with applications
@@ -660,10 +660,9 @@ chains.</li>
 <p>This will run the node service on port 8080 by default (this can be overridden
 using the <code>--port</code> flag).</p>
 <h2 id="a-note-on-graphql"><a class="header" href="#a-note-on-graphql">A Note on GraphQL</a></h2>
-<p>Linera uses GraphQL as the primary query language for interfacing with different
-parts of the system. GraphQL is a query language developed by Facebook which
-enables clients to craft queries such that they receive exactly what they want
-and nothing more.</p>
+<p>Linera uses GraphQL as the query language for interfacing with different
+parts of the system. GraphQL enables clients to craft
+queries such that they receive exactly what they want and nothing more.</p>
 <p>GraphQL is used extensively during application development, especially to query
 the state of an application from a front-end for example.</p>
 <p>To learn more about GraphQL check out
@@ -674,54 +673,59 @@ GraphiQL start the node service and navigate to <code>localhost:8080/</code>.</p
 <p>Using the schema explorer on the left of the GraphiQL IDE you can dynamically
 explore the state of the system and your applications.</p>
 <p><img src="core_concepts/graphiql.png" alt="graphiql.png" /></p>
-<h2 id="graphql-api"><a class="header" href="#graphql-api">GraphQL API</a></h2>
+<h2 id="graphql-system-api"><a class="header" href="#graphql-system-api">GraphQL System API</a></h2>
 <p>The node service also exposes a GraphQL API which corresponds to the set of
-system operations. You can explore the full set of operations by using the
-aforementioned schema explorer under <code>MutationRoot</code>.</p>
+system operations. You can explore the full set of operations by clicking on
+<code>MutationRoot</code>.</p>
+<h2 id="graphql-application-api"><a class="header" href="#graphql-application-api">GraphQL Application API</a></h2>
+<p>To interact with an application, we run the Linera client
+in service mode. It exposes a GraphQL API for every
+application running on that chain at <code>localhost:8080/&lt;application-id&gt;</code>.</p>
+<p>Simple navigating there with your browser will open a GraphiQL interface which
+enables you to graphically explore the state of your application.</p>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="applications"><a class="header" href="#applications">Applications</a></h1>
 <p>The programming model of Linera is designed so that developers can take advantage of
 microchains to scale their applications.</p>
 <p>Linera uses the WebAssembly Virtual Machine (Wasm) to execute user applications.
 Currently, the <a href="core_concepts/../sdk.html">Linera SDK</a> is focused on the <a href="https://www.rust-lang.org/">Rust</a>
-programming language. This will be covered in depth in the <a href="core_concepts/../sdk.html">next section</a>.</p>
+programming language.</p>
 <h2 id="the-application-deployment-lifecycle"><a class="header" href="#the-application-deployment-lifecycle">The Application Deployment Lifecycle</a></h2>
 <p>Linera Applications are designed to be powerful yet re-usable. For this reason
-there is a distinction between the application bytecode and an application
+there is a distinction between the bytecode and an application
 instance on the network.</p>
 <p>Applications undergo a lifecycle transition aimed at making development easy and
 flexible:</p>
 <ol>
-<li>The application bytecode is built from a Rust project with the <code>linera-sdk</code>
+<li>The bytecode is built from a Rust project with the <code>linera-sdk</code>
 dependency.</li>
-<li>The application bytecode is published to the network on a given microchain.
-The bytecode location itself is then opaque to the rest of the network, the
-only way to reference it is with a bytecode identifier.</li>
-<li>After the bytecode is published, a user can create a new application instance
-by referencing the bytecode and providing initialization parameters. This
+<li>The bytecode is published to the network on a microchain, and assigned an
+identifier.</li>
+<li>A user can create a new application instance, by providing
+the bytecode identifier and initialization arguments. This
 process returns an application identifier which can be used to reference and
 interact with the application.</li>
 <li>The same bytecode identifier can be used as many times is needed by as many
 users are needed to create distinct applications.</li>
 </ol>
-<p>Happily, the application deployment lifecycle is abstracted from the user, and
+<p>Importantly, the application deployment lifecycle is abstracted from the user, and
 an application can be published with a single command:</p>
 <pre><code class="language-bash">linera --storage $LINERA_STORAGE --wallet $LINERA_WALLET publish-and-create &lt;contract-path&gt; &lt;service-path&gt; &lt;init-args&gt;
 </code></pre>
 <p>This will publish the bytecode as well as initialize the application for you.</p>
 <h2 id="anatomy-of-an-application"><a class="header" href="#anatomy-of-an-application">Anatomy of an Application</a></h2>
-<p>An application is broken into two major components, the <em>contract</em> and the <em>service</em>.</p>
-<p>The contract is gas-metered, and is the part of the application which executes operations
+<p>An <strong>application</strong> is broken into two major components, the <em>contract</em> and the <em>service</em>.</p>
+<p>The <strong>contract</strong> is gas-metered, and is the part of the application which executes operations
 and messages, make cross-application calls and modifies the application's state. The
 details are covered in more depth in the <a href="core_concepts/../sdk.html">SDK docs</a>.</p>
-<p>The service is non-metered and read-only. It is used primarily to query the
-state of an application and hydrate the presentation layer (think front-end)
+<p>The <strong>service</strong> is non-metered and read-only. It is used primarily to query the
+state of an application and populate the presentation layer (think front-end)
 with the data required for a user interface.</p>
-<p>Finally, spanning both the contract and service is the Application's state in
+<p>Finally, the application's state is shared by the contract and service in
 the form of a <a href="core_concepts/./../advanced_topics/views.html">View</a>, but more on that later.</p>
 <h2 id="operations-and-messages"><a class="header" href="#operations-and-messages">Operations and Messages</a></h2>
 <blockquote>
-<p>For this section we'll be using the example of a hypothetical &quot;fungible token&quot;
-application where users can send tokens to each other.</p>
+<p>For this section we'll be using a simplified version of the example application called
+&quot;fungible&quot; where users can send tokens to each other.</p>
 </blockquote>
 <p>At the system-level, interacting with an application can be done via operations
 and messages.</p>
@@ -729,7 +733,7 @@ and messages.</p>
 application can have a completely different set of operations. Chain owners then
 actively create operations and put them in their block proposals to interact
 with an application.</p>
-<p>Using our hypothetical &quot;fungible token&quot; application as an example, an operation
+<p>Taking the &quot;fungible token&quot; application as an example, an operation
 for a user to transfer funds to another user would look like this:</p>
 <pre><code class="language-rust ignore"><span class="boring">extern crate serde;
 </span><span class="boring">use serde::{Deserialize, Serialize};
@@ -743,8 +747,8 @@ pub enum Operation {
     },
     // Meant to be extended here
 }</code></pre>
-<p><strong>Messages</strong> are outcomes of execution (of operations or other messages).
-Messages from one chain can be sent in a cross-chain message to another. Block
+<p><strong>Messages</strong> result from the execution of operations or other messages.
+Messages can be sent from one chain to another. Block
 proposers also actively include messages in their block proposal, but unlike with
 operations, they are only allowed to include them in the right order (possibly
 skipping some), and only if they were actually created by another chain (or the
@@ -777,12 +781,6 @@ between anyone able to produce a block.</p>
 produce blocks or where they trust the owner will produce blocks receiving their messages. Only they
 are able to move their tokens, even on chains where ownership is shared or where they are not able
 to produce blocks.</p>
-<h2 id="interacting-with-an-application"><a class="header" href="#interacting-with-an-application">Interacting with an Application</a></h2>
-<p>To interact with an application, we run the Linera client
-<a href="core_concepts/wallet.html#node-service">in service mode</a>. It exposes a GraphQL API for every
-application running on that chain at <code>localhost:8080/&lt;application-id&gt;</code>.</p>
-<p>Simple navigating there with your browser will open a GraphiQL interface which
-enables you to graphically explore the state of your application.</p>
 <h2 id="registering-an-application-across-chains"><a class="header" href="#registering-an-application-across-chains">Registering an Application across Chains</a></h2>
 <p>If Alice is using an application on her chain and starts interacting with Bob
 via the application, e.g. sends him some tokens using the <code>fungible</code> example,
@@ -800,28 +798,27 @@ He needs to request it from Alice first:</p>
 <p>Once Alice processes his message (which happens automatically if she is running
 the client in service mode), he can start using the application.</p>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="writing-linera-applications"><a class="header" href="#writing-linera-applications">Writing Linera Applications</a></h1>
-<p>In this section, we'll be exploring how to create Web3 applications using the SDK of Linera.</p>
+<p>In this section, we'll be exploring how to create Web3 applications using the Linera SDK.</p>
 <p>We'll use a simple &quot;counter&quot; application as a running example.</p>
-<p>We'll focus on the back end of the application, which consists of two main parts: a &quot;smart
-contract&quot; and its GraphQL service.</p>
-<p>Both the contract and the service part of an application are meant to be compiled to Wasm
-bytecode and written in Rust on top of the crate
-<a href="https://crates.io/crates/linera-sdk"><code>linera-sdk</code></a>.</p>
+<p>We'll focus on the back end of the application, which consists of two main parts: a <em>smart
+contract</em> and its GraphQL service.</p>
+<p>Both the contract and the service of an application are written in Rust using the crate
+<a href="https://crates.io/crates/linera-sdk"><code>linera-sdk</code></a>, and compiled to Wasm bytecode.</p>
 <p>This section should be seen as a guide versus a reference manual for the SDK. For the
 reference manual, refer to the <a href="https://docs.rs/linera-sdk/latest/linera_sdk/">documentation of the
 crate</a>.</p>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="creating-a-linera-project"><a class="header" href="#creating-a-linera-project">Creating a Linera Project</a></h1>
-<p>To create your Linera project, use the <code>linera project new</code> command to set up
+<p>To create your Linera project, use the <code>linera project new</code> command. It sets up
 the scaffolding and requisite files:</p>
 <pre><code class="language-bash">linera project new my-counter
 </code></pre>
 <p><code>linera project new</code> bootstraps your project by creating the following key files:</p>
 <ul>
 <li><code>Cargo.toml</code>: your project's manifest filled with the necessary dependencies to create an app;</li>
-<li><code>src/lib.rs</code>: the file which holds the application's ABI definition;</li>
-<li><code>src/state.rs</code>: the file which holds the application's state;</li>
-<li><code>src/contract.rs</code>: the file which holds the application's contract, and the binary target for the contract bytecode;</li>
-<li><code>src/service.rs</code>: the file which holds the application's service, and the binary target for the service bytecode.</li>
+<li><code>src/lib.rs</code>: the application's ABI definition;</li>
+<li><code>src/state.rs</code>: the application's state;</li>
+<li><code>src/contract.rs</code>: the application's contract, and the binary target for the contract bytecode;</li>
+<li><code>src/service.rs</code>: the application's service, and the binary target for the service bytecode.</li>
 </ul>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="creating-the-application-state"><a class="header" href="#creating-the-application-state">Creating the Application State</a></h1>
 <p>The <code>struct</code> which defines your application's state can be found in <code>src/state.rs</code>.</p>
@@ -844,25 +841,26 @@ pub struct Counter {
     pub value: RegisterView&lt;u64&gt;,
 }</code></pre>
 <p>and all other occurences of <code>Application</code> in your app.</p>
-<p>The <code>RegisterView</code> supports modifying a single value of type <code>T</code>. There are different types of
+<p>The <code>RegisterView&lt;T&gt;</code> supports modifying a single value of type <code>T</code>. There are different types of
 views for different use-cases, but the majority of common data structures have already been implemented:</p>
 <ul>
-<li>A <code>Vec</code> maps to a <code>CollectionView</code></li>
-<li>A <code>HashMap</code> maps to a <code>MapView</code></li>
-<li>A <code>Queue</code> maps to a <code>QueueView</code></li>
+<li>A <code>Vec</code> or <code>VecDeque</code> corresponds to a <code>LogView</code></li>
+<li>A <code>BTreeMap</code> corresponds to a <code>MapView</code> if its values are primitive, or to <code>CollectionView</code> if its values are other vuews;</li>
+<li>A <code>Queue</code> corresponds to a <code>QueueView</code></li>
 </ul>
 <p>For an exhaustive list refer to the Views <a href="sdk/../advanced_topics/views.html">documentation</a>.</p>
-<p>Finally, run <code>cargo build</code> to ensure that your changes compile.</p>
+<p>Finally, run <code>cargo check</code> to ensure that your changes compile.</p>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="defining-the-abi"><a class="header" href="#defining-the-abi">Defining the ABI</a></h1>
 <p>The Application Binary Interface (ABI) of a Linera application defines how to interact
 with this application from other parts of the system. It includes the data structures,
 data types, and functions exposed by on-chain contracts and services.</p>
-<p>ABIs are meant to be defined in <code>src/lib.rs</code> and compiled across all architectures (Wasm and native).</p>
-<p>For a reference guide, check out the <a href="https://docs.rs/linera-base/latest/linera_base/">documentation of the crate</a>.</p>
+<p>ABIs are usually defined in <code>src/lib.rs</code> and compiled across all architectures (Wasm and
+native).</p>
+<p>For a reference guide, check out the <a href="https://docs.rs/linera-base/latest/linera_base/abi/">documentation of the crate</a>.</p>
 <h2 id="defining-a-marker-struct"><a class="header" href="#defining-a-marker-struct">Defining a marker struct</a></h2>
 <p>The library part of your application (generally in <code>src/lib.rs</code>) must define a public
 empty struct that implements the <code>Abi</code> trait.</p>
-<pre><code class="language-rust ignore">#[derive(Clone, Copy, Eq, PartialEq, Ord, PartialOrd, Hash, Debug, Serialize, Deserialize)]
+<pre><code class="language-rust ignore">#[derive(Serialize, Deserialize)]
 struct CounterAbi;</code></pre>
 <p>NOTE: The derive macros are temporarily needed until
 <a href="https://github.com/linera-io/linera-protocol/issues/768">#768</a> is addressed.</p>

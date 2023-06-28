@@ -166,15 +166,15 @@ pub struct Counter {
     pub value: RegisterView&lt;u64&gt;,
 }</code></pre>
 <p>and all other occurences of <code>Application</code> in your app.</p>
-<p>The <code>RegisterView</code> supports modifying a single value of type <code>T</code>. There are different types of
+<p>The <code>RegisterView&lt;T&gt;</code> supports modifying a single value of type <code>T</code>. There are different types of
 views for different use-cases, but the majority of common data structures have already been implemented:</p>
 <ul>
-<li>A <code>Vec</code> maps to a <code>CollectionView</code></li>
-<li>A <code>HashMap</code> maps to a <code>MapView</code></li>
-<li>A <code>Queue</code> maps to a <code>QueueView</code></li>
+<li>A <code>Vec</code> or <code>VecDeque</code> corresponds to a <code>LogView</code></li>
+<li>A <code>BTreeMap</code> corresponds to a <code>MapView</code> if its values are primitive, or to <code>CollectionView</code> if its values are other vuews;</li>
+<li>A <code>Queue</code> corresponds to a <code>QueueView</code></li>
 </ul>
 <p>For an exhaustive list refer to the Views <a href="../advanced_topics/views.html">documentation</a>.</p>
-<p>Finally, run <code>cargo build</code> to ensure that your changes compile.</p>
+<p>Finally, run <code>cargo check</code> to ensure that your changes compile.</p>
 
                     </main>
 

@@ -149,12 +149,13 @@
 <p>The Application Binary Interface (ABI) of a Linera application defines how to interact
 with this application from other parts of the system. It includes the data structures,
 data types, and functions exposed by on-chain contracts and services.</p>
-<p>ABIs are meant to be defined in <code>src/lib.rs</code> and compiled across all architectures (Wasm and native).</p>
-<p>For a reference guide, check out the <a href="https://docs.rs/linera-base/latest/linera_base/">documentation of the crate</a>.</p>
+<p>ABIs are usually defined in <code>src/lib.rs</code> and compiled across all architectures (Wasm and
+native).</p>
+<p>For a reference guide, check out the <a href="https://docs.rs/linera-base/latest/linera_base/abi/">documentation of the crate</a>.</p>
 <h2 id="defining-a-marker-struct"><a class="header" href="#defining-a-marker-struct">Defining a marker struct</a></h2>
 <p>The library part of your application (generally in <code>src/lib.rs</code>) must define a public
 empty struct that implements the <code>Abi</code> trait.</p>
-<pre><code class="language-rust ignore">#[derive(Clone, Copy, Eq, PartialEq, Ord, PartialOrd, Hash, Debug, Serialize, Deserialize)]
+<pre><code class="language-rust ignore">#[derive(Serialize, Deserialize)]
 struct CounterAbi;</code></pre>
 <p>NOTE: The derive macros are temporarily needed until
 <a href="https://github.com/linera-io/linera-protocol/issues/768">#768</a> is addressed.</p>
