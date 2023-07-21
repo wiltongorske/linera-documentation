@@ -1235,9 +1235,9 @@ sent to all subscribers.</p>
 authentication on behalf of the signer of the original block that caused this call.</p>
 <p>The third field is the message itself, of the type you specified in the <code>ContractAbi</code>.</p>
 <p>You can also use
-<a href="https://docs.rs/linera-sdk/latest/linera_sdk/struct.ExecutionResult.html#method.with_effect"><code>ExecutionResult::with_message</code></a>
+<a href="https://docs.rs/linera-sdk/latest/linera_sdk/struct.ExecutionResult.html#method.with_message"><code>ExecutionResult::with_message</code></a>
 and
-<a href="https://docs.rs/linera-sdk/latest/linera_sdk/struct.ExecutionResult.html#method.with_authenticated_effect"><code>with_authenticated_message</code></a>
+<a href="https://docs.rs/linera-sdk/latest/linera_sdk/struct.ExecutionResult.html#method.with_authenticated_message"><code>with_authenticated_message</code></a>
 for convenience.</p>
 <p>During block execution in the <em>sending</em> chain, messages are returned via
 <code>ExecutionResult</code>s. The returned message is then placed in the <em>target</em> chain inbox for
