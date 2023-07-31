@@ -1756,19 +1756,18 @@ and is final. There are other values that are used for reaching consensus,
 before certifying a confirmed block.</p>
 </li>
 <li>
-<p><strong>Committee</strong>: The set of validators all for a particular <em>epoch</em>, together
+<p><strong>Committee</strong>: The set of all validators for a particular <em>epoch</em>, together
 with their voting weights.</p>
 </li>
 <li>
-<p><strong>Chain Owner</strong>: The owner of a <em>user chain</em>. This is represented as the
-alphanumeric identifier derived from the hash of the owner's public key.</p>
+<p><strong>Chain Owner</strong>: The owner of a <em>user chain</em> or <em>permissioned chain</em>. This is represented as the alphanumeric identifier derived from the hash of the owner's public key.</p>
 </li>
 <li>
-<p><strong>Channel</strong>: A broadcast mechanism enabling pub-sub behaviour across chains.</p>
+<p><strong>Channel</strong>: A broadcast mechanism enabling publish-subscribe behavior across chains.</p>
 </li>
 <li>
-<p><strong>Contract</strong>: The metered part of an application which executes 'business
-logic' and can modify the application's state.</p>
+<p><strong>Contract</strong>: The metered part of an application which executes business
+logic and can modify the application's state.</p>
 </li>
 <li>
 <p><strong>Cross-Application Call</strong>: A call from one application to another on the
@@ -1799,7 +1798,8 @@ chain.</p>
 </li>
 <li>
 <p><strong>Microchain</strong>: A lightweight chain of blocks holding a subset of the
-network's state running on every validator.</p>
+network's state running on every validator. This is used interchangeably
+with 'chain'. <em>All</em> Linera chains are microchains.</p>
 </li>
 <li>
 <p><strong>Network</strong>: The totality of all protocol participants. A network is the
@@ -1813,7 +1813,7 @@ interacting with an application on their own chain.</p>
 <li>
 <p><strong>Permissioned Chain</strong>: A microchain which is owned by more than one user.
 Users take turns proposing blocks and the likelihood of selection is
-proportional to their <em>stake</em>.</p>
+proportional to their <em>weight</em>.</p>
 </li>
 <li>
 <p><strong>Project</strong>: The collection of files and dependencies which are built into the
@@ -1922,19 +1922,18 @@ and is final. There are other values that are used for reaching consensus,
 before certifying a confirmed block.</p>
 </li>
 <li>
-<p><strong>Committee</strong>: The set of validators all for a particular <em>epoch</em>, together
+<p><strong>Committee</strong>: The set of all validators for a particular <em>epoch</em>, together
 with their voting weights.</p>
 </li>
 <li>
-<p><strong>Chain Owner</strong>: The owner of a <em>user chain</em>. This is represented as the
-alphanumeric identifier derived from the hash of the owner's public key.</p>
+<p><strong>Chain Owner</strong>: The owner of a <em>user chain</em> or <em>permissioned chain</em>. This is represented as the alphanumeric identifier derived from the hash of the owner's public key.</p>
 </li>
 <li>
-<p><strong>Channel</strong>: A broadcast mechanism enabling pub-sub behaviour across chains.</p>
+<p><strong>Channel</strong>: A broadcast mechanism enabling publish-subscribe behavior across chains.</p>
 </li>
 <li>
-<p><strong>Contract</strong>: The metered part of an application which executes 'business
-logic' and can modify the application's state.</p>
+<p><strong>Contract</strong>: The metered part of an application which executes business
+logic and can modify the application's state.</p>
 </li>
 <li>
 <p><strong>Cross-Application Call</strong>: A call from one application to another on the
@@ -1965,7 +1964,8 @@ chain.</p>
 </li>
 <li>
 <p><strong>Microchain</strong>: A lightweight chain of blocks holding a subset of the
-network's state running on every validator.</p>
+network's state running on every validator. This is used interchangeably
+with 'chain'. <em>All</em> Linera chains are microchains.</p>
 </li>
 <li>
 <p><strong>Network</strong>: The totality of all protocol participants. A network is the
@@ -1979,7 +1979,7 @@ interacting with an application on their own chain.</p>
 <li>
 <p><strong>Permissioned Chain</strong>: A microchain which is owned by more than one user.
 Users take turns proposing blocks and the likelihood of selection is
-proportional to their <em>stake</em>.</p>
+proportional to their <em>weight</em>.</p>
 </li>
 <li>
 <p><strong>Project</strong>: The collection of files and dependencies which are built into the
