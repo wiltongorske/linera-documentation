@@ -188,17 +188,20 @@ repository and run the following command:</p>
 <h2 id="storing-the-wallet"><a class="header" href="#storing-the-wallet">Storing the Wallet</a></h2>
 <p><code>run_local.sh</code> generates your wallet under <code>target/debug/wallet.json</code>.</p>
 <p>The wallet is only valid for the lifetime of a single network. Every time your local
-network is restarted this will need to be regenerated.</p>
+network is restarted, this will need to be regenerated.</p>
 <p>For convenience, let's export the wallet and choose a storage location:</p>
 <pre><code class="language-bash">export LINERA_WALLET=$(realpath target/debug/wallet.json)
 export LINERA_STORAGE=&quot;rocksdb:$(dirname &quot;$LINERA_WALLET&quot;)/linera.db&quot;
 </code></pre>
+<p>When these environment variables are set, the <code>linera</code> client automatically uses
+the specified wallet and storage files. Alternatively, they can be selected on the
+command line using the <code>--wallet</code> and <code>--storage</code> options.</p>
 <h2 id="interacting-with-the-network"><a class="header" href="#interacting-with-the-network">Interacting with the Network</a></h2>
 <p>The main way of interacting with the network and deploying applications is
 using the <code>linera</code> client.</p>
 <p>To check that the network is working, you can synchronize the balance for your
 <a href="../core_concepts/wallet.html">default chain</a> with the rest of the network.</p>
-<pre><code class="language-bash">linera --wallet $LINERA_WALLET sync-balance
+<pre><code class="language-bash">linera sync-balance
 </code></pre>
 <p>You should see an output of <code>10</code>.</p>
 <h2 id="building-an-example-application"><a class="header" href="#building-an-example-application">Building an Example Application</a></h2>
@@ -219,9 +222,7 @@ the <code>linera</code> client's <code>publish-and-create</code> command and pro
 <li>The location of the service bytecode</li>
 <li>The JSON encoded initialization arguments</li>
 </ol>
-<pre><code class="language-bash">linera --wallet $LINERA_WALLET \
-  --storage $LINERA_STORAGE \
-  publish-and-create \
+<pre><code class="language-bash">linera publish-and-create \
   ../target/wasm32-unknown-unknown/release/counter_{contract,service}.wasm \
   --json-argument &quot;42&quot;
 </code></pre>
@@ -230,15 +231,17 @@ the <code>linera</code> client's <code>publish-and-create</code> command and pro
 <p>Now let's query your application to get the current counter value. To do that, we need to
 use the client running in <a href="../core_concepts/node_service.html"><em>service</em> mode</a>. This will expose a
 bunch of APIs locally which we can use to interact with applications on the network.</p>
-<pre><code class="language-bash">linera --wallet $LINERA_WALLET --storage $LINERA_STORAGE service
+<pre><code class="language-bash">linera service
 </code></pre>
 <!-- TODO: add graphiql image here -->
 <p>Navigate to <code>http://localhost:8080</code> in your browser to access the GraphiQL, the
 <a href="https://graphql.org">GraphQL</a> IDE. We'll look at this in more detail in
 a <a href="../core_concepts/wallet.html#graphql">later section</a>; for now, list the applications deployed on
-your local network by running:</p>
+your default chain e476… by running:</p>
 <pre><code class="language-gql">query {
-  applications {
+  applications(
+    chainId: &quot;e476187f6ddfeb9d588c7b45d3df334d5501d6499b3f9ad5595cae86cce16a65&quot;
+  ) {
     id
     description
     link

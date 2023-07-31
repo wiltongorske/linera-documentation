@@ -178,7 +178,7 @@ and the system</li>
 chains.</li>
 </ol>
 <p>To interact with the node service, run <code>linera</code> in <code>service</code> mode:</p>
-<pre><code class="language-bash">linera --storage $LINERA_STORAGE --wallet $LINERA_WALLET service
+<pre><code class="language-bash">linera service
 </code></pre>
 <p>This will run the node service on port 8080 by default (this can be overridden
 using the <code>--port</code> flag).</p>
@@ -201,10 +201,10 @@ explore the state of the system and your applications.</p>
 system operations. You can explore the full set of operations by clicking on
 <code>MutationRoot</code>.</p>
 <h2 id="graphql-application-api"><a class="header" href="#graphql-application-api">GraphQL Application API</a></h2>
-<p>To interact with an application, we run the Linera client
-in service mode. It exposes a GraphQL API for every
-application running on that chain at <code>localhost:8080/&lt;application-id&gt;</code>.</p>
-<p>Simple navigating there with your browser will open a GraphiQL interface which
+<p>To interact with an application, we run the Linera client in service mode.
+It exposes a GraphQL API for every application running on any owned chain at
+<code>localhost:8080/chains/&lt;chain-id&gt;/applications/&lt;application-id&gt;</code>.</p>
+<p>Navigating there with your browser will open a GraphiQL interface which
 enables you to graphically explore the state of your application.</p>
 
                     </main>
