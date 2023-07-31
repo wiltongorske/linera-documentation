@@ -168,19 +168,21 @@
                 <div id="content" class="content">
                     <main>
                         <h1 id="creating-the-application-state"><a class="header" href="#creating-the-application-state">Creating the Application State</a></h1>
-<p>The <code>struct</code> which defines your application's state can be found in <code>src/state.rs</code>.</p>
-<p>To represent our counter, we're going to need a single <code>u64</code>. To persist
-the counter we'll be using Linera's <a href="../advanced_topics/views.html">view</a> paradigm.</p>
-<p>Views are a little like an <a href="https://en.wikipedia.org/wiki/Object%E2%80%93relational_mapping">ORM</a>,
-however instead of mapping data structures to a relational database like Postgres, they are
-instead mapped onto key-value stores like <a href="https://rocksdb.org/">RocksDB</a>.</p>
+<p>The <code>struct</code> which defines your application's state can be found in
+<code>src/state.rs</code>.</p>
+<p>To represent our counter, we're going to need a single <code>u64</code>. To persist the
+counter we'll be using Linera's <a href="../advanced_topics/views.html">view</a> paradigm.</p>
+<p>Views are a little like an
+<a href="https://en.wikipedia.org/wiki/Object%E2%80%93relational_mapping">ORM</a>, however
+instead of mapping data structures to a relational database like Postgres, they
+are instead mapped onto key-value stores like <a href="https://rocksdb.org/">RocksDB</a>.</p>
 <p>In vanilla Rust, we might represent our Counter as so:</p>
 <pre><code class="language-rust ignore">// do not use this
 struct Counter {
   value: u64
 }</code></pre>
-<p>However, to persist your data, you'll need to replace the existing <code>Application</code> state struct in <code>src/state.rs</code>
-with the following view:</p>
+<p>However, to persist your data, you'll need to replace the existing <code>Application</code>
+state struct in <code>src/state.rs</code> with the following view:</p>
 <pre><code class="language-rust ignore">/// The application state.
 #[derive(RootView, GraphQLView)]
 #[view(context = &quot;ViewStorageContext&quot;)]
@@ -188,14 +190,17 @@ pub struct Counter {
     pub value: RegisterView&lt;u64&gt;,
 }</code></pre>
 <p>and all other occurences of <code>Application</code> in your app.</p>
-<p>The <code>RegisterView&lt;T&gt;</code> supports modifying a single value of type <code>T</code>. There are different types of
-views for different use-cases, but the majority of common data structures have already been implemented:</p>
+<p>The <code>RegisterView&lt;T&gt;</code> supports modifying a single value of type <code>T</code>. There are
+different types of views for different use-cases, but the majority of common
+data structures have already been implemented:</p>
 <ul>
 <li>A <code>Vec</code> or <code>VecDeque</code> corresponds to a <code>LogView</code></li>
-<li>A <code>BTreeMap</code> corresponds to a <code>MapView</code> if its values are primitive, or to <code>CollectionView</code> if its values are other vuews;</li>
+<li>A <code>BTreeMap</code> corresponds to a <code>MapView</code> if its values are primitive, or to
+<code>CollectionView</code> if its values are other vuews;</li>
 <li>A <code>Queue</code> corresponds to a <code>QueueView</code></li>
 </ul>
-<p>For an exhaustive list refer to the Views <a href="../advanced_topics/views.html">documentation</a>.</p>
+<p>For an exhaustive list refer to the Views
+<a href="../advanced_topics/views.html">documentation</a>.</p>
 <p>Finally, run <code>cargo check</code> to ensure that your changes compile.</p>
 
                     </main>

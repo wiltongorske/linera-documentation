@@ -168,10 +168,10 @@
                 <div id="content" class="content">
                     <main>
                         <h1 id="the-wallet"><a class="header" href="#the-wallet">The Wallet</a></h1>
-<p>The Linera client is the main way to interact with the network and manage
-users' wallets. Like most wallets, a Linera wallet holds user private and
-public keys. Unlike most wallet applications, the Linera client also acts as a
-node, executing blocks for chains owned by a user.</p>
+<p>The Linera client is the main way to interact with the network and manage users'
+wallets. Like most wallets, a Linera wallet holds user private and public keys.
+Unlike most wallet applications, the Linera client also acts as a node,
+executing blocks for chains owned by a user.</p>
 <p>The state of the wallet lives in <code>wallet.json</code>, while the state of the chains
 running on your local node are stored in <code>linera.db</code>.</p>
 <h2 id="chain-management"><a class="header" href="#chain-management">Chain Management</a></h2>
@@ -200,8 +200,8 @@ running on your local node are stored in <code>linera.db</code>.</p>
 identifier on the chain, and on the right is metadata for that chain associated
 with the latest block.</p>
 <h3 id="default-chain"><a class="header" href="#default-chain">Default Chain</a></h3>
-<p>Each wallet has a default chain that all commands apply to unless you specify another
-<code>--chain</code> on the command line.</p>
+<p>Each wallet has a default chain that all commands apply to unless you specify
+another <code>--chain</code> on the command line.</p>
 <p>The default chain is set initially, when the first chain is added to the wallet.
 You can check the default chain for your wallet by running:</p>
 <pre><code class="language-bash">linera wallet show
@@ -221,12 +221,12 @@ created by an existing chain on the network.</p>
 <p>This will create a new chain (using the wallet's default chain) and add it to
 the wallet. Use the <code>wallet show</code> command to see your existing chains.</p>
 <h4 id="open-a-chain-for-another-wallet"><a class="header" href="#open-a-chain-for-another-wallet">Open a Chain for Another Wallet</a></h4>
-<p>Opening a chain for another <code>wallet</code> requires an extra two steps.
-Let's initialize a second wallet:</p>
+<p>Opening a chain for another <code>wallet</code> requires an extra two steps. Let's
+initialize a second wallet:</p>
 <pre><code class="language-bash">linera --wallet wallet2.json --storage rocksdb:linera2.db wallet init --genesis target/debug/genesis.json
 </code></pre>
-<p>First <code>wallet2</code> must create an unassigned keypair. The public part of that keypair
-is then sent to the <code>wallet</code> who is the chain creator.</p>
+<p>First <code>wallet2</code> must create an unassigned keypair. The public part of that
+keypair is then sent to the <code>wallet</code> who is the chain creator.</p>
 <pre><code class="language-bash">linera --wallet wallet2.json keygen
 6443634d872afbbfcc3059ac87992c4029fa88e8feb0fff0723ac6c914088888 # this is the public key for the unassigned keypair
 </code></pre>
@@ -235,10 +235,11 @@ is then sent to the <code>wallet</code> who is the chain creator.</p>
 e476187f6ddfeb9d588c7b45d3df334d5501d6499b3f9ad5595cae86cce16a65010000000000000000000000
 fc9384defb0bcd8f6e206ffda32599e24ba715f45ec88d4ac81ec47eb84fa111
 </code></pre>
-<p>The first line is the message ID specifying the cross-chain message that creates the new
-chain. of the newly created chain. The second line is the new chain's ID.</p>
-<p>Finally, to add the chain to <code>wallet2</code> for the given unassigned key we use
-the <code>assign</code> command:</p>
+<p>The first line is the message ID specifying the cross-chain message that creates
+the new chain. of the newly created chain. The second line is the new chain's
+ID.</p>
+<p>Finally, to add the chain to <code>wallet2</code> for the given unassigned key we use the
+<code>assign</code> command:</p>
 <pre><code class="language-bash"> linera --wallet wallet2.json assign --key 6443634d872afbbfcc3059ac87992c4029fa88e8feb0fff0723ac6c914088888 --message-id e476187f6ddfeb9d588c7b45d3df334d5501d6499b3f9ad5595cae86cce16a65010000000000000000000000
 </code></pre>
 

@@ -169,32 +169,34 @@
                     <main>
                         <h1 id="views"><a class="header" href="#views">Views</a></h1>
 <blockquote>
-<p>Views are a specific functionality of the Linera system that allow to have data in
-memory and then seamlessly flush it to an underlying persistent datastore.</p>
+<p>Views are a specific functionality of the Linera system that allow to have
+data in memory and then seamlessly flush it to an underlying persistent
+datastore.</p>
 </blockquote>
-<p>The <a href="https://docs.rs/linera-views/latest/linera_views/">full documentation</a> is available
-on the crate documentation with all functions having examples.</p>
+<p>The <a href="https://docs.rs/linera-views/latest/linera_views/">full documentation</a> is
+available on the crate documentation with all functions having examples.</p>
 <p>Concretely, what is provided is the following:</p>
 <ul>
 <li>
-<p>A trait <code>View</code> that provides <code>load</code>, <code>rollback</code>, <code>clear</code>, <code>flush</code>, <code>delete</code>. The idea
-is that we can do operation on the data and then flush it to the database storing them.</p>
+<p>A trait <code>View</code> that provides <code>load</code>, <code>rollback</code>, <code>clear</code>, <code>flush</code>, <code>delete</code>.
+The idea is that we can do operation on the data and then flush it to the
+database storing them.</p>
 </li>
 <li>
-<p>Several other traits <code>HashableView</code>, <code>RootView</code>, <code>CryptoHashView</code>, <code>CryptoHashRootView</code>
-that are important for computing hash.</p>
+<p>Several other traits <code>HashableView</code>, <code>RootView</code>, <code>CryptoHashView</code>,
+<code>CryptoHashRootView</code> that are important for computing hash.</p>
 </li>
 <li>
-<p>A number of standard containers: <code>MapView</code>, <code>SetView</code>, <code>LogView</code>, <code>QueueView</code>, <code>RegisterView</code>
-that implement the <code>View</code> and <code>HashableView</code> traits.</p>
+<p>A number of standard containers: <code>MapView</code>, <code>SetView</code>, <code>LogView</code>, <code>QueueView</code>,
+<code>RegisterView</code> that implement the <code>View</code> and <code>HashableView</code> traits.</p>
 </li>
 <li>
-<p>Two containers <code>CollectionView</code> and <code>ReentrantCollectionView</code> that are similar to <code>MapView</code> but
-whose values are views themselves.</p>
+<p>Two containers <code>CollectionView</code> and <code>ReentrantCollectionView</code> that are similar
+to <code>MapView</code> but whose values are views themselves.</p>
 </li>
 <li>
-<p>Derive macros that allow to implement the above mentioned traits on struct data types whose
-entries are views.</p>
+<p>Derive macros that allow to implement the above mentioned traits on struct
+data types whose entries are views.</p>
 </li>
 </ul>
 

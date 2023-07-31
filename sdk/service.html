@@ -168,16 +168,16 @@
                 <div id="content" class="content">
                     <main>
                         <h1 id="writing-the-service-binary"><a class="header" href="#writing-the-service-binary">Writing the Service Binary</a></h1>
-<p>The service binary is the second component of a Linera application. It is compiled into a
-separate Bytecode from the contract and is run independently. It is not metered (meaning
-that querying an application's service does not consume gas), and can be thought of as a
-read-only view into your application.</p>
-<p>Application states can be arbitrarily complex, and most of the time you don't want to
-expose this state in its entirety to those who would like to interact with your app.
-Instead, you might prefer to define a distinct set of queries that can be made against
-your application.</p>
-<p>The <code>Service</code> trait is how you define the interface into your application.
-The <code>Service</code> trait is defined as follows:</p>
+<p>The service binary is the second component of a Linera application. It is
+compiled into a separate Bytecode from the contract and is run independently. It
+is not metered (meaning that querying an application's service does not consume
+gas), and can be thought of as a read-only view into your application.</p>
+<p>Application states can be arbitrarily complex, and most of the time you don't
+want to expose this state in its entirety to those who would like to interact
+with your app. Instead, you might prefer to define a distinct set of queries
+that can be made against your application.</p>
+<p>The <code>Service</code> trait is how you define the interface into your application. The
+<code>Service</code> trait is defined as follows:</p>
 <pre><code class="language-rust ignore">/// The service interface of a Linera application.
 #[async_trait]
 pub trait Service: WithServiceAbi + ServiceAbi {
@@ -194,13 +194,14 @@ pub trait Service: WithServiceAbi + ServiceAbi {
         argument: Self::Query,
     ) -&gt; Result&lt;Self::QueryResponse, Self::Error&gt;;
 }</code></pre>
-<p>The full service trait definition can be found <a href="https://github.com/linera-io/linera-protocol/blob/main/linera-sdk/src/lib.rs">here</a>.</p>
+<p>The full service trait definition can be found
+<a href="https://github.com/linera-io/linera-protocol/blob/main/linera-sdk/src/lib.rs">here</a>.</p>
 <p>Let's implement <code>Service</code> for our counter application.</p>
 <p>First, we want to generate the necessary boilerplate for implementing the
 service WIT interface, export the necessary resource types and functions so that
-the host (the process running the bytecode) can call the service. Happily,
-there is a macro to perform this code generation, so just add the following
-to <code>service.rs</code>:</p>
+the host (the process running the bytecode) can call the service. Happily, there
+is a macro to perform this code generation, so just add the following to
+<code>service.rs</code>:</p>
 <pre><code class="language-rust ignore">linera_sdk::service!(Counter);</code></pre>
 <p>Next, we need to implement the <code>Service</code> for <code>Counter</code>. To do this we need to
 define <code>Service</code>'s associated types and implement <code>query_application</code>, as well
@@ -234,14 +235,15 @@ pub enum Error {
     #[error(&quot;Invalid query argument; could not deserialize GraphQL request&quot;)]
     InvalidQuery(#[from] serde_json::Error),
 }</code></pre>
-<p>Finally, as before, the following code is needed to incorporate the ABI definitions into your
-<code>Service</code> implementation:</p>
+<p>Finally, as before, the following code is needed to incorporate the ABI
+definitions into your <code>Service</code> implementation:</p>
 <pre><code class="language-rust ignore">impl WithServiceAbi for Counter {
     type Abi = counter::CounterAbi;
 }</code></pre>
 <h2 id="adding-graphql-compatibility"><a class="header" href="#adding-graphql-compatibility">Adding GraphQL compatibility</a></h2>
-<p>Finally, we want our application to have GraphQL compatibility. To achieve this we need a <code>QueryRoot</code>
-for intercepting queries and a <code>MutationRoot</code> for introspection queries for mutations.</p>
+<p>Finally, we want our application to have GraphQL compatibility. To achieve this
+we need a <code>QueryRoot</code> for intercepting queries and a <code>MutationRoot</code> for
+introspection queries for mutations.</p>
 <pre><code class="language-rust ignore">struct MutationRoot;
 
 #[Object]
@@ -261,10 +263,10 @@ impl QueryRoot {
         &amp;self.value
     }
 }</code></pre>
-<p>We haven't included the imports in the above code; they are left as an exercise to the
-reader (but remember to import <code>async_graphql::Object</code>). If you want the full source code
-and associated tests check out the <a href="https://github.com/linera-io/linera-protocol/blob/main/examples/counter/src/service.rs">examples
-section</a>
+<p>We haven't included the imports in the above code; they are left as an exercise
+to the reader (but remember to import <code>async_graphql::Object</code>). If you want the
+full source code and associated tests check out the
+<a href="https://github.com/linera-io/linera-protocol/blob/main/examples/counter/src/service.rs">examples section</a>
 on GitHub.</p>
 
                     </main>

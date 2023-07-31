@@ -168,38 +168,43 @@
                 <div id="content" class="content">
                     <main>
                         <h1 id="cross-chain-messages"><a class="header" href="#cross-chain-messages">Cross-Chain Messages</a></h1>
-<p>On Linera, applications are meant to be multi-chain: They are instantiated on every chain
-where they are used. An application has the same application ID and bytecode everywhere,
-but a separate state on every chain. To coordinate, the instances can send
-<em>cross-chain messages</em> to each other. A message sent by an application is always handled
-by the <em>same</em> application on the target chain: The handling code is guaranteed to be the
-same as the sending code, but the state may be different.</p>
-<p>For your application, you can specify any serializable type as the <code>Message</code> type in your
-<code>ContractAbi</code> implementation. To send a message, return it among the
+<p>On Linera, applications are meant to be multi-chain: They are instantiated on
+every chain where they are used. An application has the same application ID and
+bytecode everywhere, but a separate state on every chain. To coordinate, the
+instances can send <em>cross-chain messages</em> to each other. A message sent by an
+application is always handled by the <em>same</em> application on the target chain: The
+handling code is guaranteed to be the same as the sending code, but the state
+may be different.</p>
+<p>For your application, you can specify any serializable type as the <code>Message</code>
+type in your <code>ContractAbi</code> implementation. To send a message, return it among
+the
 <a href="https://docs.rs/linera-sdk/latest/linera_sdk/struct.ExecutionResult.html"><code>ExecutionResult</code></a>'s
 <code>messages</code>:</p>
 <pre><code class="language-rust ignore">    pub messages: Vec&lt;(Destination, bool, Message)&gt;,</code></pre>
-<p>The first field specifies either a single destination chain, or a channel, so that it gets
-sent to all subscribers.</p>
-<p>If the second field is <code>true</code>, the callee is allowed to perform actions that require
-authentication on behalf of the signer of the original block that caused this call.</p>
-<p>The third field is the message itself, of the type you specified in the <code>ContractAbi</code>.</p>
+<p>The first field specifies either a single destination chain, or a channel, so
+that it gets sent to all subscribers.</p>
+<p>If the second field is <code>true</code>, the callee is allowed to perform actions that
+require authentication on behalf of the signer of the original block that caused
+this call.</p>
+<p>The third field is the message itself, of the type you specified in the
+<code>ContractAbi</code>.</p>
 <p>You can also use
 <a href="https://docs.rs/linera-sdk/latest/linera_sdk/struct.ExecutionResult.html#method.with_message"><code>ExecutionResult::with_message</code></a>
 and
 <a href="https://docs.rs/linera-sdk/latest/linera_sdk/struct.ExecutionResult.html#method.with_authenticated_message"><code>with_authenticated_message</code></a>
 for convenience.</p>
 <p>During block execution in the <em>sending</em> chain, messages are returned via
-<code>ExecutionResult</code>s. The returned message is then placed in the <em>target</em> chain inbox for
-processing. There is no guarantee that it will be handled: For this to happen, an owner of
-the target chain needs to include it in the <code>incoming_messages</code> in one of their blocks.
-When that happens, the contract's <code>execute_message</code> method gets called on their chain.</p>
+<code>ExecutionResult</code>s. The returned message is then placed in the <em>target</em> chain
+inbox for processing. There is no guarantee that it will be handled: For this to
+happen, an owner of the target chain needs to include it in the
+<code>incoming_messages</code> in one of their blocks. When that happens, the contract's
+<code>execute_message</code> method gets called on their chain.</p>
 <h2 id="example-fungible-token"><a class="header" href="#example-fungible-token">Example: Fungible Token</a></h2>
 <p>In the
 <a href="https://github.com/linera-io/linera-protocol/tree/main/examples/fungible"><code>fungible</code> example application</a>,
-such a message can be the transfer of tokens from
-one chain to another. If the sender includes a <code>Transfer</code> operation on their chain, it
-decreases their account balance and sends a <code>Credit</code> message to the recipient's chain:</p>
+such a message can be the transfer of tokens from one chain to another. If the
+sender includes a <code>Transfer</code> operation on their chain, it decreases their
+account balance and sends a <code>Credit</code> message to the recipient's chain:</p>
 <pre><code class="language-rust ignore">async fn execute_operation(
     &amp;mut self,
     context: &amp;OperationContext,
@@ -222,8 +227,8 @@ decreases their account balance and sends a <code>Credit</code> message to the r
         // ...
     }
 }</code></pre>
-<p>On the recipient's chain, <code>execute_message</code> is called, which increases their account
-balance.</p>
+<p>On the recipient's chain, <code>execute_message</code> is called, which increases their
+account balance.</p>
 <pre><code class="language-rust ignore">async fn execute_message(
     &amp;mut self,
     context: &amp;MessageContext,

@@ -168,57 +168,57 @@
                 <div id="content" class="content">
                     <main>
                         <h1 id="applications"><a class="header" href="#applications">Applications</a></h1>
-<p>The programming model of Linera is designed so that developers can take advantage of
-microchains to scale their applications.</p>
+<p>The programming model of Linera is designed so that developers can take
+advantage of microchains to scale their applications.</p>
 <p>Linera uses the WebAssembly Virtual Machine (Wasm) to execute user applications.
-Currently, the <a href="../sdk.html">Linera SDK</a> is focused on the <a href="https://www.rust-lang.org/">Rust</a>
-programming language.</p>
+Currently, the <a href="../sdk.html">Linera SDK</a> is focused on the
+<a href="https://www.rust-lang.org/">Rust</a> programming language.</p>
 <h2 id="the-application-deployment-lifecycle"><a class="header" href="#the-application-deployment-lifecycle">The Application Deployment Lifecycle</a></h2>
 <p>Linera Applications are designed to be powerful yet re-usable. For this reason
-there is a distinction between the bytecode and an application
-instance on the network.</p>
+there is a distinction between the bytecode and an application instance on the
+network.</p>
 <p>Applications undergo a lifecycle transition aimed at making development easy and
 flexible:</p>
 <ol>
-<li>The bytecode is built from a Rust project with the <code>linera-sdk</code>
-dependency.</li>
+<li>The bytecode is built from a Rust project with the <code>linera-sdk</code> dependency.</li>
 <li>The bytecode is published to the network on a microchain, and assigned an
 identifier.</li>
-<li>A user can create a new application instance, by providing
-the bytecode identifier and initialization arguments. This
-process returns an application identifier which can be used to reference and
-interact with the application.</li>
+<li>A user can create a new application instance, by providing the bytecode
+identifier and initialization arguments. This process returns an application
+identifier which can be used to reference and interact with the application.</li>
 <li>The same bytecode identifier can be used as many times is needed by as many
 users are needed to create distinct applications.</li>
 </ol>
-<p>Importantly, the application deployment lifecycle is abstracted from the user, and
-an application can be published with a single command:</p>
+<p>Importantly, the application deployment lifecycle is abstracted from the user,
+and an application can be published with a single command:</p>
 <pre><code class="language-bash">linera publish-and-create &lt;contract-path&gt; &lt;service-path&gt; &lt;init-args&gt;
 </code></pre>
 <p>This will publish the bytecode as well as initialize the application for you.</p>
 <h2 id="anatomy-of-an-application"><a class="header" href="#anatomy-of-an-application">Anatomy of an Application</a></h2>
-<p>An <strong>application</strong> is broken into two major components, the <em>contract</em> and the <em>service</em>.</p>
-<p>The <strong>contract</strong> is gas-metered, and is the part of the application which executes operations
-and messages, make cross-application calls and modifies the application's state. The
-details are covered in more depth in the <a href="../sdk.html">SDK docs</a>.</p>
+<p>An <strong>application</strong> is broken into two major components, the <em>contract</em> and the
+<em>service</em>.</p>
+<p>The <strong>contract</strong> is gas-metered, and is the part of the application which
+executes operations and messages, make cross-application calls and modifies the
+application's state. The details are covered in more depth in the
+<a href="../sdk.html">SDK docs</a>.</p>
 <p>The <strong>service</strong> is non-metered and read-only. It is used primarily to query the
 state of an application and populate the presentation layer (think front-end)
 with the data required for a user interface.</p>
-<p>Finally, the application's state is shared by the contract and service in
-the form of a <a href="./../advanced_topics/views.html">View</a>, but more on that later.</p>
+<p>Finally, the application's state is shared by the contract and service in the
+form of a <a href="./../advanced_topics/views.html">View</a>, but more on that later.</p>
 <h2 id="operations-and-messages"><a class="header" href="#operations-and-messages">Operations and Messages</a></h2>
 <blockquote>
-<p>For this section we'll be using a simplified version of the example application called
-&quot;fungible&quot; where users can send tokens to each other.</p>
+<p>For this section we'll be using a simplified version of the example
+application called &quot;fungible&quot; where users can send tokens to each other.</p>
 </blockquote>
 <p>At the system-level, interacting with an application can be done via operations
 and messages.</p>
-<p><strong>Operations</strong> are defined by an application developer and each
-application can have a completely different set of operations. Chain owners then
-actively create operations and put them in their block proposals to interact
-with an application.</p>
-<p>Taking the &quot;fungible token&quot; application as an example, an operation
-for a user to transfer funds to another user would look like this:</p>
+<p><strong>Operations</strong> are defined by an application developer and each application can
+have a completely different set of operations. Chain owners then actively create
+operations and put them in their block proposals to interact with an
+application.</p>
+<p>Taking the &quot;fungible token&quot; application as an example, an operation for a user
+to transfer funds to another user would look like this:</p>
 <pre><code class="language-rust ignore"><span class="boring">extern crate serde;
 </span><span class="boring">use serde::{Deserialize, Serialize};
 </span>#[derive(Debug, Deserialize, Serialize)]
@@ -231,13 +231,13 @@ pub enum Operation {
     },
     // Meant to be extended here
 }</code></pre>
-<p><strong>Messages</strong> result from the execution of operations or other messages.
-Messages can be sent from one chain to another. Block
-proposers also actively include messages in their block proposal, but unlike with
-operations, they are only allowed to include them in the right order (possibly
-skipping some), and only if they were actually created by another chain (or the
-same chain, earlier).</p>
-<p>In our &quot;fungible token&quot; application, a message to credit an account would look like this:</p>
+<p><strong>Messages</strong> result from the execution of operations or other messages. Messages
+can be sent from one chain to another. Block proposers also actively include
+messages in their block proposal, but unlike with operations, they are only
+allowed to include them in the right order (possibly skipping some), and only if
+they were actually created by another chain (or the same chain, earlier).</p>
+<p>In our &quot;fungible token&quot; application, a message to credit an account would look
+like this:</p>
 <pre><code class="language-rust ignore"><span class="boring">extern crate serde;
 </span><span class="boring">use serde::{Deserialize, Serialize};
 </span>#[derive(Debug, Deserialize, Serialize)]
@@ -246,29 +246,35 @@ pub enum Message {
     // Meant to be extended here
 }</code></pre>
 <h3 id="authentication"><a class="header" href="#authentication">Authentication</a></h3>
-<p>Operations are always authenticated and messages may be authenticated. The signer of a block becomes
-the authenticator of all the operations in that block. As operations are executed by applications,
-messages can be created to be sent to other chains. When they are created, they can be configured to
-be authenticated. In that case, the message receives the same authentication as the operation that
-created it. If handling an incoming message creates new messages, those may also be configured to
-have the same authentication as the received message.</p>
-<p>In other words, the block signer can have its authority propagated across chains through series of
-messages. This allows applications to safely store user state in chains that the user may not have
-the authority to produce blocks. The application may also allow only the authorized user to change
-that state, and not even the chain owner is able to override that.</p>
-<p>The figure below shows four chains (A, B, C, D) and some blocks produced in them. Some blocks show
-the operations and incoming messages they accept, where the authentication is shown inside
-parenthesis. All operations produced are authenticated by the block proposer, and if these are all
-single user chains, the proposer is always the chain owner. Messages that have authentication use
+<p>Operations are always authenticated and messages may be authenticated. The
+signer of a block becomes the authenticator of all the operations in that block.
+As operations are executed by applications, messages can be created to be sent
+to other chains. When they are created, they can be configured to be
+authenticated. In that case, the message receives the same authentication as the
+operation that created it. If handling an incoming message creates new messages,
+those may also be configured to have the same authentication as the received
+message.</p>
+<p>In other words, the block signer can have its authority propagated across chains
+through series of messages. This allows applications to safely store user state
+in chains that the user may not have the authority to produce blocks. The
+application may also allow only the authorized user to change that state, and
+not even the chain owner is able to override that.</p>
+<p>The figure below shows four chains (A, B, C, D) and some blocks produced in
+them. Some blocks show the operations and incoming messages they accept, where
+the authentication is shown inside parenthesis. All operations produced are
+authenticated by the block proposer, and if these are all single user chains,
+the proposer is always the chain owner. Messages that have authentication use
 the one from the operation or message that created it.</p>
-<p>One example in the figure is that chain A produced a block with Operation 1, which is authenticated
-by the owner of chain A (written <code>(A)</code>). That operations sent a message to chain B, and assuming the
-message was sent with the authentication forwarding enabled, it is received and executed in
-chain B with the authentication of A. Another example is that chain D produced a block with
-Operation 2, which is authenticated by the owner of chain D (written <code>(D)</code>). That operation sent a
-message to chain C, which is executed with authentication of D like the example before. Handling
-that message in chain C produced a new message, which was sent to chain B. That message, when
-received by chain B is executed with the authentication of D.</p>
+<p>One example in the figure is that chain A produced a block with Operation 1,
+which is authenticated by the owner of chain A (written <code>(A)</code>). That operations
+sent a message to chain B, and assuming the message was sent with the
+authentication forwarding enabled, it is received and executed in chain B with
+the authentication of A. Another example is that chain D produced a block with
+Operation 2, which is authenticated by the owner of chain D (written <code>(D)</code>).
+That operation sent a message to chain C, which is executed with authentication
+of D like the example before. Handling that message in chain C produced a new
+message, which was sent to chain B. That message, when received by chain B is
+executed with the authentication of D.</p>
 <pre><code class="language-ignore">                            ┌───┐     ┌─────────────────┐     ┌───┐
                     Chain A │   ├────►│ Operation 1 (A) ├────►│   │
                             └───┘     └────────┬────────┘     └───┘
@@ -293,27 +299,28 @@ received by chain B is executed with the authentication of D.</p>
                     Chain D │ Operation 2 (A) ├────►│   ├────►│   │
                             └─────────────────┘     └───┘     └───┘
 </code></pre>
-<p>An example where this is used is in the Fungible application, where a <code>Claim</code> operation allows
-retrieving money from a chain the user does not control (but the user still trusts will produce a
-block receiving their message). Without the <code>Claim</code> operation, users would only be able to store
-their tokens on their own chains, and multi-owner and public chains would have their tokens shared
-between anyone able to produce a block.</p>
-<p>With the <code>Claim</code> operation, users can store their tokens on another chain where they're able to
-produce blocks or where they trust the owner will produce blocks receiving their messages. Only they
-are able to move their tokens, even on chains where ownership is shared or where they are not able
-to produce blocks.</p>
+<p>An example where this is used is in the Fungible application, where a <code>Claim</code>
+operation allows retrieving money from a chain the user does not control (but
+the user still trusts will produce a block receiving their message). Without the
+<code>Claim</code> operation, users would only be able to store their tokens on their own
+chains, and multi-owner and public chains would have their tokens shared between
+anyone able to produce a block.</p>
+<p>With the <code>Claim</code> operation, users can store their tokens on another chain where
+they're able to produce blocks or where they trust the owner will produce blocks
+receiving their messages. Only they are able to move their tokens, even on
+chains where ownership is shared or where they are not able to produce blocks.</p>
 <h2 id="registering-an-application-across-chains"><a class="header" href="#registering-an-application-across-chains">Registering an Application across Chains</a></h2>
 <p>If Alice is using an application on her chain and starts interacting with Bob
 via the application, e.g. sends him some tokens using the <code>fungible</code> example,
-the application automatically gets registered on Bob's chain, too, as soon as
-he handles the incoming cross-chain messages. After that, he can execute the
+the application automatically gets registered on Bob's chain, too, as soon as he
+handles the incoming cross-chain messages. After that, he can execute the
 application's operations on his chain, too, and e.g. send tokens to someone.</p>
 <p>But there are also cases where Bob may want to start using an application he
 doesn't have yet. E.g. maybe Alice regularly makes posts using the <code>social</code>
 example, and Bob wants to subscribe to her.</p>
 <p>In that case, trying to execute an application-specific operation would fail,
-because the application is not registered on his chain.
-He needs to request it from Alice first:</p>
+because the application is not registered on his chain. He needs to request it
+from Alice first:</p>
 <pre><code class="language-bash">linera request-application &lt;application-id&gt; --target-chain-id &lt;alices-chain-id&gt;
 </code></pre>
 <p>Once Alice processes his message (which happens automatically if she is running

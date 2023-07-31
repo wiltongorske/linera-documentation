@@ -168,18 +168,20 @@
                 <div id="content" class="content">
                     <main>
                         <h1 id="defining-the-abi"><a class="header" href="#defining-the-abi">Defining the ABI</a></h1>
-<p>The Application Binary Interface (ABI) of a Linera application defines how to interact
-with this application from other parts of the system. It includes the data structures,
-data types, and functions exposed by on-chain contracts and services.</p>
-<p>ABIs are usually defined in <code>src/lib.rs</code> and compiled across all architectures (Wasm and
-native).</p>
-<p>For a reference guide, check out the <a href="https://docs.rs/linera-base/latest/linera_base/abi/">documentation of the crate</a>.</p>
+<p>The Application Binary Interface (ABI) of a Linera application defines how to
+interact with this application from other parts of the system. It includes the
+data structures, data types, and functions exposed by on-chain contracts and
+services.</p>
+<p>ABIs are usually defined in <code>src/lib.rs</code> and compiled across all architectures
+(Wasm and native).</p>
+<p>For a reference guide, check out the
+<a href="https://docs.rs/linera-base/latest/linera_base/abi/">documentation of the crate</a>.</p>
 <h2 id="defining-a-marker-struct"><a class="header" href="#defining-a-marker-struct">Defining a marker struct</a></h2>
-<p>The library part of your application (generally in <code>src/lib.rs</code>) must define a public
-empty struct that implements the <code>Abi</code> trait.</p>
+<p>The library part of your application (generally in <code>src/lib.rs</code>) must define a
+public empty struct that implements the <code>Abi</code> trait.</p>
 <pre><code class="language-rust ignore">struct CounterAbi;</code></pre>
-<p>The <code>Abi</code> trait combines the <code>ContractAbi</code> and <code>ServiceAbi</code> traits to include the types
-that your application exports.</p>
+<p>The <code>Abi</code> trait combines the <code>ContractAbi</code> and <code>ServiceAbi</code> traits to include
+the types that your application exports.</p>
 <pre><code class="language-rust ignore">/// A trait that includes all the types exported by a Linera application (both contract
 /// and service).
 pub trait Abi: ContractAbi + ServiceAbi {}</code></pre>
@@ -228,9 +230,10 @@ pub trait ContractAbi {
     /// The response type of an application call.
     type Response: Serialize + DeserializeOwned + Send + Sync + Debug + 'static;
 }</code></pre>
-<p>All these types must implement the <code>Serialize</code>, <code>DeserializeOwned</code>, <code>Send</code>, <code>Sync</code>,
-<code>Debug</code> traits, and have a <code>'static</code> lifetime.</p>
-<p>In our example, we would like to change our <code>InitializationArgument</code>, <code>Operation</code> to <code>u64</code>, like so:</p>
+<p>All these types must implement the <code>Serialize</code>, <code>DeserializeOwned</code>, <code>Send</code>,
+<code>Sync</code>, <code>Debug</code> traits, and have a <code>'static</code> lifetime.</p>
+<p>In our example, we would like to change our <code>InitializationArgument</code>,
+<code>Operation</code> to <code>u64</code>, like so:</p>
 <pre><code class="language-rust"><span class="boring">extern crate linera_base;
 </span><span class="boring">use linera_base::abi::ContractAbi;
 </span><span class="boring">struct CounterAbi;
@@ -245,9 +248,10 @@ pub trait ContractAbi {
     type SessionState = ();
 }</code></pre>
 <h2 id="service-abi"><a class="header" href="#service-abi">Service ABI</a></h2>
-<p>The <code>ServiceAbi</code> is in principle very similar to the <code>ContractAbi</code>, just for the service
-component of your application.</p>
-<p>The <code>ServiceAbi</code> trait defines the types used by the service part of your application:</p>
+<p>The <code>ServiceAbi</code> is in principle very similar to the <code>ContractAbi</code>, just for the
+service component of your application.</p>
+<p>The <code>ServiceAbi</code> trait defines the types used by the service part of your
+application:</p>
 <pre><code class="language-rust ignore">/// A trait that includes all the types exported by a Linera application service.
 pub trait ServiceAbi {
     /// Immutable parameters specific to this application (e.g. the name of a token).
@@ -259,8 +263,8 @@ pub trait ServiceAbi {
     /// The response type of the application's service.
     type QueryResponse: Serialize + DeserializeOwned + Send + Sync + Debug + 'static;
 }</code></pre>
-<p>For our Counter example, we'll be using GraphQL to query our application so our <code>ServiceAbi</code>
-should reflect that:</p>
+<p>For our Counter example, we'll be using GraphQL to query our application so our
+<code>ServiceAbi</code> should reflect that:</p>
 <pre><code class="language-rust"><span class="boring">extern crate linera_base;
 </span><span class="boring">extern crate async_graphql;
 </span><span class="boring">use linera_base::abi::ServiceAbi;
