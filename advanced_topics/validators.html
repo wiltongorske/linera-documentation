@@ -247,12 +247,14 @@ which can be scaled independently of the rest of the validator</p>
 </code></pre>
 <h2 id="configuring-networks-workers-and-proxies"><a class="header" href="#configuring-networks-workers-and-proxies">Configuring Networks, Workers, and Proxies</a></h2>
 <p>In <a href="../getting_started/hello_linera.html">a previous section</a>, we used the
-<code>run_local.sh</code> script to start a local network. This should be sufficient for
+<code>linera net up</code> command to start a local network. This should be sufficient for
 most use cases when you're running a local network.</p>
-<pre><code class="language-bash">./scripts/run_local.sh
+<pre><code class="language-bash">linera net up
 </code></pre>
 <p>However, it is possible to customize and configure the parameters of the
 network.</p>
+<p>To do this, you need the <code>linera-protocol</code> repository and the
+<code>./scripts/run_local.sh</code> script.</p>
 <p><code>run_local.sh</code> uses the <code>validator_n.toml</code> file from the <code>configuration/</code>
 directory to configure validator number <code>n</code>.</p>
 <pre><code class="language-bash">linera-server generate --validators configuration/validator_{1,2,3,4}.toml --committee committee.json

@@ -178,26 +178,22 @@ application that can be queried using GraphQL.</p>
 consists of a numbers of <a href="../advanced_topics/validators.html">validators</a>, each of
 which consist of an ingress proxy (aka a &quot;load balancer&quot;) and a number of
 workers (aka &quot;physical shards&quot;).</p>
-<p>To start a local network, navigate to the root of the <code>linera-protocol</code>
-repository and run the following command:</p>
-<pre><code class="language-bash">./scripts/run_local.sh
+<p>To start a local network, run the following command:</p>
+<pre><code class="language-bash">linera net up
 </code></pre>
-<p>This will start a validator with the default number of shards.</p>
-<blockquote>
-<p>The ports used by the local network are in the range P &gt; 9000, but can be
-configured in the <code>configuration/</code> directory.</p>
-</blockquote>
+<p>This will start a validator with the default number of shards and create a
+temporary directory storing the entire network state.</p>
 <h2 id="storing-the-wallet"><a class="header" href="#storing-the-wallet">Storing the Wallet</a></h2>
-<p><code>run_local.sh</code> generates your wallet under <code>target/debug/wallet.json</code>.</p>
-<p>The wallet is only valid for the lifetime of a single network. Every time your
-local network is restarted, this will need to be regenerated.</p>
-<p>For convenience, let's export the wallet and choose a storage location:</p>
-<pre><code class="language-bash">export LINERA_WALLET=$(realpath target/debug/wallet.json)
-export LINERA_STORAGE=&quot;rocksdb:$(dirname &quot;$LINERA_WALLET&quot;)/linera.db&quot;
+<p>The <code>linera net up</code> command also prints two statements which can be used to
+configure your terminal with a new wallet for this local network:</p>
+<pre><code class="language-bash">Linera net directory available at: /var/folders/3d/406tbklx3zx2p3_hzzpfqdbc0000gn/T/.tmpvJ6lJI
+To configure your Linera client for this network, run:
+
+export LINERA_WALLET=&quot;/var/folders/3d/406tbklx3zx2p3_hzzpfqdbc0000gn/T/.tmpvJ6lJI/wallet_0.json&quot;
+export LINERA_STORAGE=&quot;rocksdb:/var/folders/3d/406tbklx3zx2p3_hzzpfqdbc0000gn/T/.tmpvJ6lJI/linera.db&quot;
 </code></pre>
-<p>When these environment variables are set, the <code>linera</code> client automatically uses
-the specified wallet and storage files. Alternatively, they can be selected on
-the command line using the <code>--wallet</code> and <code>--storage</code> options.</p>
+<p>The wallet is only valid for the lifetime of a single network. Every time your
+local network is restarted, the wallet needs to be reconfigured.</p>
 <h2 id="interacting-with-the-network"><a class="header" href="#interacting-with-the-network">Interacting with the Network</a></h2>
 <p>The main way of interacting with the network and deploying applications is using
 the <code>linera</code> client.</p>
