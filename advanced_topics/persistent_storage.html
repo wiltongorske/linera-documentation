@@ -3,7 +3,7 @@
     <head>
         <!-- Book generated using mdBook -->
         <meta charset="UTF-8">
-        <title>Views - Linera Developer Documentation</title>
+        <title>Persistent Storage - Linera Developer Documentation</title>
 
 
         <!-- Custom HTML head -->
@@ -89,7 +89,7 @@
 
         <nav id="sidebar" class="sidebar" aria-label="Table of contents">
             <div class="sidebar-scrollbox">
-                <ol class="chapter"><li class="chapter-item expanded "><a href="../introduction.html"><strong aria-hidden="true">1.</strong> Introduction</a></li><li class="chapter-item expanded "><a href="../overview.html"><strong aria-hidden="true">2.</strong> Overview</a></li><li class="chapter-item expanded "><a href="../getting_started.html"><strong aria-hidden="true">3.</strong> Getting Started</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../getting_started/installation.html"><strong aria-hidden="true">3.1.</strong> Installation</a></li><li class="chapter-item expanded "><a href="../getting_started/hello_linera.html"><strong aria-hidden="true">3.2.</strong> Hello, Linera</a></li></ol></li><li class="chapter-item expanded "><a href="../core_concepts.html"><strong aria-hidden="true">4.</strong> Core Concepts</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../core_concepts/microchains.html"><strong aria-hidden="true">4.1.</strong> Microchains</a></li><li class="chapter-item expanded "><a href="../core_concepts/wallet.html"><strong aria-hidden="true">4.2.</strong> The Wallet</a></li><li class="chapter-item expanded "><a href="../core_concepts/node_service.html"><strong aria-hidden="true">4.3.</strong> Node Service</a></li><li class="chapter-item expanded "><a href="../core_concepts/applications.html"><strong aria-hidden="true">4.4.</strong> Applications</a></li></ol></li><li class="chapter-item expanded "><a href="../sdk.html"><strong aria-hidden="true">5.</strong> Writing Linera Applications</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../sdk/creating_a_project.html"><strong aria-hidden="true">5.1.</strong> Creating a Project</a></li><li class="chapter-item expanded "><a href="../sdk/state.html"><strong aria-hidden="true">5.2.</strong> Creating the Application State</a></li><li class="chapter-item expanded "><a href="../sdk/abi.html"><strong aria-hidden="true">5.3.</strong> Defining the ABI</a></li><li class="chapter-item expanded "><a href="../sdk/contract.html"><strong aria-hidden="true">5.4.</strong> Writing the Contract Binary</a></li><li class="chapter-item expanded "><a href="../sdk/service.html"><strong aria-hidden="true">5.5.</strong> Writing the Service Binary</a></li><li class="chapter-item expanded "><a href="../sdk/deploy.html"><strong aria-hidden="true">5.6.</strong> Deploying the Application</a></li><li class="chapter-item expanded "><a href="../sdk/messages.html"><strong aria-hidden="true">5.7.</strong> Cross-Chain Messages</a></li><li class="chapter-item expanded "><a href="../sdk/composition.html"><strong aria-hidden="true">5.8.</strong> Calling other Applications</a></li><li class="chapter-item expanded "><a href="../sdk/logging.html"><strong aria-hidden="true">5.9.</strong> Printing Logs from an Application</a></li><li class="chapter-item expanded "><a href="../sdk/testing.html"><strong aria-hidden="true">5.10.</strong> Writing Tests</a></li></ol></li><li class="chapter-item expanded "><a href="../advanced_topics.html"><strong aria-hidden="true">6.</strong> Advanced Topics</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../advanced_topics/views.html" class="active"><strong aria-hidden="true">6.1.</strong> Views</a></li><li class="chapter-item expanded "><a href="../advanced_topics/persistent_storage.html"><strong aria-hidden="true">6.2.</strong> Persistent Storage</a></li><li class="chapter-item expanded "><a href="../advanced_topics/validators.html"><strong aria-hidden="true">6.3.</strong> Validators</a></li><li class="chapter-item expanded "><a href="../advanced_topics/block_creation.html"><strong aria-hidden="true">6.4.</strong> Creating New Blocks</a></li></ol></li><li class="chapter-item expanded "><a href="../appendix/glossary.html"><strong aria-hidden="true">7.</strong> Appendix</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../appendix/glossary.html"><strong aria-hidden="true">7.1.</strong> Glossary</a></li><li class="chapter-item expanded "><a href="../videos.html"><strong aria-hidden="true">7.2.</strong> Videos</a></li></ol></li></ol>
+                <ol class="chapter"><li class="chapter-item expanded "><a href="../introduction.html"><strong aria-hidden="true">1.</strong> Introduction</a></li><li class="chapter-item expanded "><a href="../overview.html"><strong aria-hidden="true">2.</strong> Overview</a></li><li class="chapter-item expanded "><a href="../getting_started.html"><strong aria-hidden="true">3.</strong> Getting Started</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../getting_started/installation.html"><strong aria-hidden="true">3.1.</strong> Installation</a></li><li class="chapter-item expanded "><a href="../getting_started/hello_linera.html"><strong aria-hidden="true">3.2.</strong> Hello, Linera</a></li></ol></li><li class="chapter-item expanded "><a href="../core_concepts.html"><strong aria-hidden="true">4.</strong> Core Concepts</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../core_concepts/microchains.html"><strong aria-hidden="true">4.1.</strong> Microchains</a></li><li class="chapter-item expanded "><a href="../core_concepts/wallet.html"><strong aria-hidden="true">4.2.</strong> The Wallet</a></li><li class="chapter-item expanded "><a href="../core_concepts/node_service.html"><strong aria-hidden="true">4.3.</strong> Node Service</a></li><li class="chapter-item expanded "><a href="../core_concepts/applications.html"><strong aria-hidden="true">4.4.</strong> Applications</a></li></ol></li><li class="chapter-item expanded "><a href="../sdk.html"><strong aria-hidden="true">5.</strong> Writing Linera Applications</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../sdk/creating_a_project.html"><strong aria-hidden="true">5.1.</strong> Creating a Project</a></li><li class="chapter-item expanded "><a href="../sdk/state.html"><strong aria-hidden="true">5.2.</strong> Creating the Application State</a></li><li class="chapter-item expanded "><a href="../sdk/abi.html"><strong aria-hidden="true">5.3.</strong> Defining the ABI</a></li><li class="chapter-item expanded "><a href="../sdk/contract.html"><strong aria-hidden="true">5.4.</strong> Writing the Contract Binary</a></li><li class="chapter-item expanded "><a href="../sdk/service.html"><strong aria-hidden="true">5.5.</strong> Writing the Service Binary</a></li><li class="chapter-item expanded "><a href="../sdk/deploy.html"><strong aria-hidden="true">5.6.</strong> Deploying the Application</a></li><li class="chapter-item expanded "><a href="../sdk/messages.html"><strong aria-hidden="true">5.7.</strong> Cross-Chain Messages</a></li><li class="chapter-item expanded "><a href="../sdk/composition.html"><strong aria-hidden="true">5.8.</strong> Calling other Applications</a></li><li class="chapter-item expanded "><a href="../sdk/logging.html"><strong aria-hidden="true">5.9.</strong> Printing Logs from an Application</a></li><li class="chapter-item expanded "><a href="../sdk/testing.html"><strong aria-hidden="true">5.10.</strong> Writing Tests</a></li></ol></li><li class="chapter-item expanded "><a href="../advanced_topics.html"><strong aria-hidden="true">6.</strong> Advanced Topics</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../advanced_topics/views.html"><strong aria-hidden="true">6.1.</strong> Views</a></li><li class="chapter-item expanded "><a href="../advanced_topics/persistent_storage.html" class="active"><strong aria-hidden="true">6.2.</strong> Persistent Storage</a></li><li class="chapter-item expanded "><a href="../advanced_topics/validators.html"><strong aria-hidden="true">6.3.</strong> Validators</a></li><li class="chapter-item expanded "><a href="../advanced_topics/block_creation.html"><strong aria-hidden="true">6.4.</strong> Creating New Blocks</a></li></ol></li><li class="chapter-item expanded "><a href="../appendix/glossary.html"><strong aria-hidden="true">7.</strong> Appendix</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../appendix/glossary.html"><strong aria-hidden="true">7.1.</strong> Glossary</a></li><li class="chapter-item expanded "><a href="../videos.html"><strong aria-hidden="true">7.2.</strong> Videos</a></li></ol></li></ol>
             </div>
             <div id="sidebar-resize-handle" class="sidebar-resize-handle"></div>
         </nav>
@@ -172,48 +172,77 @@
 
                 <div id="content" class="content">
                     <main>
-                        <h1 id="views"><a class="header" href="#views">Views</a></h1>
-<blockquote>
-<p>Views are a specific functionality of the Linera system that allow to have
-data in memory and then seamlessly flush it to an underlying persistent
-datastore.</p>
-</blockquote>
-<p>The <a href="https://docs.rs/linera-views/latest/linera_views/">full documentation</a> is
-available on the crate documentation with all functions having examples.</p>
-<p>Concretely, what is provided is the following:</p>
+                        <h1 id="persistent-storage"><a class="header" href="#persistent-storage">Persistent storage</a></h1>
+<p>Validators run the servers and the data is stored in persistent storage.
+As a consequence we need a tool for working with persistent storage and
+so we have added <code>linera-db</code> for that purpose.</p>
+<h2 id="available-persistent-storage"><a class="header" href="#available-persistent-storage">Available persistent storage</a></h2>
+<p>The persistent storage that are available right now are <code>RocksDB</code>, <code>DynamoDB</code>
+and <code>ScyllaDB</code>. Each has its own strengths and weaknesses.</p>
 <ul>
 <li>
-<p>A trait <code>View</code> that provides <code>load</code>, <code>rollback</code>, <code>clear</code>, <code>flush</code>, <code>delete</code>.
-The idea is that we can do operation on the data and then flush it to the
-database storing them.</p>
+<p><a href="https://rocksdb.org/"><code>RocksDB</code></a>: Data is stored on disk and cannot be shared
+between shards but is very fast.</p>
 </li>
 <li>
-<p>Several other traits <code>HashableView</code>, <code>RootView</code>, <code>CryptoHashView</code>,
-<code>CryptoHashRootView</code> that are important for computing hash.</p>
+<p><a href="https://aws.amazon.com/dynamodb/"><code>DynamoDB</code></a>: Data is stored on a remote
+storage, that has to be on AWS. Data can be shared between shards.</p>
 </li>
 <li>
-<p>A number of standard containers: <code>MapView</code>, <code>SetView</code>, <code>LogView</code>, <code>QueueView</code>,
-<code>RegisterView</code> that implement the <code>View</code> and <code>HashableView</code> traits.</p>
-</li>
-<li>
-<p>Two containers <code>CollectionView</code> and <code>ReentrantCollectionView</code> that are similar
-to <code>MapView</code> but whose values are views themselves.</p>
-</li>
-<li>
-<p>Derive macros that allow to implement the above mentioned traits on struct
-data types whose entries are views.</p>
+<p><a href="https://www.scylladb.com/"><code>ScyllaDB</code></a>: Data is stored on a remote storage.
+Data can be shared between shards.</p>
 </li>
 </ul>
+<p>There is no fundamental obstacle to the addition of other persistent storage
+solutions.</p>
+<p>In addition, the <code>DynamoDB</code> and <code>ScyllaDB</code> have the notion of a table which means
+that a given remote location can be used for several completely independent purposes.</p>
+<h2 id="the-linera-db-tool"><a class="header" href="#the-linera-db-tool">The <code>linera-db</code> tool</a></h2>
+<p>When operating on a persistent storage some global operations can be required.
+The command line tool <code>linera-db</code> helps in making them work.</p>
+<p>The functionalities are the following:</p>
+<ul>
+<li>
+<p><code>list_tables</code>(<code>DynamoDB</code> and <code>ScyllaDB</code>): It lists all the tables that
+have been created on the persistent storage</p>
+</li>
+<li>
+<p><code>initialize</code>(<code>RocksDB</code>, <code>DynamoDB</code> and <code>ScyllaDB</code>): It initializes a persistent
+storage.</p>
+</li>
+<li>
+<p><code>check_existence</code>(<code>RocksDB</code>, <code>DynamoDB</code> and <code>ScyllaDB</code>): It tests the existence
+of a persistent storage. If the error code is 0 then the table exists, if the error
+code is 1 then the table is absent.</p>
+</li>
+<li>
+<p><code>check_absence</code>(<code>RocksDB</code>, <code>DynamoDB</code> and <code>ScyllaDB</code>): It tests the absence
+of a persistent storage. If the error code is 0 then the table is absent, if the
+error code is 1 then the table does not exist.</p>
+</li>
+<li>
+<p><code>delete_all</code>(<code>RocksDB</code>, <code>DynamoDB</code> and <code>ScyllaDB</code>): It deletes all the table
+of a persistent storage.</p>
+</li>
+<li>
+<p><code>delete_single</code>(<code>DynamoDB</code> and <code>ScyllaDB</code>): It deletes a single table of a
+persistent storage.</p>
+</li>
+</ul>
+<p>If some error occurs during the operation, then the error code 2 is returned
+and 0 if everything went fine with the exception of <code>check_existence</code> and <code>check_absence</code>
+for which the value 1 can occur if the connection with the database was
+established correctly but the result is not what we expected.</p>
 
                     </main>
 
                     <nav class="nav-wrapper" aria-label="Page navigation">
                         <!-- Mobile navigation buttons -->
-                            <a rel="prev" href="../advanced_topics.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                            <a rel="prev" href="../advanced_topics/views.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
                                 <i class="fa fa-angle-left"></i>
                             </a>
 
-                            <a rel="next prefetch" href="../advanced_topics/persistent_storage.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                            <a rel="next prefetch" href="../advanced_topics/validators.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
                                 <i class="fa fa-angle-right"></i>
                             </a>
 
@@ -223,11 +252,11 @@ data types whose entries are views.</p>
             </div>
 
             <nav class="nav-wide-wrapper" aria-label="Page navigation">
-                    <a rel="prev" href="../advanced_topics.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                    <a rel="prev" href="../advanced_topics/views.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
                         <i class="fa fa-angle-left"></i>
                     </a>
 
-                    <a rel="next prefetch" href="../advanced_topics/persistent_storage.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                    <a rel="next prefetch" href="../advanced_topics/validators.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
                         <i class="fa fa-angle-right"></i>
                     </a>
             </nav>
