@@ -1675,9 +1675,9 @@ data types whose entries are views.</p>
 </li>
 </ul>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="persistent-storage"><a class="header" href="#persistent-storage">Persistent storage</a></h1>
-<p>Validators run the servers and the data is stored in persistent storage.
-As a consequence we need a tool for working with persistent storage and
-so we have added <code>linera-db</code> for that purpose.</p>
+<p>Validators run the servers and the data is stored in persistent storage. As a
+consequence we need a tool for working with persistent storage and so we have
+added <code>linera-db</code> for that purpose.</p>
 <h2 id="available-persistent-storage"><a class="header" href="#available-persistent-storage">Available persistent storage</a></h2>
 <p>The persistent storage that are available right now are <code>RocksDB</code>, <code>DynamoDB</code>
 and <code>ScyllaDB</code>. Each has its own strengths and weaknesses.</p>
@@ -1697,29 +1697,30 @@ Data can be shared between shards.</p>
 </ul>
 <p>There is no fundamental obstacle to the addition of other persistent storage
 solutions.</p>
-<p>In addition, the <code>DynamoDB</code> and <code>ScyllaDB</code> have the notion of a table which means
-that a given remote location can be used for several completely independent purposes.</p>
+<p>In addition, the <code>DynamoDB</code> and <code>ScyllaDB</code> have the notion of a table which
+means that a given remote location can be used for several completely
+independent purposes.</p>
 <h2 id="the-linera-db-tool"><a class="header" href="#the-linera-db-tool">The <code>linera-db</code> tool</a></h2>
 <p>When operating on a persistent storage some global operations can be required.
 The command line tool <code>linera-db</code> helps in making them work.</p>
 <p>The functionalities are the following:</p>
 <ul>
 <li>
-<p><code>list_tables</code>(<code>DynamoDB</code> and <code>ScyllaDB</code>): It lists all the tables that
-have been created on the persistent storage</p>
+<p><code>list_tables</code>(<code>DynamoDB</code> and <code>ScyllaDB</code>): It lists all the tables that have
+been created on the persistent storage</p>
 </li>
 <li>
-<p><code>initialize</code>(<code>RocksDB</code>, <code>DynamoDB</code> and <code>ScyllaDB</code>): It initializes a persistent
-storage.</p>
+<p><code>initialize</code>(<code>RocksDB</code>, <code>DynamoDB</code> and <code>ScyllaDB</code>): It initializes a
+persistent storage.</p>
 </li>
 <li>
-<p><code>check_existence</code>(<code>RocksDB</code>, <code>DynamoDB</code> and <code>ScyllaDB</code>): It tests the existence
-of a persistent storage. If the error code is 0 then the table exists, if the error
-code is 1 then the table is absent.</p>
+<p><code>check_existence</code>(<code>RocksDB</code>, <code>DynamoDB</code> and <code>ScyllaDB</code>): It tests the
+existence of a persistent storage. If the error code is 0 then the table
+exists, if the error code is 1 then the table is absent.</p>
 </li>
 <li>
-<p><code>check_absence</code>(<code>RocksDB</code>, <code>DynamoDB</code> and <code>ScyllaDB</code>): It tests the absence
-of a persistent storage. If the error code is 0 then the table is absent, if the
+<p><code>check_absence</code>(<code>RocksDB</code>, <code>DynamoDB</code> and <code>ScyllaDB</code>): It tests the absence of
+a persistent storage. If the error code is 0 then the table is absent, if the
 error code is 1 then the table does not exist.</p>
 </li>
 <li>
@@ -1731,10 +1732,10 @@ of a persistent storage.</p>
 persistent storage.</p>
 </li>
 </ul>
-<p>If some error occurs during the operation, then the error code 2 is returned
-and 0 if everything went fine with the exception of <code>check_existence</code> and <code>check_absence</code>
-for which the value 1 can occur if the connection with the database was
-established correctly but the result is not what we expected.</p>
+<p>If some error occurs during the operation, then the error code 2 is returned and
+0 if everything went fine with the exception of <code>check_existence</code> and
+<code>check_absence</code> for which the value 1 can occur if the connection with the
+database was established correctly but the result is not what we expected.</p>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="validators"><a class="header" href="#validators">Validators</a></h1>
 <p>Validators run the servers that allow users to download and create blocks. They
 validate, execute and cryptographically certify the blocks of all the chains.</p>
