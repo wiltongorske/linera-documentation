@@ -488,7 +488,7 @@ matrix of supported operating systems.</p>
 <pre><code class="language-bash">git clone https://github.com/linera-io/linera-protocol.git
 </code></pre>
 <p>This manual has been tested against the following commit:</p>
-<pre><code class="language-text">6154653eb994123bb76b7ace720c27bfb027b92b
+<pre><code class="language-text">127f28725e065b52c950806f465c641dd1925e1a
 </code></pre>
 <h2 id="dependencies"><a class="header" href="#dependencies">Dependencies</a></h2>
 <p>To install Linera from scratch, you will require the following dependencies:</p>
@@ -502,9 +502,12 @@ packages <code>g++</code>, <code>libclang-dev</code> and <code>libssl-dev</code>
 <a href="https://github.com/linera-io/linera-protocol/blob/main/INSTALL.md">GitHub</a>.</p>
 <h2 id="installing-linera-locally"><a class="header" href="#installing-linera-locally">Installing Linera Locally</a></h2>
 <p>To install Linera locally, at the root of the repository run:</p>
-<pre><code class="language-bash">cargo install --path linera-service
+<pre><code class="language-bash">cargo install --path linera-sdk
+cargo install --path linera-service
 </code></pre>
-<p>This will install three binaries:</p>
+<p>The first command is used to install the Wasm test runner
+<code>linera-wasm-test-runner</code>.</p>
+<p>The second command will install four binaries:</p>
 <ol>
 <li><code>linera</code> - the Linera client</li>
 <li><code>linera-server</code> - the Linera worker</li>
@@ -1239,7 +1242,7 @@ pub trait Service: WithServiceAbi + ServiceAbi {
     type Storage: ServiceStateStorage;
 
     /// Executes a read-only query on the state of this application.
-    async fn query_application(
+    async fn handle_query(
         self: Arc&lt;Self&gt;,
         context: &amp;QueryContext,
         argument: Self::Query,
@@ -1255,14 +1258,14 @@ is a macro to perform this code generation, so just add the following to
 <code>service.rs</code>:</p>
 <pre><code class="language-rust ignore">linera_sdk::service!(Counter);</code></pre>
 <p>Next, we need to implement the <code>Service</code> for <code>Counter</code>. To do this we need to
-define <code>Service</code>'s associated types and implement <code>query_application</code>, as well
-as define the <code>Error</code> type:</p>
+define <code>Service</code>'s associated types and implement <code>handle_query</code>, as well as
+define the <code>Error</code> type:</p>
 <pre><code class="language-rust ignore">#[async_trait]
 impl Service for Counter {
     type Error = Error;
     type Storage = ViewStateStorage&lt;Self&gt;;
 
-    async fn query_application(
+    async fn handle_query(
         self: Arc&lt;Self&gt;,
         _context: &amp;QueryContext,
         request: Request,
