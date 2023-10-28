@@ -310,11 +310,10 @@ meant to be temporary and for testing only: in the future, web UIs will
 securely connect to a Wallet installed as a browser extension, as usual.</p>
 </li>
 <li>
-<p>Gas metering is activated in the Wasm VM but the accounting and purchase of
-fuel is not implemented yet. (As a placeholder, apps are given a fixed amount
-of fuel for free at every block.) Other aspects of the systems that incur
-costs to validators (e.g. uploading large bytecode) are also not yet protected
-by fees and/or hard limits.</p>
+<p>Gas metering is activated in the Wasm VM but the prices are set to zero by
+default. Other aspects of the systems that incur costs to validators (e.g.
+uploading large bytecode) are also not yet protected by fees and/or hard
+limits.</p>
 </li>
 <li>
 <p>Only user chains are currently available for testing and documented in this
@@ -341,7 +340,9 @@ Application creation</li>
 <li><input disabled="" type="checkbox" checked=""/>
 Reconfigurations of validators</li>
 <li><input disabled="" type="checkbox" checked=""/>
-Fixed gas limits for user applications (placeholder)</li>
+Initial support for gas fees</li>
+<li><input disabled="" type="checkbox"/>
+Initial support for storage fees and storage limits</li>
 <li><input disabled="" type="checkbox"/>
 Support for easy onboarding of user chains into a new application
 (removing the need to accept requests)</li>
@@ -352,8 +353,6 @@ swaps, etc)</li>
 Public chains (adding leader election, inbox constraints, etc)</li>
 <li><input disabled="" type="checkbox"/>
 Improved pub/sub channels (removing the need to accept subscriptions)</li>
-<li><input disabled="" type="checkbox"/>
-Gas fees (including system operations and messaging)</li>
 <li><input disabled="" type="checkbox"/>
 Blob storage for applications (generalizing bytecode storage)</li>
 <li><input disabled="" type="checkbox"/>
@@ -405,15 +404,17 @@ abstraction</li>
 <li><input disabled="" type="checkbox" checked=""/>
 Support for Rocksdb</li>
 <li><input disabled="" type="checkbox" checked=""/>
-Preliminary support for DynamoDb</li>
+Experimental support for DynamoDb</li>
 <li><input disabled="" type="checkbox" checked=""/>
-Preliminary derive macros for GraphQL</li>
+Initial derive macros for GraphQL</li>
+<li><input disabled="" type="checkbox" checked=""/>
+Initial support for ScyllaDb</li>
 <li><input disabled="" type="checkbox"/>
 Make library fully extensible by users (requires better GraphQL macros)</li>
 <li><input disabled="" type="checkbox"/>
 Performance benchmarks and improvements (including faster state hashing)</li>
 <li><input disabled="" type="checkbox"/>
-Support additional remote databases</li>
+Production-grade support for the chosen main database</li>
 <li><input disabled="" type="checkbox"/>
 Support global object locks (needed for dynamic sharding)</li>
 <li><input disabled="" type="checkbox"/>
@@ -421,7 +422,7 @@ Tooling for debugging</li>
 <li><input disabled="" type="checkbox"/>
 Make the storage library easy to use outside of Linera</li>
 </ul>
-<h3 id="networking"><a class="header" href="#networking">Networking</a></h3>
+<h3 id="validator-infrastructure"><a class="header" href="#validator-infrastructure">Validator Infrastructure</a></h3>
 <ul>
 <li><input disabled="" type="checkbox" checked=""/>
 Simple TCP/UDP networking (used for benchmarks only)</li>
@@ -429,8 +430,12 @@ Simple TCP/UDP networking (used for benchmarks only)</li>
 GRPC networking</li>
 <li><input disabled="" type="checkbox" checked=""/>
 Basic frontend (aka proxy) supporting fixed internal shards</li>
-<li><input disabled="" type="checkbox"/>
+<li><input disabled="" type="checkbox" checked=""/>
 Observability</li>
+<li><input disabled="" type="checkbox" checked=""/>
+Initial kubernetes support in CI</li>
+<li><input disabled="" type="checkbox"/>
+Initial nightly deployment using a cloud provider</li>
 <li><input disabled="" type="checkbox"/>
 New frontend to support dynamic shard assignment</li>
 <li><input disabled="" type="checkbox"/>
@@ -451,19 +456,21 @@ Local GraphQL service to query and browse application states</li>
 <li><input disabled="" type="checkbox" checked=""/>
 Use GraphQL mutations to execute operations and create blocks</li>
 <li><input disabled="" type="checkbox" checked=""/>
-Support for unit tests (initial)</li>
+Initial support for unit tests</li>
 <li><input disabled="" type="checkbox" checked=""/>
 Support for integration tests</li>
 <li><input disabled="" type="checkbox" checked=""/>
-ABIs for contract and service interfaces (initial)</li>
+Initial ABIs for contract and service interfaces</li>
 <li><input disabled="" type="checkbox"/>
-Support for handling gas fees</li>
+Allowing message sender to pay for message execution fees</li>
 <li><input disabled="" type="checkbox"/>
 Safety programming guidelines (including reentrancy)</li>
 <li><input disabled="" type="checkbox"/>
 Bindings to use native cryptographic primitives from Wasm</li>
 <li><input disabled="" type="checkbox"/>
-Allowing applications to create permissioned chains and public chains</li>
+Allowing applications to pay for user fees</li>
+<li><input disabled="" type="checkbox"/>
+Allowing applications to use permissioned chains and public chains</li>
 <li><input disabled="" type="checkbox"/>
 Wallet as a browser extension (no VM)</li>
 <li><input disabled="" type="checkbox"/>
