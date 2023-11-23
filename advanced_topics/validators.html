@@ -208,100 +208,140 @@ new blocks, and which operations and messages to include. The current
 implementation of the Linera client automatically includes all incoming messages
 in new blocks. The operations are the actions the chain owner explicitly adds,
 e.g. transfer.</p>
-<h2 id="scalability"><a class="header" href="#scalability">Scalability</a></h2>
+<h2 id="architecture-of-a-validator"><a class="header" href="#architecture-of-a-validator">Architecture of a validator</a></h2>
 <p>Since every chain uses the same validators, adding more chains does not require
-adding validators. Instead, it requires each individual validator to scale up
-and handle the additional load.</p>
-<p>That is why Linera allows the same validator to run multiple <code>linera-server</code>
-processes—<em>workers</em>—on different machines, each one processing a different
-subset of the microchains. The workers communicate directly with each other
-whenever a chain sends a message to another chain.</p>
-<h2 id="anatomy-of-a-validator"><a class="header" href="#anatomy-of-a-validator">Anatomy of a Validator</a></h2>
-<p>To achieve scalability, Linera validators need to be horizontally scalable
-(sometimes referred to as &quot;elastic&quot;). To achieve this scalability, the
-architecture of a validator involves splitting the chains up over multiple
-&quot;shards&quot; or &quot;workers&quot; which are encapsulated by a single ingress/egress called
-the &quot;proxy&quot;.</p>
-<p>The validator has an internal network enabling the proxy to speak with shards
-and shards with each other. Each shard is also backed by its own data store
-which can be scaled independently of the rest of the validator</p>
-<pre><code class="language-ignore"> example network
-                     │                                           │
-                     │                                           │
-                     │                                           │
-┌────────────────────┼────────────────────┐ ┌────────────────────┼────────────────────┐
-│ validator 1        │                    │ │ validator 2        │                    │
-│              ┌─────┴─────┐              │ │              ┌─────┴─────┐              │
-│              │   proxy   │              │ │              │   proxy   │              │
-│        ┌─────┤           ├─────┐        │ │        ┌─────┤           ├─────┐        │
-│        │     └───────────┘     │        │ │        │     └───────────┘     │        │
-│        │                       │        │ │        │                       │        │
-│        │                       │        │ │        │                       │        │
-│  ┌─────┴─────┐           ┌─────┴─────┐  │ │  ┌─────┴─────┐           ┌─────┴─────┐  │
-│  │   shard   │           │   shard   │  │ │  │   shard   │           │   shard   │  │
-│  │     1     │           │     2     │  │ │  │     1     │           │     2     │  │
-│  └─────┬─────┘           └─────┬─────┘  │ │  └─────┬─────┘           └─────┬─────┘  │
-│        │                       │        │ │        │                       │        │
-│  ┌─────┴─────┐           ┌─────┴─────┐  │ │  ┌─────┴─────┐           ┌─────┴─────┐  │
-│  │    db1    │           │    db2    │  │ │  │    db1    │           │    db2    │  │
-│  │           │           │           │  │ │  │           │           │           │  │
-│  └───────────┘           └───────────┘  │ │  └───────────┘           └───────────┘  │
-│                                         │ │                                         │
-└─────────────────────────────────────────┘ └─────────────────────────────────────────┘
+adding validators. Instead, it requires each individual validator to scale out
+by adding more computation units, also known as &quot;workers&quot; or &quot;physical shards&quot;.</p>
+<p>In the end, a Linera validator resembles a Web2 service made of</p>
+<ul>
+<li>
+<p>a load balancer (aka ingress/egress), currently implemented by the binary
+<code>linera-proxy</code>,</p>
+</li>
+<li>
+<p>a number of workers, currently implemented by the binary <code>linera-server</code>,</p>
+</li>
+<li>
+<p>a shared database, currently implemented by the abstract interface
+<code>linera-storage</code>.</p>
+</li>
+</ul>
+<pre><code class="language-ignore">Example of deployment with 2 validators
+
+                    │                                         │
+                    │                                         │
+┌───────────────────┼───────────────────┐ ┌───────────────────┼───────────────────┐
+│ validator 1       │                   │ │ validator 2       │                   │
+│             ┌─────┴─────┐             │ │             ┌─────┴─────┐             │
+│             │   load    │             │ │             │   load    │             │
+│       ┌─────┤  balancer ├────┐        │ │       ┌─────┤  balancer ├──────┐      │
+│       │     └───────────┘    │        │ │       │     └─────┬─────┘      │      │
+│       │                      │        │ │       │           │            │      │
+│       │                      │        │ │       │           │            │      │
+│  ┌────┴─────┐           ┌────┴─────┐  │ │  ┌────┴───┐  ┌────┴────┐  ┌────┴───┐  │
+│  │  worker  ├───────────┤  worker  │  │ │  │ worker ├──┤  worker ├──┤ worker │  │
+│  │    1     │           │    2     │  │ │  │    1   │  │    2    │  │    3   │  │
+│  └────┬─────┘           └────┬─────┘  │ │  └────┬───┘  └────┬────┘  └────┬───┘  │
+│       │                      │        │ │       │           │            │      │
+│       │                      │        │ │       │           │            │      │
+│       │     ┌───────────┐    │        │ │       │     ┌─────┴─────┐      │      │
+│       └─────┤  shared   ├────┘        │ │       └─────┤  shared   ├──────┘      │
+│             │ database  │             │ │             │ database  │             │
+│             └───────────┘             │ │             └───────────┘             │
+└───────────────────────────────────────┘ └───────────────────────────────────────┘
 
 </code></pre>
-<h2 id="configuring-networks-workers-and-proxies"><a class="header" href="#configuring-networks-workers-and-proxies">Configuring Networks, Workers, and Proxies</a></h2>
-<p>In <a href="../getting_started/hello_linera.html">a previous section</a>, we used the
-<code>linera net up</code> command to start a local network. This should be sufficient for
-most use cases when you're running a local network.</p>
-<pre><code class="language-bash">linera net up
-</code></pre>
-<p>However, it is possible to customize and configure the parameters of the
-network.</p>
-<p>To do this, you need the <code>linera-protocol</code> repository and the
-<code>./scripts/run_local.sh</code> script.</p>
-<p><code>run_local.sh</code> uses the <code>validator_n.toml</code> file from the <code>configuration/</code>
-directory to configure validator number <code>n</code>.</p>
-<pre><code class="language-bash">linera-server generate --validators configuration/validator_{1,2,3,4}.toml --committee committee.json
-</code></pre>
-<p>generates keys and writes them, together with the options from the TOML files,
-to <code>server_1.json</code>, ..., <code>server_4.json</code>. It also stores the set of the new
-validators' public keys in <code>committee.json</code>.</p>
-<pre><code class="language-bash">linera --wallet wallet.json --storage rocksdb:linera.db create-genesis-config 10 --genesis genesis.json --initial-funding 10 --committee committee.json
-</code></pre>
-<p>creates a configuration for the initial state of the network, <code>genesis.json</code>,
-with 10 chains, each with a balance of 10. It also creates a <code>wallet.json</code> for a
+<p>Inside a validator, components communicate using the internal network of the
+validator. Notably, workers use direct Remote Procedure Calls (RPCs) with each
+other to deliver cross-chain messages.</p>
+<p>Note that the number of workers may vary for each validator. Both the load
+balancer and the shared database are represented as a single entity but are
+meant to scale out in production.</p>
+<blockquote>
+<p>For local testing during development, we currently use a single worker and
+RocksDB as a database.</p>
+</blockquote>
+<!--
+## Configuring Networks, Workers, and Proxies
+
+In [a previous section](../getting_started/hello_linera.md), we used the
+`linera net up` command to start a local network. This should be sufficient for
+most use cases when you're running a local network.
+
+```bash
+linera net up
+```
+
+However, it is possible to customize and configure the parameters of the
+network.
+
+To do this, you need the `linera-protocol` repository and the
+`./scripts/run_local.sh` script.
+
+`run_local.sh` uses the `validator_n.toml` file from the `configuration/`
+directory to configure validator number `n`.
+
+```bash
+linera-server generate --validators configuration/validator_{1,2,3,4}.toml --committee committee.json
+```
+
+generates keys and writes them, together with the options from the TOML files,
+to `server_1.json`, ..., `server_4.json`. It also stores the set of the new
+validators' public keys in `committee.json`.
+
+```bash
+linera --wallet wallet.json --storage rocksdb:linera.db create-genesis-config 10 --genesis genesis.json --initial-funding 10 --committee committee.json
+```
+
+creates a configuration for the initial state of the network, `genesis.json`,
+with 10 chains, each with a balance of 10. It also creates a `wallet.json` for a
 client who owns all those chains and initializes the corresponding local node
-<code>linera.db</code>.</p>
-<p>To start the newly configured network, each validator <code>n</code> must start their
-proxy:</p>
-<pre><code class="language-bash">linera-proxy server_n.json &amp;
-</code></pre>
-<p>And all shards; for shard <code>i</code>:</p>
-<pre><code class="language-bash">linera-server run --storage rocksdb:server_n_i.db --server server_n.json --shard i --genesis genesis.json &amp;
-</code></pre>
-<p>This will create a separate database file <code>server_n_i.db</code> for each shard. In a
-production network, these would be running on different machines.</p>
-<h2 id="changing-the-set-of-validators"><a class="header" href="#changing-the-set-of-validators">Changing the Set of Validators</a></h2>
-<p>If a new validator wants to start participating, or an old one wants to leave,
-all chains must be updated.</p>
-<p>The system has one designated <em>admin chain</em>, where the validators can join or
-leave or, and where new <em>epochs</em> are defined. During every epoch, the set of
-validators is fixed. If you own the admin chain, you can use the <code>set-validator</code>
-and <code>remove-validator</code> commands to start a new epoch with a modified set of
-validators:</p>
-<pre><code class="language-bash">linera --wallet wallet.json set-validator --name 5b611b86cc1f54f73a4abfb4a2167c7327cc85a74cb2a5502431f67b554850b4 --address 127.0.0.1:9100 --votes 3
+`linera.db`.
+
+To start the newly configured network, each validator `n` must start their
+proxy:
+
+```bash
+linera-proxy server_n.json &
+```
+
+And all shards; for shard `i`:
+
+```bash
+linera-server run --storage rocksdb:server_n_i.db --server server_n.json --shard i --genesis genesis.json &
+```
+
+This will create a separate database file `server_n_i.db` for each shard. In a
+production network, these would be running on different machines.
+
+## Changing the Set of Validators
+
+If a new validator wants to start participating, or an old one wants to leave,
+all chains must be updated.
+
+The system has one designated _admin chain_, where the validators can join or
+leave or, and where new _epochs_ are defined. During every epoch, the set of
+validators is fixed. If you own the admin chain, you can use the `set-validator`
+and `remove-validator` commands to start a new epoch with a modified set of
+validators:
+
+```bash
+linera --wallet wallet.json set-validator --name 5b611b86cc1f54f73a4abfb4a2167c7327cc85a74cb2a5502431f67b554850b4 --address 127.0.0.1:9100 --votes 3
 linera --wallet wallet.json remove-validator --name f65a585f05852f0610e2460a99c23faa3969f3cfce8a519f843a793dbfb4cb84
-</code></pre>
-<p>Chain owners must then create a block that receives the <code>SetCommittees</code> message
+```
+
+Chain owners must then create a block that receives the `SetCommittees` message
 from the admin chain, and have it certified by the old validators. Only the
-<em>next</em> block in their chain will be certified by the new validator set!</p>
-<p>The <em>admin chain</em> is currently managed by a single user. In the future, it will
-be a <em>public chain</em> (i.e. managed by validators). We anticipate that Linera
+_next_ block in their chain will be certified by the new validator set!
+
+The _admin chain_ is currently managed by a single user. In the future, it will
+be a _public chain_ (i.e. managed by validators). We anticipate that Linera
 epochs will change once per day (or less) and that several subsequent epochs
 will overlap so that chain owners have enough time to migrate their chains.
 (Chain migration may also be delegated to third parties. See
-<a href="block_creation.html">next section</a>.)</p>
+[next section](block_creation.html).)
+
+-->
 
                     </main>
 
