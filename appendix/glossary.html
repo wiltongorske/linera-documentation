@@ -208,9 +208,9 @@ selected at the next block height.</p>
 by the Wasm virtual machine.</p>
 </li>
 <li>
-<p><strong>Client</strong>: A 'partial node' operated by users which interfaces with the
-network. In Linera, clients drive the network by proposing new blocks and
-validators are mostly reactive.</p>
+<p><strong>Client</strong>: The <code>linera</code> program, which is a local node and wallet operated by
+users to make requests to the network. In Linera, clients drive the network by
+proposing new blocks and validators are mostly reactive.</p>
 </li>
 <li>
 <p><strong>Certificate</strong>: A value with signatures from a quorum of validators. Values
@@ -251,7 +251,7 @@ particular voting weights can certify new blocks. Since each chain has to
 transition explicitly from one epoch to the next, epochs can overlap.</p>
 </li>
 <li>
-<p><strong>Genesis configuration</strong>: The configuration determining the state of a newly
+<p><strong>Genesis Configuration</strong>: The configuration determining the state of a newly
 created network; the voting weights of the initial set of validators, the
 initial fee structure, and initial chains that the network starts with.</p>
 </li>
@@ -321,7 +321,7 @@ of all the chains.</p>
 <li>
 <p><strong>View</strong>: Views are like an Object-Relational Mapping (ORM) for mapping
 complex types onto key-value stores. Views group complex state changes into a
-set of elementary operations and commit them atomically. The are full or
+set of elementary operations and commit them atomically. They are full or
 partial in-memory representations of complex types saved on disk in a
 key-value store</p>
 </li>
@@ -330,8 +330,8 @@ key-value store</p>
 configuration and information regarding the chains they own.</p>
 </li>
 <li>
-<p><strong>Web Assembly (Wasm)</strong>: A binary compilation target and instruction format
-that runs on a stack based VM. Linera applications are compiled to Wasm and
+<p><strong>WebAssembly (Wasm)</strong>: A binary compilation target and instruction format
+that runs on a stack-based VM. Linera applications are compiled to Wasm and
 run on Wasm VMs inside validators and clients.</p>
 </li>
 <li>
