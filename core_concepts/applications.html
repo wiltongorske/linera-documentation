@@ -180,6 +180,11 @@ advantage of microchains to scale their applications.</p>
 <p>Linera uses the WebAssembly Virtual Machine (Wasm) to execute user applications.
 Currently, the <a href="../sdk.html">Linera SDK</a> is focused on the
 <a href="https://www.rust-lang.org/">Rust</a> programming language.</p>
+<p>Linera applications are structured using the familiar notion of <strong>Rust crate</strong>:
+the external interfaces of an application (including initialization parameters,
+operations, messages, and cross-application calls) generally go into the library
+part of its crate, while the core of each application is compiled into binary
+files for the Wasm architecture.</p>
 <h2 id="the-application-deployment-lifecycle"><a class="header" href="#the-application-deployment-lifecycle">The Application Deployment Lifecycle</a></h2>
 <p>Linera Applications are designed to be powerful yet re-usable. For this reason
 there is a distinction between the bytecode and an application instance on the

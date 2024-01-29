@@ -197,16 +197,27 @@ with a separate state on each chain.</p>
 <p>To ensure coordination across chains, an application may rely on asynchronous
 <strong>cross-chain messages</strong>. Message payloads are application-specific and opaque
 to the rest of the system.</p>
+<pre><code class="language-ignore">                               ┌───┐     ┌───┐     ┌───┐
+                       Chain A │   ├────►│   ├────►│   │
+                               └───┘     └───┘     └───┘
+                                                     ▲
+                                           ┌─────────┘
+                                           │
+                               ┌───┐     ┌─┴─┐     ┌───┐
+                       Chain B │   ├────►│   ├────►│   │
+                               └───┘     └─┬─┘     └───┘
+                                           │         ▲
+                                           │         │
+                                           ▼         │
+                               ┌───┐     ┌───┐     ┌─┴─┐
+                       Chain C │   ├────►│   ├────►│   │
+                               └───┘     └───┘     └───┘
+</code></pre>
 <p>The number of applications present on a single chain is not limited. On the same
 chain, applications are <strong>composed</strong> as usual using synchronous calls.</p>
 <p>The current Linera SDK uses <strong>Rust</strong> as a source language to create Wasm
 applications. It relies on the normal Rust toolchains so that Rust programmers
 can work in their preferred environments.</p>
-<p>Linera applications are structured using the familiar notion of <strong>Rust crate</strong>:
-the external interfaces of an application (including initialization parameters,
-operations, messages, and cross-application calls) generally go into the library
-part of its crate, while the core of each application is compiled into binary
-files for the Wasm architecture.</p>
 <h2 id="how-does-linera-compare-to-existing-multi-chain-infrastructure"><a class="header" href="#how-does-linera-compare-to-existing-multi-chain-infrastructure">How does Linera compare to existing multi-chain infrastructure?</a></h2>
 <p>Linera is the first infrastructure designed to support many chains in parallel,
 and notably an arbitrary number of <strong>user chains</strong> meant to be operated by user
