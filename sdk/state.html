@@ -196,14 +196,14 @@ state struct in <code>src/state.rs</code> with the following view:</p>
 pub struct Counter {
     pub value: RegisterView&lt;u64&gt;,
 }</code></pre>
-<p>and all other occurences of <code>Application</code> in your app.</p>
+<p>and all other occurrences of <code>Application</code> in your app.</p>
 <p>The <code>RegisterView&lt;T&gt;</code> supports modifying a single value of type <code>T</code>. There are
 different types of views for different use-cases, but the majority of common
 data structures have already been implemented:</p>
 <ul>
 <li>A <code>Vec</code> or <code>VecDeque</code> corresponds to a <code>LogView</code></li>
 <li>A <code>BTreeMap</code> corresponds to a <code>MapView</code> if its values are primitive, or to
-<code>CollectionView</code> if its values are other vuews;</li>
+<code>CollectionView</code> if its values are other views;</li>
 <li>A <code>Queue</code> corresponds to a <code>QueueView</code></li>
 </ul>
 <p>For an exhaustive list refer to the Views

@@ -1062,8 +1062,9 @@ Wasm bytecode.</p>
 For the reference manual, refer to the
 <a href="https://docs.rs/linera-sdk/latest/linera_sdk/">documentation of the crate</a>.</p>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="creating-a-linera-project"><a class="header" href="#creating-a-linera-project">Creating a Linera Project</a></h1>
-<p>To create your Linera project, use the <code>linera project new</code> command. It sets up
-the scaffolding and requisite files:</p>
+<p>To create your Linera project, use the <code>linera project new</code> command. The command
+should be executed outside the <code>linera-protocol</code> folder. It sets up the
+scaffolding and requisite files:</p>
 <pre><code class="language-bash">linera project new my-counter
 </code></pre>
 <p><code>linera project new</code> bootstraps your project by creating the following key
@@ -1102,14 +1103,14 @@ state struct in <code>src/state.rs</code> with the following view:</p>
 pub struct Counter {
     pub value: RegisterView&lt;u64&gt;,
 }</code></pre>
-<p>and all other occurences of <code>Application</code> in your app.</p>
+<p>and all other occurrences of <code>Application</code> in your app.</p>
 <p>The <code>RegisterView&lt;T&gt;</code> supports modifying a single value of type <code>T</code>. There are
 different types of views for different use-cases, but the majority of common
 data structures have already been implemented:</p>
 <ul>
 <li>A <code>Vec</code> or <code>VecDeque</code> corresponds to a <code>LogView</code></li>
 <li>A <code>BTreeMap</code> corresponds to a <code>MapView</code> if its values are primitive, or to
-<code>CollectionView</code> if its values are other vuews;</li>
+<code>CollectionView</code> if its values are other views;</li>
 <li>A <code>Queue</code> corresponds to a <code>QueueView</code></li>
 </ul>
 <p>For an exhaustive list refer to the Views
@@ -1352,10 +1353,11 @@ pub trait Service: WithServiceAbi + ServiceAbi {
 <a href="https://github.com/linera-io/linera-protocol/blob/main/linera-sdk/src/lib.rs">here</a>.</p>
 <p>Let's implement <code>Service</code> for our counter application.</p>
 <p>First, we want to generate the necessary boilerplate for implementing the
-service WIT interface, export the necessary resource types and functions so that
-the host (the process running the bytecode) can call the service. Happily, there
-is a macro to perform this code generation, so just add the following to
-<code>service.rs</code>:</p>
+service
+<a href="https://component-model.bytecodealliance.org/design/wit.html">WIT interface</a>,
+export the necessary resource types and functions so that the host (the process
+running the bytecode) can call the service. Happily, there is a macro to perform
+this code generation, so just add the following to <code>service.rs</code>:</p>
 <pre><code class="language-rust ignore">linera_sdk::service!(Counter);</code></pre>
 <p>Next, we need to implement the <code>Service</code> for <code>Counter</code>. To do this we need to
 define <code>Service</code>'s associated types and implement <code>handle_query</code>, as well as

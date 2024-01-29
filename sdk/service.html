@@ -205,10 +205,11 @@ pub trait Service: WithServiceAbi + ServiceAbi {
 <a href="https://github.com/linera-io/linera-protocol/blob/main/linera-sdk/src/lib.rs">here</a>.</p>
 <p>Let's implement <code>Service</code> for our counter application.</p>
 <p>First, we want to generate the necessary boilerplate for implementing the
-service WIT interface, export the necessary resource types and functions so that
-the host (the process running the bytecode) can call the service. Happily, there
-is a macro to perform this code generation, so just add the following to
-<code>service.rs</code>:</p>
+service
+<a href="https://component-model.bytecodealliance.org/design/wit.html">WIT interface</a>,
+export the necessary resource types and functions so that the host (the process
+running the bytecode) can call the service. Happily, there is a macro to perform
+this code generation, so just add the following to <code>service.rs</code>:</p>
 <pre><code class="language-rust ignore">linera_sdk::service!(Counter);</code></pre>
 <p>Next, we need to implement the <code>Service</code> for <code>Counter</code>. To do this we need to
 define <code>Service</code>'s associated types and implement <code>handle_query</code>, as well as
