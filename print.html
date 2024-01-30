@@ -202,9 +202,9 @@ require guaranteed performance for an unlimited number of active users.</p>
 <p>The core idea of the Linera protocol is to run many lightweight blockchains,
 called <strong>microchains</strong>, in parallel in a single set of validators.</p>
 <h2 id="how-does-it-work"><a class="header" href="#how-does-it-work">How does it work?</a></h2>
-<p>In Linera, end users (or rather their wallets) are expected to operate their own
-microchains, called <strong>user chains</strong>. The owner of a chain chooses when to add
-new blocks to the chain and what goes inside the blocks.</p>
+<p>In Linera, user wallets operate their own microchains. The owner of a chain
+chooses when to add new blocks to the chain and what goes inside the blocks.
+Such chains with a single user are called <strong>user chains</strong>.</p>
 <p>Users may add new blocks to their chains in order to process <strong>incoming
 messages</strong> from other chains or to execute secure <strong>operations</strong> on their
 accounts, for instance to transfer assets to another user.</p>
@@ -268,12 +268,13 @@ case: these are called &quot;app chains&quot;.</p>
 their capacity elastically by adding or removing internal workers.</p>
 </li>
 </ul>
-<p>The specifications of the Linera protocol (see the
-<a href="https://linera.io/whitepaper">whitepaper</a>) also include other types of
-microchains, called &quot;permissioned&quot; and &quot;public&quot;. Public chains are operated by
-validators and similar to classical blockchains in this regard. Permissioned
-chains are meant to be used for temporary interactions between users, such as
-atomic swaps.</p>
+<blockquote>
+<p>Besides user chains, the <a href="https://linera.io/whitepaper">Linera protocol</a> is
+designed to support other types of microchains, called &quot;permissioned&quot; and
+&quot;public&quot; chains. Public chains are operated by validators. In this regard,
+they are similar to classical blockchains. Permissioned chains are meant to be
+used for temporary interactions between users, such as atomic swaps.</p>
+</blockquote>
 <h2 id="why-build-on-top-of-linera"><a class="header" href="#why-build-on-top-of-linera">Why build on top of Linera?</a></h2>
 <p>We believe that many high-value use cases are currently out of reach of existing
 Web3 infrastructures because of the challenges of serving <strong>many active users</strong>
@@ -321,12 +322,6 @@ on top of Wasm-embedded GraphQL services, and tested locally in the browser.</p>
 <p>Web UIs need to query a local HTTP service acting as a wallet. This setup is
 meant to be temporary and for testing only: in the future, web UIs will
 securely connect to a Wallet installed as a browser extension, as usual.</p>
-</li>
-<li>
-<p>Gas metering is activated in the Wasm VM but the prices are set to zero by
-default. Other aspects of the systems that incur costs to validators (e.g.
-uploading large bytecode) are also not yet protected by fees and/or hard
-limits.</p>
 </li>
 <li>
 <p>Only user chains are currently available for testing and documented in this
@@ -400,7 +395,7 @@ Support for non-blocking (yet deterministic) calls to storage</li>
 Support for read-only GraphQL services in Wasm</li>
 <li><input disabled="" type="checkbox" checked=""/>
 Support for mocked system APIs (initial version)</li>
-<li><input disabled="" type="checkbox"/>
+<li><input disabled="" type="checkbox" checked=""/>
 More efficient cross-application calls</li>
 <li><input disabled="" type="checkbox"/>
 Improve host/guest stub generation to make mocks easier (currently
@@ -446,8 +441,8 @@ Basic frontend (aka. proxy) supporting fixed internal shards</li>
 Observability</li>
 <li><input disabled="" type="checkbox" checked=""/>
 Initial kubernetes support in CI</li>
-<li><input disabled="" type="checkbox"/>
-Initial nightly deployment using a cloud provider</li>
+<li><input disabled="" type="checkbox" checked=""/>
+Initial deployment using a cloud provider</li>
 <li><input disabled="" type="checkbox"/>
 New frontend to support dynamic shard assignment</li>
 <li><input disabled="" type="checkbox"/>
@@ -561,7 +556,7 @@ cargo install --path linera-service
 compiled in debug mode, e.g. using <code>export PATH=&quot;$PWD/target/debug:$PATH&quot;</code>.</p>
 <p>This manual has been tested against the following commit of the
 <a href="https://github.com/linera-io/linera-protocol">repository</a>:</p>
-<pre><code class="language-text">f2310b4ab7fccc11108971b53368be09996e24ab
+<pre><code class="language-text">8748d4263e02a5713467da44b673ccc85087e2a2
 </code></pre>
 <h2 id="bash-helper-optional"><a class="header" href="#bash-helper-optional">Bash helper (optional)</a></h2>
 <p>Consider adding the output of <code>linera net helper</code> to your <code>~/.bash_profile</code> to
@@ -572,16 +567,27 @@ help with <a href="getting_started/../core_concepts/wallets.html#automation-in-b
 <a href="https://github.com/linera-io/linera-protocol/issues/new">create an issue</a> on
 GitHub.</p>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="hello-linera"><a class="header" href="#hello-linera">Hello, Linera</a></h1>
-<p>This section is about running a local development network, then compiling and
-deploying your first application from scratch.</p>
+<p>This section is about interacting with the Devnet, running a local development
+network, then compiling and deploying your first application from scratch.</p>
 <p>By the end of this section, you'll have a
-<a href="getting_started/../core_concepts/microchains.html">microchain</a> running locally and a working
-application that can be queried using GraphQL.</p>
+<a href="getting_started/../core_concepts/microchains.html">microchain</a> on Devnet and on your local
+network and a working application that can be queried using GraphQL.</p>
+<h2 id="using-the-devnet"><a class="header" href="#using-the-devnet">Using the Devnet</a></h2>
+<p>The Linera Devnet is a deployment of the Linera protocol that's useful for
+developers. It should not be considered stable, and can be restarted from a
+clean slate and new genesis at any time.</p>
+<p>To interact with the Devnet, some tokens are needed. A Faucet service is
+available to create new microchains and obtain some test tokens. To do so, this
+must be configured when initializing the wallet:</p>
+<pre><code class="language-bash">linera wallet init --faucet http://faucet.devnet.linera.net --with-new-chain
+</code></pre>
+<p>This creates a new microchain on Devnet with some initial test tokens, and the
+chain is automatically added to the newly instantiated wallet.</p>
 <h2 id="starting-a-local-test-network"><a class="header" href="#starting-a-local-test-network">Starting a Local Test Network</a></h2>
-<p>The first step is to start your local development network. A development network
-consists of a numbers of <a href="getting_started/../advanced_topics/validators.html">validators</a>, each of
-which consist of an ingress proxy (aka. a &quot;load balancer&quot;) and a number of
-workers (aka. &quot;physical shards&quot;).</p>
+<p>Another option is to start your own local development network. A development
+network consists of a number of <a href="getting_started/../advanced_topics/validators.html">validators</a>,
+each of which consist of an ingress proxy (aka. a &quot;load balancer&quot;) and a number
+of workers (aka. &quot;physical shards&quot;).</p>
 <p>To start a local network, run the following command:</p>
 <pre><code class="language-bash">linera net up
 </code></pre>
@@ -589,7 +595,7 @@ workers (aka. &quot;physical shards&quot;).</p>
 temporary directory storing the entire network state.</p>
 <p>This will set up a number of initial chains and create an initial wallet to
 operate them.</p>
-<h2 id="using-the-initial-test-wallet"><a class="header" href="#using-the-initial-test-wallet">Using the Initial Test Wallet</a></h2>
+<h3 id="using-the-initial-test-wallet"><a class="header" href="#using-the-initial-test-wallet">Using the Initial Test Wallet</a></h3>
 <p><code>linera net up</code> prints Bash statements on its standard output to help you
 configure your terminal to use the initial wallet of the new test network, for
 instance:</p>
@@ -598,12 +604,12 @@ export LINERA_STORAGE=&quot;rocksdb:/var/folders/3d/406tbklx3zx2p3_hzzpfqdbc0000
 </code></pre>
 <p>This wallet is only valid for the lifetime of a single network. Every time a
 local network is restarted, the wallet needs to be reconfigured.</p>
-<blockquote>
-<p>In the following examples, we assume that the variables <code>LINERA_WALLET</code> and
-<code>LINERA_STORAGE</code> are both set and point to the initial wallet of the running
-local network.</p>
-</blockquote>
 <h2 id="interacting-with-the-network"><a class="header" href="#interacting-with-the-network">Interacting with the Network</a></h2>
+<blockquote>
+<p>In the following examples, we assume that either the wallet was initialized to
+interact with the Devnet or the variables <code>LINERA_WALLET</code> and <code>LINERA_STORAGE</code>
+are both set and point to the initial wallet of the running local network.</p>
+</blockquote>
 <p>The main way of interacting with the network and deploying applications is using
 the <code>linera</code> client.</p>
 <p>To check that the network is working, you can synchronize the balance for your
@@ -1241,21 +1247,21 @@ pub trait Contract: WithContractAbi + ContractAbi + Send + Sized {
         &amp;mut self,
         context: &amp;OperationContext,
         argument: Self::InitializationArgument,
-    ) -&gt; Result&lt;ExecutionResult&lt;Self::Message&gt;, Self::Error&gt;;
+    ) -&gt; Result&lt;ExecutionOutcome&lt;Self::Message&gt;, Self::Error&gt;;
 
     /// Applies an operation from the current block.
     async fn execute_operation(
         &amp;mut self,
         context: &amp;OperationContext,
         operation: Self::Operation,
-    ) -&gt; Result&lt;ExecutionResult&lt;Self::Message&gt;, Self::Error&gt;;
+    ) -&gt; Result&lt;ExecutionOutcome&lt;Self::Message&gt;, Self::Error&gt;;
 
     /// Applies a message originating from a cross-chain message.
     async fn execute_message(
         &amp;mut self,
         context: &amp;MessageContext,
         message: Self::Message,
-    ) -&gt; Result&lt;ExecutionResult&lt;Self::Message&gt;, Self::Error&gt;;
+    ) -&gt; Result&lt;ExecutionOutcome&lt;Self::Message&gt;, Self::Error&gt;;
 
     /// Handles a call from another application.
     async fn handle_application_call(
@@ -1296,9 +1302,9 @@ using its initialization parameters:</p>
         &amp;mut self,
         _context: &amp;OperationContext,
         value: u64,
-    ) -&gt; Result&lt;ExecutionResult&lt;Self::Message&gt;, Self::Error&gt; {
+    ) -&gt; Result&lt;ExecutionOutcome&lt;Self::Message&gt;, Self::Error&gt; {
         self.value.set(value);
-        Ok(ExecutionResult::default())
+        Ok(ExecutionOutcome::default())
     }</code></pre>
 <h2 id="implementing-the-increment-operation"><a class="header" href="#implementing-the-increment-operation">Implementing the Increment Operation</a></h2>
 <p>Now that we have our counter's state and a way to initialize it to any value we
@@ -1311,10 +1317,10 @@ proposers to application states are broadly called 'operations'.</p>
         &amp;mut self,
         _context: &amp;OperationContext,
         operation: u64,
-    ) -&gt; Result&lt;ExecutionResult&lt;Self::Message&gt;, Self::Error&gt; {
+    ) -&gt; Result&lt;ExecutionOutcome&lt;Self::Message&gt;, Self::Error&gt; {
         let current = self.value.get();
         self.value.set(current + operation);
-        Ok(ExecutionResult::default())
+        Ok(ExecutionOutcome::default())
     }</code></pre>
 <h2 id="declaring-the-abi"><a class="header" href="#declaring-the-abi">Declaring the ABI</a></h2>
 <p>Finally, to link our <code>Contract</code> trait implementation with the ABI of the
@@ -1425,18 +1431,44 @@ full source code and associated tests check out the
 <a href="https://github.com/linera-io/linera-protocol/blob/main/examples/counter/src/service.rs">examples section</a>
 on GitHub.</p>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="deploying-the-application"><a class="header" href="#deploying-the-application">Deploying the Application</a></h1>
-<p>To deploy your application, build your contract in release mode with
-<code>cargo build --release</code> and then use the <code>publish-and-create</code> command while also
-specifying:</p>
+<p>The first step to deploy your application is to configure a wallet. This will
+determine where the application will be deployed: either to a local net or to
+the devnet.</p>
+<h2 id="local-net"><a class="header" href="#local-net">Local Net</a></h2>
+<p>To configure the local network, follow the steps in the
+<a href="sdk/../getting_started/hello_linera.html#using-the-initial-test-wallet">Getting Started section</a>.</p>
+<p>Afterwards, the <code>LINERA_WALLET</code> and the <code>LINERA_STORAGE</code> environment variables
+should be set and can be used in the <code>publish-and-create</code> command to deploy the
+application while also specifying:</p>
 <ol>
 <li>The location of the contract bytecode</li>
 <li>The location of the service bytecode</li>
-<li>The hex encoded initialization arguments</li>
+<li>The JSON encoded initialization arguments</li>
 </ol>
 <pre><code class="language-bash">linera publish-and-create \
   target/wasm32-unknown-unknown/release/my-counter_{contract,service}.wasm \
   --json-argument &quot;42&quot;
 </code></pre>
+<h2 id="devnet"><a class="header" href="#devnet">Devnet</a></h2>
+<p>To configure the wallet for the devnet while creating a new microchain, the
+following command can be used:</p>
+<pre><code class="language-bash">linera wallet init --faucet http://faucet.devnet.linera.net --with-new-chain
+</code></pre>
+<p>The Faucet will provide the new chain with some tokens, which can then be used
+to deploy the application with the <code>publish-and-create</code> command. It requires
+specifying:</p>
+<ol>
+<li>The location of the contract bytecode</li>
+<li>The location of the service bytecode</li>
+<li>The JSON encoded initialization arguments</li>
+</ol>
+<pre><code class="language-bash">linera publish-and-create \
+  target/wasm32-unknown-unknown/release/my-counter_{contract,service}.wasm \
+  --json-argument &quot;42&quot;
+</code></pre>
+<h2 id="interacting-with-the-application"><a class="header" href="#interacting-with-the-application">Interacting with the Application</a></h2>
+<p>To interact with the deployed application, a
+<a href="sdk/../core_concepts/node_service.html">node service</a> must be used.</p>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="cross-chain-messages"><a class="header" href="#cross-chain-messages">Cross-Chain Messages</a></h1>
 <p>On Linera, applications are meant to be multi-chain: They are instantiated on
 every chain where they are used. An application has the same application ID and
@@ -1448,7 +1480,7 @@ may be different.</p>
 <p>For your application, you can specify any serializable type as the <code>Message</code>
 type in your <code>ContractAbi</code> implementation. To send a message, return it among
 the
-<a href="https://docs.rs/linera-sdk/latest/linera_sdk/struct.ExecutionResult.html"><code>ExecutionResult</code></a>'s
+<a href="https://docs.rs/linera-sdk/latest/linera_sdk/struct.ExecutionOutcome.html"><code>ExecutionOutcome</code></a>'s
 <code>messages</code>:</p>
 <pre><code class="language-rust ignore">    pub messages: Vec&lt;OutgoingMessage&lt;Message&gt;&gt;,</code></pre>
 <p><code>OutgoingMessage</code>'s <code>destination</code> field specifies either a single destination
@@ -1459,12 +1491,12 @@ caused this call.</p>
 <p>The <code>message</code> field contains the message itself, of the type you specified in
 the <code>ContractAbi</code>.</p>
 <p>You can also use
-<a href="https://docs.rs/linera-sdk/latest/linera_sdk/struct.ExecutionResult.html#method.with_message"><code>ExecutionResult::with_message</code></a>
+<a href="https://docs.rs/linera-sdk/latest/linera_sdk/struct.ExecutionOutcome.html#method.with_message"><code>ExecutionOutcome::with_message</code></a>
 and
-<a href="https://docs.rs/linera-sdk/latest/linera_sdk/struct.ExecutionResult.html#method.with_authenticated_message"><code>with_authenticated_message</code></a>
+<a href="https://docs.rs/linera-sdk/latest/linera_sdk/struct.ExecutionOutcome.html#method.with_authenticated_message"><code>with_authenticated_message</code></a>
 for convenience.</p>
 <p>During block execution in the <em>sending</em> chain, messages are returned via
-<code>ExecutionResult</code>s. The returned message is then placed in the <em>target</em> chain
+<code>ExecutionOutcome</code>s. The returned message is then placed in the <em>target</em> chain
 inbox for processing. There is no guarantee that it will be handled: For this to
 happen, an owner of the target chain needs to include it in the
 <code>incoming_messages</code> in one of their blocks. When that happens, the contract's
@@ -1479,7 +1511,7 @@ account balance and sends a <code>Credit</code> message to the recipient's chain
     &amp;mut self,
     context: &amp;OperationContext,
     operation: Self::Operation,
-) -&gt; Result&lt;ExecutionResult&lt;Self::Message&gt;, Self::Error&gt; {
+) -&gt; Result&lt;ExecutionOutcome&lt;Self::Message&gt;, Self::Error&gt; {
     match operation {
         Operation::Transfer {
             owner,
@@ -1492,7 +1524,7 @@ account balance and sends a <code>Credit</code> message to the recipient's chain
                 owner: target_account.owner,
                 amount,
             };
-            Ok(ExecutionResult::default().with_message(target_account.chain_id, message))
+            Ok(ExecutionOutcome::default().with_message(target_account.chain_id, message))
         }
         // ...
     }
@@ -1503,11 +1535,11 @@ account balance.</p>
     &amp;mut self,
     context: &amp;MessageContext,
     message: Message,
-) -&gt; Result&lt;ExecutionResult&lt;Self::Message&gt;, Self::Error&gt; {
+) -&gt; Result&lt;ExecutionOutcome&lt;Self::Message&gt;, Self::Error&gt; {
     match message {
         Message::Credit { owner, amount } =&gt; {
             self.credit(owner, amount).await;
-            Ok(ExecutionResult::default())
+            Ok(ExecutionOutcome::default())
         }
         // ...
     }

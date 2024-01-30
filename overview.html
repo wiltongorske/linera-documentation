@@ -180,9 +180,9 @@ require guaranteed performance for an unlimited number of active users.</p>
 <p>The core idea of the Linera protocol is to run many lightweight blockchains,
 called <strong>microchains</strong>, in parallel in a single set of validators.</p>
 <h2 id="how-does-it-work"><a class="header" href="#how-does-it-work">How does it work?</a></h2>
-<p>In Linera, end users (or rather their wallets) are expected to operate their own
-microchains, called <strong>user chains</strong>. The owner of a chain chooses when to add
-new blocks to the chain and what goes inside the blocks.</p>
+<p>In Linera, user wallets operate their own microchains. The owner of a chain
+chooses when to add new blocks to the chain and what goes inside the blocks.
+Such chains with a single user are called <strong>user chains</strong>.</p>
 <p>Users may add new blocks to their chains in order to process <strong>incoming
 messages</strong> from other chains or to execute secure <strong>operations</strong> on their
 accounts, for instance to transfer assets to another user.</p>
@@ -246,12 +246,13 @@ case: these are called &quot;app chains&quot;.</p>
 their capacity elastically by adding or removing internal workers.</p>
 </li>
 </ul>
-<p>The specifications of the Linera protocol (see the
-<a href="https://linera.io/whitepaper">whitepaper</a>) also include other types of
-microchains, called &quot;permissioned&quot; and &quot;public&quot;. Public chains are operated by
-validators and similar to classical blockchains in this regard. Permissioned
-chains are meant to be used for temporary interactions between users, such as
-atomic swaps.</p>
+<blockquote>
+<p>Besides user chains, the <a href="https://linera.io/whitepaper">Linera protocol</a> is
+designed to support other types of microchains, called &quot;permissioned&quot; and
+&quot;public&quot; chains. Public chains are operated by validators. In this regard,
+they are similar to classical blockchains. Permissioned chains are meant to be
+used for temporary interactions between users, such as atomic swaps.</p>
+</blockquote>
 <h2 id="why-build-on-top-of-linera"><a class="header" href="#why-build-on-top-of-linera">Why build on top of Linera?</a></h2>
 <p>We believe that many high-value use cases are currently out of reach of existing
 Web3 infrastructures because of the challenges of serving <strong>many active users</strong>
@@ -299,12 +300,6 @@ on top of Wasm-embedded GraphQL services, and tested locally in the browser.</p>
 <p>Web UIs need to query a local HTTP service acting as a wallet. This setup is
 meant to be temporary and for testing only: in the future, web UIs will
 securely connect to a Wallet installed as a browser extension, as usual.</p>
-</li>
-<li>
-<p>Gas metering is activated in the Wasm VM but the prices are set to zero by
-default. Other aspects of the systems that incur costs to validators (e.g.
-uploading large bytecode) are also not yet protected by fees and/or hard
-limits.</p>
 </li>
 <li>
 <p>Only user chains are currently available for testing and documented in this
@@ -378,7 +373,7 @@ Support for non-blocking (yet deterministic) calls to storage</li>
 Support for read-only GraphQL services in Wasm</li>
 <li><input disabled="" type="checkbox" checked=""/>
 Support for mocked system APIs (initial version)</li>
-<li><input disabled="" type="checkbox"/>
+<li><input disabled="" type="checkbox" checked=""/>
 More efficient cross-application calls</li>
 <li><input disabled="" type="checkbox"/>
 Improve host/guest stub generation to make mocks easier (currently
@@ -424,8 +419,8 @@ Basic frontend (aka. proxy) supporting fixed internal shards</li>
 Observability</li>
 <li><input disabled="" type="checkbox" checked=""/>
 Initial kubernetes support in CI</li>
-<li><input disabled="" type="checkbox"/>
-Initial nightly deployment using a cloud provider</li>
+<li><input disabled="" type="checkbox" checked=""/>
+Initial deployment using a cloud provider</li>
 <li><input disabled="" type="checkbox"/>
 New frontend to support dynamic shard assignment</li>
 <li><input disabled="" type="checkbox"/>

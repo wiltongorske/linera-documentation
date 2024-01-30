@@ -192,21 +192,21 @@ pub trait Contract: WithContractAbi + ContractAbi + Send + Sized {
         &amp;mut self,
         context: &amp;OperationContext,
         argument: Self::InitializationArgument,
-    ) -&gt; Result&lt;ExecutionResult&lt;Self::Message&gt;, Self::Error&gt;;
+    ) -&gt; Result&lt;ExecutionOutcome&lt;Self::Message&gt;, Self::Error&gt;;
 
     /// Applies an operation from the current block.
     async fn execute_operation(
         &amp;mut self,
         context: &amp;OperationContext,
         operation: Self::Operation,
-    ) -&gt; Result&lt;ExecutionResult&lt;Self::Message&gt;, Self::Error&gt;;
+    ) -&gt; Result&lt;ExecutionOutcome&lt;Self::Message&gt;, Self::Error&gt;;
 
     /// Applies a message originating from a cross-chain message.
     async fn execute_message(
         &amp;mut self,
         context: &amp;MessageContext,
         message: Self::Message,
-    ) -&gt; Result&lt;ExecutionResult&lt;Self::Message&gt;, Self::Error&gt;;
+    ) -&gt; Result&lt;ExecutionOutcome&lt;Self::Message&gt;, Self::Error&gt;;
 
     /// Handles a call from another application.
     async fn handle_application_call(
@@ -247,9 +247,9 @@ using its initialization parameters:</p>
         &amp;mut self,
         _context: &amp;OperationContext,
         value: u64,
-    ) -&gt; Result&lt;ExecutionResult&lt;Self::Message&gt;, Self::Error&gt; {
+    ) -&gt; Result&lt;ExecutionOutcome&lt;Self::Message&gt;, Self::Error&gt; {
         self.value.set(value);
-        Ok(ExecutionResult::default())
+        Ok(ExecutionOutcome::default())
     }</code></pre>
 <h2 id="implementing-the-increment-operation"><a class="header" href="#implementing-the-increment-operation">Implementing the Increment Operation</a></h2>
 <p>Now that we have our counter's state and a way to initialize it to any value we
@@ -262,10 +262,10 @@ proposers to application states are broadly called 'operations'.</p>
         &amp;mut self,
         _context: &amp;OperationContext,
         operation: u64,
-    ) -&gt; Result&lt;ExecutionResult&lt;Self::Message&gt;, Self::Error&gt; {
+    ) -&gt; Result&lt;ExecutionOutcome&lt;Self::Message&gt;, Self::Error&gt; {
         let current = self.value.get();
         self.value.set(current + operation);
-        Ok(ExecutionResult::default())
+        Ok(ExecutionOutcome::default())
     }</code></pre>
 <h2 id="declaring-the-abi"><a class="header" href="#declaring-the-abi">Declaring the ABI</a></h2>
 <p>Finally, to link our <code>Contract</code> trait implementation with the ABI of the

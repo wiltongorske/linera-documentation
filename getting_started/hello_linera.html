@@ -175,16 +175,27 @@
                 <div id="content" class="content">
                     <main>
                         <h1 id="hello-linera"><a class="header" href="#hello-linera">Hello, Linera</a></h1>
-<p>This section is about running a local development network, then compiling and
-deploying your first application from scratch.</p>
+<p>This section is about interacting with the Devnet, running a local development
+network, then compiling and deploying your first application from scratch.</p>
 <p>By the end of this section, you'll have a
-<a href="../core_concepts/microchains.html">microchain</a> running locally and a working
-application that can be queried using GraphQL.</p>
+<a href="../core_concepts/microchains.html">microchain</a> on Devnet and on your local
+network and a working application that can be queried using GraphQL.</p>
+<h2 id="using-the-devnet"><a class="header" href="#using-the-devnet">Using the Devnet</a></h2>
+<p>The Linera Devnet is a deployment of the Linera protocol that's useful for
+developers. It should not be considered stable, and can be restarted from a
+clean slate and new genesis at any time.</p>
+<p>To interact with the Devnet, some tokens are needed. A Faucet service is
+available to create new microchains and obtain some test tokens. To do so, this
+must be configured when initializing the wallet:</p>
+<pre><code class="language-bash">linera wallet init --faucet http://faucet.devnet.linera.net --with-new-chain
+</code></pre>
+<p>This creates a new microchain on Devnet with some initial test tokens, and the
+chain is automatically added to the newly instantiated wallet.</p>
 <h2 id="starting-a-local-test-network"><a class="header" href="#starting-a-local-test-network">Starting a Local Test Network</a></h2>
-<p>The first step is to start your local development network. A development network
-consists of a numbers of <a href="../advanced_topics/validators.html">validators</a>, each of
-which consist of an ingress proxy (aka. a &quot;load balancer&quot;) and a number of
-workers (aka. &quot;physical shards&quot;).</p>
+<p>Another option is to start your own local development network. A development
+network consists of a number of <a href="../advanced_topics/validators.html">validators</a>,
+each of which consist of an ingress proxy (aka. a &quot;load balancer&quot;) and a number
+of workers (aka. &quot;physical shards&quot;).</p>
 <p>To start a local network, run the following command:</p>
 <pre><code class="language-bash">linera net up
 </code></pre>
@@ -192,7 +203,7 @@ workers (aka. &quot;physical shards&quot;).</p>
 temporary directory storing the entire network state.</p>
 <p>This will set up a number of initial chains and create an initial wallet to
 operate them.</p>
-<h2 id="using-the-initial-test-wallet"><a class="header" href="#using-the-initial-test-wallet">Using the Initial Test Wallet</a></h2>
+<h3 id="using-the-initial-test-wallet"><a class="header" href="#using-the-initial-test-wallet">Using the Initial Test Wallet</a></h3>
 <p><code>linera net up</code> prints Bash statements on its standard output to help you
 configure your terminal to use the initial wallet of the new test network, for
 instance:</p>
@@ -201,12 +212,12 @@ export LINERA_STORAGE=&quot;rocksdb:/var/folders/3d/406tbklx3zx2p3_hzzpfqdbc0000
 </code></pre>
 <p>This wallet is only valid for the lifetime of a single network. Every time a
 local network is restarted, the wallet needs to be reconfigured.</p>
-<blockquote>
-<p>In the following examples, we assume that the variables <code>LINERA_WALLET</code> and
-<code>LINERA_STORAGE</code> are both set and point to the initial wallet of the running
-local network.</p>
-</blockquote>
 <h2 id="interacting-with-the-network"><a class="header" href="#interacting-with-the-network">Interacting with the Network</a></h2>
+<blockquote>
+<p>In the following examples, we assume that either the wallet was initialized to
+interact with the Devnet or the variables <code>LINERA_WALLET</code> and <code>LINERA_STORAGE</code>
+are both set and point to the initial wallet of the running local network.</p>
+</blockquote>
 <p>The main way of interacting with the network and deploying applications is using
 the <code>linera</code> client.</p>
 <p>To check that the network is working, you can synchronize the balance for your
