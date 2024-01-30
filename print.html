@@ -1451,13 +1451,13 @@ the
 <a href="https://docs.rs/linera-sdk/latest/linera_sdk/struct.ExecutionResult.html"><code>ExecutionResult</code></a>'s
 <code>messages</code>:</p>
 <pre><code class="language-rust ignore">    pub messages: Vec&lt;OutgoingMessage&lt;Message&gt;&gt;,</code></pre>
-<p>The first field specifies either a single destination chain, or a channel, so
-that it gets sent to all subscribers.</p>
-<p>If the second field is <code>true</code>, the callee is allowed to perform actions that
-require authentication on behalf of the signer of the original block that caused
-this call.</p>
-<p>The third field is the message itself, of the type you specified in the
-<code>ContractAbi</code>.</p>
+<p><code>OutgoingMessage</code>'s <code>destination</code> field specifies either a single destination
+chain, or a channel, so that it gets sent to all subscribers.</p>
+<p>If the <code>authenticated</code> field is <code>true</code>, the callee is allowed to perform actions
+that require authentication on behalf of the signer of the original block that
+caused this call.</p>
+<p>The <code>message</code> field contains the message itself, of the type you specified in
+the <code>ContractAbi</code>.</p>
 <p>You can also use
 <a href="https://docs.rs/linera-sdk/latest/linera_sdk/struct.ExecutionResult.html#method.with_message"><code>ExecutionResult::with_message</code></a>
 and
