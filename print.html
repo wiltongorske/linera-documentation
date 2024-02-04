@@ -1104,7 +1104,7 @@ struct Counter {
 <p>However, to persist your data, you'll need to replace the existing <code>Application</code>
 state struct in <code>src/state.rs</code> with the following view:</p>
 <pre><code class="language-rust ignore">/// The application state.
-#[derive(RootView, GraphQLView)]
+#[derive(RootView, async_graphql::SimpleObject)]
 #[view(context = &quot;ViewStorageContext&quot;)]
 pub struct Counter {
     pub value: RegisterView&lt;u64&gt;,
