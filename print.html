@@ -544,6 +544,16 @@ cargo install linera-service
 <p>and use <code>linera-sdk</code> as a library for Linera Wasm applications:</p>
 <pre><code class="language-bash">cargo add linera-sdk
 </code></pre>
+<p>Note that installing binaries from <code>crates.io</code> may still require using a Rust
+toolchain consistent with our GitHub
+<a href="https://github.com/linera-io/linera-protocol">repository</a>. This manual is
+tested with the following Rust toolchain:</p>
+<pre><code class="language-text">[toolchain]
+channel = &quot;1.74.0&quot;
+components = [ &quot;clippy&quot;, &quot;rustfmt&quot;, &quot;rust-src&quot; ]
+targets = [ &quot;wasm32-unknown-unknown&quot; ]
+profile = &quot;minimal&quot;
+</code></pre>
 <h2 id="installing-from-github"><a class="header" href="#installing-from-github">Installing from GitHub</a></h2>
 <p>Download the source from <a href="https://github.com/linera-io/linera-protocol">GitHub</a>:</p>
 <pre><code class="language-bash">git clone https://github.com/linera-io/linera-protocol.git
