@@ -215,7 +215,7 @@ also register Alice's application on her chain, because it is a dependency of
 Bob's.</p>
 <p>Now she can make her pledge by running the <code>linera service</code> and making a query
 to Bob's application:</p>
-<pre><code class="language-json">mutation { pledgeWithTransfer(owner: &quot;User:841…6c0&quot;, amount: &quot;10&quot;) }
+<pre><code class="language-json">mutation { pledgeWithTransfer(owner: "User:841…6c0", amount: "10") }
 </code></pre>
 <p>This will add a block to Carol's chain containing the pledge operation that gets
 handled by <code>CrowdFunding::execute_operation</code>, resulting in one cross-application

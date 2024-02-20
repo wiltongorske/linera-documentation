@@ -221,7 +221,7 @@ form of a <a href="./../advanced_topics/views.html">View</a>, but more on that l
 <h2 id="operations-and-messages"><a class="header" href="#operations-and-messages">Operations and Messages</a></h2>
 <blockquote>
 <p>For this section we'll be using a simplified version of the example
-application called &quot;fungible&quot; where users can send tokens to each other.</p>
+application called "fungible" where users can send tokens to each other.</p>
 </blockquote>
 <p>At the system-level, interacting with an application can be done via operations
 and messages.</p>
@@ -229,7 +229,7 @@ and messages.</p>
 have a completely different set of operations. Chain owners then actively create
 operations and put them in their block proposals to interact with an
 application.</p>
-<p>Taking the &quot;fungible token&quot; application as an example, an operation for a user
+<p>Taking the "fungible token" application as an example, an operation for a user
 to transfer funds to another user would look like this:</p>
 <pre><code class="language-rust ignore"><span class="boring">extern crate serde;
 </span><span class="boring">use serde::{Deserialize, Serialize};
@@ -248,7 +248,7 @@ can be sent from one chain to another. Block proposers also actively include
 messages in their block proposal, but unlike with operations, they are only
 allowed to include them in the right order (possibly skipping some), and only if
 they were actually created by another chain (or the same chain, earlier).</p>
-<p>In our &quot;fungible token&quot; application, a message to credit an account would look
+<p>In our "fungible token" application, a message to credit an account would look
 like this:</p>
 <pre><code class="language-rust ignore"><span class="boring">extern crate serde;
 </span><span class="boring">use serde::{Deserialize, Serialize};

@@ -232,7 +232,7 @@ You can check the default chain for your wallet by running:</p>
 </code></pre>
 <h3 id="opening-a-chain"><a class="header" href="#opening-a-chain">Opening a Chain</a></h3>
 <p>The Linera protocol defines semantics for how new chains are created, we call
-this &quot;opening a chain&quot;. A chain cannot be opened in a vacuum, it needs to be
+this "opening a chain". A chain cannot be opened in a vacuum, it needs to be
 created by an existing chain on the network.</p>
 <h4 id="open-a-chain-for-your-own-wallet"><a class="header" href="#open-a-chain-for-your-own-wallet">Open a Chain for Your Own Wallet</a></h4>
 <p>To open a chain for your own wallet, you can use the <code>open-chain</code> command:</p>
@@ -276,7 +276,7 @@ using <code>linera --with-wallet I</code> or <code>linera -w I</code> for short.
 <code>LINERA_STORAGE*</code> after creating a local test network in a shell, we provide a
 Bash helper function <code>linera_spawn_and_read_wallet_variables</code>.</p>
 <p>To define the function <code>linera_spawn_and_read_wallet_variables</code> in your shell,
-run <code>source /dev/stdin &lt;&lt;&lt;&quot;$(linera net helper 2&gt;/dev/null)&quot;</code>. You may also add
+run <code>source /dev/stdin &lt;&lt;&lt;"$(linera net helper 2&gt;/dev/null)"</code>. You may also add
 the output of <code>linera net helper</code> to your <code>~/.bash_profile</code> for future sessions.</p>
 <p>Once the function is defined, call
 <code>linera_spawn_and_read_wallet_variables linera net up</code> instead of

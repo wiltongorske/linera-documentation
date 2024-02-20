@@ -194,8 +194,8 @@ chain is automatically added to the newly instantiated wallet.</p>
 <h2 id="starting-a-local-test-network"><a class="header" href="#starting-a-local-test-network">Starting a Local Test Network</a></h2>
 <p>Another option is to start your own local development network. A development
 network consists of a number of <a href="../advanced_topics/validators.html">validators</a>,
-each of which consist of an ingress proxy (aka. a &quot;load balancer&quot;) and a number
-of workers (aka. &quot;physical shards&quot;).</p>
+each of which consist of an ingress proxy (aka. a "load balancer") and a number
+of workers (aka. "physical shards").</p>
 <p>To start a local network, run the following command:</p>
 <pre><code class="language-bash">linera net up
 </code></pre>
@@ -207,8 +207,8 @@ operate them.</p>
 <p><code>linera net up</code> prints Bash statements on its standard output to help you
 configure your terminal to use the initial wallet of the new test network, for
 instance:</p>
-<pre><code class="language-bash">export LINERA_WALLET=&quot;/var/folders/3d/406tbklx3zx2p3_hzzpfqdbc0000gn/T/.tmpvJ6lJI/wallet.json&quot;
-export LINERA_STORAGE=&quot;rocksdb:/var/folders/3d/406tbklx3zx2p3_hzzpfqdbc0000gn/T/.tmpvJ6lJI/linera.db&quot;
+<pre><code class="language-bash">export LINERA_WALLET="/var/folders/3d/406tbklx3zx2p3_hzzpfqdbc0000gn/T/.tmpvJ6lJI/wallet.json"
+export LINERA_STORAGE="rocksdb:/var/folders/3d/406tbklx3zx2p3_hzzpfqdbc0000gn/T/.tmpvJ6lJI/linera.db"
 </code></pre>
 <p>This wallet is only valid for the lifetime of a single network. Every time a
 local network is restarted, the wallet needs to be reconfigured.</p>
@@ -246,7 +246,7 @@ network using the <code>linera</code> client's <code>publish-and-create</code> c
 </ol>
 <pre><code class="language-bash">linera publish-and-create \
   ../target/wasm32-unknown-unknown/release/counter_{contract,service}.wasm \
-  --json-argument &quot;42&quot;
+  --json-argument "42"
 </code></pre>
 <p>Congratulations! You've published your first application on Linera!</p>
 <h2 id="querying-your-application"><a class="header" href="#querying-your-application">Querying your Application</a></h2>
@@ -263,7 +263,7 @@ APIs locally which we can use to interact with applications on the network.</p>
 the applications deployed on your default chain e476… by running:</p>
 <pre><code class="language-gql">query {
   applications(
-    chainId: &quot;e476187f6ddfeb9d588c7b45d3df334d5501d6499b3f9ad5595cae86cce16a65&quot;
+    chainId: "e476187f6ddfeb9d588c7b45d3df334d5501d6499b3f9ad5595cae86cce16a65"
   ) {
     id
     description

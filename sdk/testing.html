@@ -255,8 +255,8 @@ mod tests {
         // Assuming the application uses views
         let mut application = ApplicationState::load(storage.clone())
             .now_or_never()
-            .expect(&quot;Mock key-value store returns immediately&quot;)
-            .expect(&quot;Failed to load view from mock key-value store&quot;);
+            .expect("Mock key-value store returns immediately")
+            .expect("Failed to load view from mock key-value store");
 
         // Assuming `do_something` changes the view, but does not persist it
         let result = application.do_something();
@@ -286,7 +286,7 @@ the binary.</p>
 As an example, the following file can be placed inside the project's directory
 at <code>PROJECT_DIR/.cargo/config.toml</code>:</p>
 <pre><code class="language-ignore">[target.wasm32-unknown-unknown]
-runner = &quot;PATH_TO/linera-wasm-test-runner&quot;
+runner = "PATH_TO/linera-wasm-test-runner"
 </code></pre>
 <p>After configuring the test runner, unit tests can be executed with</p>
 <pre><code class="language-bash">cargo test --target wasm32-unknown-unknown
@@ -294,7 +294,7 @@ runner = &quot;PATH_TO/linera-wasm-test-runner&quot;
 <p>Optionally, <code>wasm32-unknown-unknown</code> can be made the default build target with
 the following lines in <code>PROJECT_DIR/.cargo/config.toml</code>:</p>
 <pre><code class="language-ignore">[build]
-target = &quot;wasm32-unknown-unknown&quot;
+target = "wasm32-unknown-unknown"
 </code></pre>
 <h2 id="integration-tests"><a class="header" href="#integration-tests">Integration Tests</a></h2>
 <p>Integration tests are usually written separately from the application's source

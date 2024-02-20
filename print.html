@@ -248,7 +248,7 @@ wallets.</p>
 blockchain protocol in a separate set of validators. Creating a new chain or
 exchanging messages between chains is expensive. As a result, the total number
 of chains is generally limited. Some chains may be specialized to a given use
-case: these are called &quot;app chains&quot;.</p>
+case: these are called "app chains".</p>
 <p>In contrast, Linera is optimized for a large number of user chains:</p>
 <ul>
 <li>
@@ -270,8 +270,8 @@ their capacity elastically by adding or removing internal workers.</p>
 </ul>
 <blockquote>
 <p>Besides user chains, the <a href="https://linera.io/whitepaper">Linera protocol</a> is
-designed to support other types of microchains, called &quot;permissioned&quot; and
-&quot;public&quot; chains. Public chains are operated by validators. In this regard,
+designed to support other types of microchains, called "permissioned" and
+"public" chains. Public chains are operated by validators. In this regard,
 they are similar to classical blockchains. Permissioned chains are meant to be
 used for temporary interactions between users, such as atomic swaps.</p>
 </blockquote>
@@ -325,7 +325,7 @@ securely connect to a Wallet installed as a browser extension, as usual.</p>
 </li>
 <li>
 <p>Only user chains are currently available for testing and documented in this
-manual. Support for other types of chain (called &quot;public&quot; and &quot;permissioned&quot;)
+manual. Support for other types of chain (called "public" and "permissioned")
 will be added later.</p>
 </li>
 </ul>
@@ -388,7 +388,7 @@ Test gas metering and deterministic execution across VMs</li>
 <li><input disabled="" type="checkbox" checked=""/>
 Composing Wasm applications on the same chain (initial version)</li>
 <li><input disabled="" type="checkbox" checked=""/>
-Enhanced composability with &quot;sessions&quot;</li>
+Enhanced composability with "sessions"</li>
 <li><input disabled="" type="checkbox" checked=""/>
 Support for non-blocking (yet deterministic) calls to storage</li>
 <li><input disabled="" type="checkbox" checked=""/>
@@ -406,7 +406,7 @@ Compile user full node to Wasm/JS</li>
 <h3 id="storage"><a class="header" href="#storage">Storage</a></h3>
 <ul>
 <li><input disabled="" type="checkbox" checked=""/>
-Object management library (&quot;linera-views&quot;) on top of Key-Value store
+Object management library ("linera-views") on top of Key-Value store
 abstraction</li>
 <li><input disabled="" type="checkbox" checked=""/>
 Support for Rocksdb</li>
@@ -526,7 +526,7 @@ matrix of supported operating systems.</p>
 <li><code>curl -LO https://github.com/protocolbuffers/protobuf/releases/download/v21.11/protoc-21.11-linux-x86_64.zip</code></li>
 <li><code>unzip protoc-21.11-linux-x86_64.zip -d $HOME/.local</code></li>
 <li>If <code>~/.local</code> is not in your path, add it:
-<code>export PATH=&quot;$PATH:$HOME/.local/bin&quot;</code></li>
+<code>export PATH="$PATH:$HOME/.local/bin"</code></li>
 </ul>
 </li>
 <li>
@@ -538,21 +538,21 @@ such as <code>g++</code>, <code>libclang-dev</code> and <code>libssl-dev</code>.
 <a href="https://github.com/linera-io/linera-protocol/blob/main/INSTALL.md">GitHub</a>.</p>
 <h2 id="installing-from-cratesio"><a class="header" href="#installing-from-cratesio">Installing from crates.io</a></h2>
 <p>You may install binaries with</p>
-<pre><code class="language-bash">cargo install linera-sdk@0.8.0
-cargo install linera-service@0.8.0
+<pre><code class="language-bash">cargo install linera-sdk@0.9.0
+cargo install linera-service@0.9.0
 </code></pre>
 <p>and use <code>linera-sdk</code> as a library for Linera Wasm applications:</p>
-<pre><code class="language-bash">cargo add linera-sdk@0.8.0
+<pre><code class="language-bash">cargo add linera-sdk@0.9.0
 </code></pre>
 <p>Note that installing binaries from <code>crates.io</code> may still require using a Rust
 toolchain consistent with our GitHub
 <a href="https://github.com/linera-io/linera-protocol">repository</a>. This manual is
 tested with the following Rust toolchain:</p>
 <pre><code class="language-text">[toolchain]
-channel = &quot;1.74.0&quot;
-components = [ &quot;clippy&quot;, &quot;rustfmt&quot;, &quot;rust-src&quot; ]
-targets = [ &quot;wasm32-unknown-unknown&quot; ]
-profile = &quot;minimal&quot;
+channel = "1.75.0"
+components = [ "clippy", "rustfmt", "rust-src" ]
+targets = [ "wasm32-unknown-unknown" ]
+profile = "minimal"
 </code></pre>
 <h2 id="installing-from-github"><a class="header" href="#installing-from-github">Installing from GitHub</a></h2>
 <p>Download the source from <a href="https://github.com/linera-io/linera-protocol">GitHub</a>:</p>
@@ -563,10 +563,10 @@ profile = &quot;minimal&quot;
 cargo install --path linera-service
 </code></pre>
 <p>Alternatively, for developing and debugging, you may instead use the binaries
-compiled in debug mode, e.g. using <code>export PATH=&quot;$PWD/target/debug:$PATH&quot;</code>.</p>
+compiled in debug mode, e.g. using <code>export PATH="$PWD/target/debug:$PATH"</code>.</p>
 <p>This manual has been tested against the following commit of the
 <a href="https://github.com/linera-io/linera-protocol">repository</a>:</p>
-<pre><code class="language-text">dae59e46091837ce0249f991e8e6e68245e0801f
+<pre><code class="language-text">c6f5b00b2017e6158dbdc090bf70e3e0fc71f4c6
 </code></pre>
 <h2 id="bash-helper-optional"><a class="header" href="#bash-helper-optional">Bash helper (optional)</a></h2>
 <p>Consider adding the output of <code>linera net helper</code> to your <code>~/.bash_profile</code> to
@@ -596,8 +596,8 @@ chain is automatically added to the newly instantiated wallet.</p>
 <h2 id="starting-a-local-test-network"><a class="header" href="#starting-a-local-test-network">Starting a Local Test Network</a></h2>
 <p>Another option is to start your own local development network. A development
 network consists of a number of <a href="getting_started/../advanced_topics/validators.html">validators</a>,
-each of which consist of an ingress proxy (aka. a &quot;load balancer&quot;) and a number
-of workers (aka. &quot;physical shards&quot;).</p>
+each of which consist of an ingress proxy (aka. a "load balancer") and a number
+of workers (aka. "physical shards").</p>
 <p>To start a local network, run the following command:</p>
 <pre><code class="language-bash">linera net up
 </code></pre>
@@ -609,8 +609,8 @@ operate them.</p>
 <p><code>linera net up</code> prints Bash statements on its standard output to help you
 configure your terminal to use the initial wallet of the new test network, for
 instance:</p>
-<pre><code class="language-bash">export LINERA_WALLET=&quot;/var/folders/3d/406tbklx3zx2p3_hzzpfqdbc0000gn/T/.tmpvJ6lJI/wallet.json&quot;
-export LINERA_STORAGE=&quot;rocksdb:/var/folders/3d/406tbklx3zx2p3_hzzpfqdbc0000gn/T/.tmpvJ6lJI/linera.db&quot;
+<pre><code class="language-bash">export LINERA_WALLET="/var/folders/3d/406tbklx3zx2p3_hzzpfqdbc0000gn/T/.tmpvJ6lJI/wallet.json"
+export LINERA_STORAGE="rocksdb:/var/folders/3d/406tbklx3zx2p3_hzzpfqdbc0000gn/T/.tmpvJ6lJI/linera.db"
 </code></pre>
 <p>This wallet is only valid for the lifetime of a single network. Every time a
 local network is restarted, the wallet needs to be reconfigured.</p>
@@ -648,7 +648,7 @@ network using the <code>linera</code> client's <code>publish-and-create</code> c
 </ol>
 <pre><code class="language-bash">linera publish-and-create \
   ../target/wasm32-unknown-unknown/release/counter_{contract,service}.wasm \
-  --json-argument &quot;42&quot;
+  --json-argument "42"
 </code></pre>
 <p>Congratulations! You've published your first application on Linera!</p>
 <h2 id="querying-your-application"><a class="header" href="#querying-your-application">Querying your Application</a></h2>
@@ -665,7 +665,7 @@ APIs locally which we can use to interact with applications on the network.</p>
 the applications deployed on your default chain e476… by running:</p>
 <pre><code class="language-gql">query {
   applications(
-    chainId: &quot;e476187f6ddfeb9d588c7b45d3df334d5501d6499b3f9ad5595cae86cce16a65&quot;
+    chainId: "e476187f6ddfeb9d588c7b45d3df334d5501d6499b3f9ad5595cae86cce16a65"
   ) {
     id
     description
@@ -812,7 +812,7 @@ You can check the default chain for your wallet by running:</p>
 </code></pre>
 <h3 id="opening-a-chain"><a class="header" href="#opening-a-chain">Opening a Chain</a></h3>
 <p>The Linera protocol defines semantics for how new chains are created, we call
-this &quot;opening a chain&quot;. A chain cannot be opened in a vacuum, it needs to be
+this "opening a chain". A chain cannot be opened in a vacuum, it needs to be
 created by an existing chain on the network.</p>
 <h4 id="open-a-chain-for-your-own-wallet"><a class="header" href="#open-a-chain-for-your-own-wallet">Open a Chain for Your Own Wallet</a></h4>
 <p>To open a chain for your own wallet, you can use the <code>open-chain</code> command:</p>
@@ -856,7 +856,7 @@ using <code>linera --with-wallet I</code> or <code>linera -w I</code> for short.
 <code>LINERA_STORAGE*</code> after creating a local test network in a shell, we provide a
 Bash helper function <code>linera_spawn_and_read_wallet_variables</code>.</p>
 <p>To define the function <code>linera_spawn_and_read_wallet_variables</code> in your shell,
-run <code>source /dev/stdin &lt;&lt;&lt;&quot;$(linera net helper 2&gt;/dev/null)&quot;</code>. You may also add
+run <code>source /dev/stdin &lt;&lt;&lt;"$(linera net helper 2&gt;/dev/null)"</code>. You may also add
 the output of <code>linera net helper</code> to your <code>~/.bash_profile</code> for future sessions.</p>
 <p>Once the function is defined, call
 <code>linera_spawn_and_read_wallet_variables linera net up</code> instead of
@@ -947,7 +947,7 @@ form of a <a href="core_concepts/./../advanced_topics/views.html">View</a>, but 
 <h2 id="operations-and-messages"><a class="header" href="#operations-and-messages">Operations and Messages</a></h2>
 <blockquote>
 <p>For this section we'll be using a simplified version of the example
-application called &quot;fungible&quot; where users can send tokens to each other.</p>
+application called "fungible" where users can send tokens to each other.</p>
 </blockquote>
 <p>At the system-level, interacting with an application can be done via operations
 and messages.</p>
@@ -955,7 +955,7 @@ and messages.</p>
 have a completely different set of operations. Chain owners then actively create
 operations and put them in their block proposals to interact with an
 application.</p>
-<p>Taking the &quot;fungible token&quot; application as an example, an operation for a user
+<p>Taking the "fungible token" application as an example, an operation for a user
 to transfer funds to another user would look like this:</p>
 <pre><code class="language-rust ignore"><span class="boring">extern crate serde;
 </span><span class="boring">use serde::{Deserialize, Serialize};
@@ -974,7 +974,7 @@ can be sent from one chain to another. Block proposers also actively include
 messages in their block proposal, but unlike with operations, they are only
 allowed to include them in the right order (possibly skipping some), and only if
 they were actually created by another chain (or the same chain, earlier).</p>
-<p>In our &quot;fungible token&quot; application, a message to credit an account would look
+<p>In our "fungible token" application, a message to credit an account would look
 like this:</p>
 <pre><code class="language-rust ignore"><span class="boring">extern crate serde;
 </span><span class="boring">use serde::{Deserialize, Serialize};
@@ -1068,7 +1068,7 @@ the client in service mode), he can start using the application.</p>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="writing-linera-applications"><a class="header" href="#writing-linera-applications">Writing Linera Applications</a></h1>
 <p>In this section, we'll be exploring how to create Web3 applications using the
 Linera SDK.</p>
-<p>We'll use a simple &quot;counter&quot; application as a running example.</p>
+<p>We'll use a simple "counter" application as a running example.</p>
 <p>We'll focus on the back end of the application, which consists of two main
 parts: a <em>smart contract</em> and its GraphQL service.</p>
 <p>Both the contract and the service of an application are written in Rust using
@@ -1115,7 +1115,7 @@ struct Counter {
 state struct in <code>src/state.rs</code> with the following view:</p>
 <pre><code class="language-rust ignore">/// The application state.
 #[derive(RootView, async_graphql::SimpleObject)]
-#[view(context = &quot;ViewStorageContext&quot;)]
+#[view(context = "ViewStorageContext")]
 pub struct Counter {
     pub value: RegisterView&lt;u64&gt;,
 }</code></pre>
@@ -1404,7 +1404,7 @@ impl Service for Counter {
 #[derive(Debug, Error)]
 pub enum Error {
     /// Invalid query argument; could not deserialize GraphQL request.
-    #[error(&quot;Invalid query argument; could not deserialize GraphQL request&quot;)]
+    #[error("Invalid query argument; could not deserialize GraphQL request")]
     InvalidQuery(#[from] serde_json::Error),
 }</code></pre>
 <p>Finally, as before, the following code is needed to incorporate the ABI
@@ -1457,7 +1457,7 @@ application while also specifying:</p>
 </ol>
 <pre><code class="language-bash">linera publish-and-create \
   target/wasm32-unknown-unknown/release/my-counter_{contract,service}.wasm \
-  --json-argument &quot;42&quot;
+  --json-argument "42"
 </code></pre>
 <h2 id="devnet"><a class="header" href="#devnet">Devnet</a></h2>
 <p>To configure the wallet for the devnet while creating a new microchain, the
@@ -1474,7 +1474,7 @@ specifying:</p>
 </ol>
 <pre><code class="language-bash">linera publish-and-create \
   target/wasm32-unknown-unknown/release/my-counter_{contract,service}.wasm \
-  --json-argument &quot;42&quot;
+  --json-argument "42"
 </code></pre>
 <h2 id="interacting-with-the-application"><a class="header" href="#interacting-with-the-application">Interacting with the Application</a></h2>
 <p>To interact with the deployed application, a
@@ -1595,7 +1595,7 @@ also register Alice's application on her chain, because it is a dependency of
 Bob's.</p>
 <p>Now she can make her pledge by running the <code>linera service</code> and making a query
 to Bob's application:</p>
-<pre><code class="language-json">mutation { pledgeWithTransfer(owner: &quot;User:841…6c0&quot;, amount: &quot;10&quot;) }
+<pre><code class="language-json">mutation { pledgeWithTransfer(owner: "User:841…6c0", amount: "10") }
 </code></pre>
 <p>This will add a block to Carol's chain containing the pledge operation that gets
 handled by <code>CrowdFunding::execute_operation</code>, resulting in one cross-application
@@ -1635,14 +1635,14 @@ applications in the <code>examples</code> folder in <code>linera-protocol</code>
 log messages with different levels of importance. Log messages are useful during
 development, but they may also be useful for end users. By default the
 <code>linera service</code> command will log the messages from an application if they are
-of the &quot;info&quot; importance level or higher (briefly, <code>log::info!</code>, <code>log::warn!</code>
+of the "info" importance level or higher (briefly, <code>log::info!</code>, <code>log::warn!</code>
 and <code>log::error!</code>).</p>
 <p>During development it is often useful to log messages of lower importance (such
 as <code>log::debug!</code> and <code>log::trace!</code>). To enable them, the <code>RUST_LOG</code> environment
 variable must be set before running <code>linera service</code>. The example below enables
 trace level messages from applications and enables warning level messages from
 other parts of the <code>linera</code> binary:</p>
-<pre><code class="language-ignore">export RUST_LOG=&quot;warn,linera_execution::wasm=trace&quot;
+<pre><code class="language-ignore">export RUST_LOG="warn,linera_execution::wasm=trace"
 </code></pre>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="writing-tests"><a class="header" href="#writing-tests">Writing Tests</a></h1>
 <p>Linera applications can be tested using unit tests or integration tests. Both
@@ -1725,8 +1725,8 @@ mod tests {
         // Assuming the application uses views
         let mut application = ApplicationState::load(storage.clone())
             .now_or_never()
-            .expect(&quot;Mock key-value store returns immediately&quot;)
-            .expect(&quot;Failed to load view from mock key-value store&quot;);
+            .expect("Mock key-value store returns immediately")
+            .expect("Failed to load view from mock key-value store");
 
         // Assuming `do_something` changes the view, but does not persist it
         let result = application.do_something();
@@ -1756,7 +1756,7 @@ the binary.</p>
 As an example, the following file can be placed inside the project's directory
 at <code>PROJECT_DIR/.cargo/config.toml</code>:</p>
 <pre><code class="language-ignore">[target.wasm32-unknown-unknown]
-runner = &quot;PATH_TO/linera-wasm-test-runner&quot;
+runner = "PATH_TO/linera-wasm-test-runner"
 </code></pre>
 <p>After configuring the test runner, unit tests can be executed with</p>
 <pre><code class="language-bash">cargo test --target wasm32-unknown-unknown
@@ -1764,7 +1764,7 @@ runner = &quot;PATH_TO/linera-wasm-test-runner&quot;
 <p>Optionally, <code>wasm32-unknown-unknown</code> can be made the default build target with
 the following lines in <code>PROJECT_DIR/.cargo/config.toml</code>:</p>
 <pre><code class="language-ignore">[build]
-target = &quot;wasm32-unknown-unknown&quot;
+target = "wasm32-unknown-unknown"
 </code></pre>
 <h2 id="integration-tests"><a class="header" href="#integration-tests">Integration Tests</a></h2>
 <p>Integration tests are usually written separately from the application's source
@@ -1947,7 +1947,7 @@ e.g. transfer.</p>
 <h2 id="architecture-of-a-validator"><a class="header" href="#architecture-of-a-validator">Architecture of a validator</a></h2>
 <p>Since every chain uses the same validators, adding more chains does not require
 adding validators. Instead, it requires each individual validator to scale out
-by adding more computation units, also known as &quot;workers&quot; or &quot;physical shards&quot;.</p>
+by adding more computation units, also known as "workers" or "physical shards".</p>
 <p>In the end, a Linera validator resembles a Web2 service made of</p>
 <ul>
 <li>
@@ -2120,12 +2120,12 @@ voted for a different block on the same height earlier!</p>
 </li>
 <li>
 <p>The client ideally receives a vote from every validator, but only a quorum of
-votes (say, two thirds) are required: These constitute a &quot;certificate&quot;,
+votes (say, two thirds) are required: These constitute a "certificate",
 proving that the block was confirmed. The client sends the certificate to
 every validator.</p>
 </li>
 <li>
-<p>The validators &quot;execute&quot; the block: They update their own view of the most
+<p>The validators "execute" the block: They update their own view of the most
 recent state of the chain by applying all messages and operations, and if it
 generated any cross-chain messages, they send these to the appropriate
 workers.</p>

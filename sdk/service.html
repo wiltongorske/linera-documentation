@@ -240,7 +240,7 @@ impl Service for Counter {
 #[derive(Debug, Error)]
 pub enum Error {
     /// Invalid query argument; could not deserialize GraphQL request.
-    #[error(&quot;Invalid query argument; could not deserialize GraphQL request&quot;)]
+    #[error("Invalid query argument; could not deserialize GraphQL request")]
     InvalidQuery(#[from] serde_json::Error),
 }</code></pre>
 <p>Finally, as before, the following code is needed to incorporate the ABI
