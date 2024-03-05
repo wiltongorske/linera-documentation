@@ -759,8 +759,8 @@ selects as many messages as possible from inboxes, and never discards messages.<
 <h2 id="chain-ownership-semantics"><a class="header" href="#chain-ownership-semantics">Chain Ownership Semantics</a></h2>
 <p>Only single-owner chains are currently supported in the Linera SDK. However,
 microchains can create new microchains for other users, and control of a chain
-can be transferred to another user by changing the owner id. A chain is
-permanently deactivated when its owner id is set to <code>None</code>.</p>
+can be transferred to another user by changing the owner ID. A chain is
+permanently deactivated when its owner ID is set to <code>None</code>.</p>
 <p>For more detail and examples on how to open and close chains, see the wallet
 section on <a href="core_concepts/wallets.html#opening-a-chain">chain management</a>.</p>
 <div style="break-before: page; page-break-before: always;"></div><h1 id="wallets"><a class="header" href="#wallets">Wallets</a></h1>
@@ -794,7 +794,7 @@ short).</p>
 <p>To list the chains present in your wallet, you may use the command <code>show</code>:</p>
 <pre><code class="language-bash">linera wallet show
 ╭──────────────────────────────────────────────────────────────────┬──────────────────────────────────────────────────────────────────────────────────────╮
-│ Chain Id                                                         ┆ Latest Block                                                                         │
+│ Chain ID                                                         ┆ Latest Block                                                                         │
 ╞══════════════════════════════════════════════════════════════════╪══════════════════════════════════════════════════════════════════════════════════════╡
 │ 668774d6f49d0426f610ad0bfa22d2a06f5f5b7b5c045b84a26286ba6bce93b4 ┆ Public Key:         3812c2bf764e905a3b130a754e7709fe2fc725c0ee346cb15d6d261e4f30b8f1 │
 │                                                                  ┆ Owner:              c9a538585667076981abfe99902bac9f4be93714854281b652d07bb6d444cb76 │
@@ -820,7 +820,7 @@ another <code>--chain</code> on the command line.</p>
 You can check the default chain for your wallet by running:</p>
 <pre><code class="language-bash">linera wallet show
 </code></pre>
-<p>The Chain Id which is in green text instead of white text is your default chain.</p>
+<p>The Chain ID which is in green text instead of white text is your default chain.</p>
 <p>To change the default chain for your wallet, user the <code>set-default</code> command:</p>
 <pre><code class="language-bash">linera wallet set-default &lt;chain-id&gt;
 </code></pre>
