@@ -678,10 +678,6 @@ Local GraphQL service to query and browse application states</li>
 <li><input disabled="" type="checkbox" checked=""/>
 Use GraphQL mutations to execute operations and create blocks</li>
 <li><input disabled="" type="checkbox" checked=""/>
-Initial support for unit tests</li>
-<li><input disabled="" type="checkbox" checked=""/>
-Support for integration tests</li>
-<li><input disabled="" type="checkbox" checked=""/>
 Initial ABIs for contract and service interfaces</li>
 <li><input disabled="" type="checkbox"/>
 Allowing message sender to pay for message execution fees</li>
@@ -850,8 +846,7 @@ e476187f6ddfeb9d588c7b45d3df334d5501d6499b3f9ad5595cae86cce16a650100000000000000
 fc9384defb0bcd8f6e206ffda32599e24ba715f45ec88d4ac81ec47eb84fa111
 </code></pre>
 <p>The first line is the message ID specifying the cross-chain message that creates
-the new chain. of the newly created chain. The second line is the new chain's
-ID.</p>
+the new chain. The second line is the new chain's ID.</p>
 <p>Finally, to add the chain to <code>wallet2</code> for the given unassigned key we use the
 <code>assign</code> command:</p>
 <pre><code class="language-bash"> linera --wallet wallet2.json assign --key 6443634d872afbbfcc3059ac87992c4029fa88e8feb0fff0723ac6c914088888 --message-id e476187f6ddfeb9d588c7b45d3df334d5501d6499b3f9ad5595cae86cce16a65010000000000000000000000
@@ -984,10 +979,11 @@ pub enum Operation {
     // Meant to be extended here
 }</code></pre>
 <p><strong>Messages</strong> result from the execution of operations or other messages. Messages
-can be sent from one chain to another. Block proposers also actively include
-messages in their block proposal, but unlike with operations, they are only
-allowed to include them in the right order (possibly skipping some), and only if
-they were actually created by another chain (or the same chain, earlier).</p>
+can be sent from one chain to another, always within the same application. Block
+proposers also actively include messages in their block proposal, but unlike
+with operations, they are only allowed to include them in the right order
+(possibly skipping some), and only if they were actually created by another
+chain (or the same chain, earlier).</p>
 <p>In our "fungible token" application, a message to credit an account would look
 like this:</p>
 <pre><code class="language-rust ignore"><span class="boring">extern crate serde;
@@ -1000,8 +996,8 @@ pub enum Message {
 <h3 id="authentication"><a class="header" href="#authentication">Authentication</a></h3>
 <p>Operations are always authenticated and messages may be authenticated. The
 signer of a block becomes the authenticator of all the operations in that block.
-As operations are executed by applications, messages can be created to be sent
-to other chains. When they are created, they can be configured to be
+As operations are being executed by applications, messages can be created to be
+sent to other chains. When they are created, they can be configured to be
 authenticated. In that case, the message receives the same authentication as the
 operation that created it. If handling an incoming message creates new messages,
 those may also be configured to have the same authentication as the received
@@ -1020,7 +1016,7 @@ authenticated by the block proposer, and if these are all single user chains,
 the proposer is always the chain owner. Messages that have authentication use
 the one from the operation or message that created it.</p>
 <p>One example in the figure is that chain A produced a block with Operation 1,
-which is authenticated by the owner of chain A (written <code>(a)</code>). That operations
+which is authenticated by the owner of chain A (written <code>(a)</code>). That operation
 sent a message to chain B, and assuming the message was sent with the
 authentication forwarding enabled, it is received and executed in chain B with
 the authentication of <code>(a)</code>. Another example is that chain D produced a block
@@ -2070,7 +2066,7 @@ If a new validator wants to start participating, or an old one wants to leave,
 all chains must be updated.
 
 The system has one designated _admin chain_, where the validators can join or
-leave or, and where new _epochs_ are defined. During every epoch, the set of
+leave, and where new _epochs_ are defined. During every epoch, the set of
 validators is fixed. If you own the admin chain, you can use the `set-validator`
 and `remove-validator` commands to start a new epoch with a modified set of
 validators:
